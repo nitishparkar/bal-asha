@@ -31,6 +31,10 @@ gem 'figaro'
 gem 'devise'
 
 gem 'haml'
+
+# http://fullscreen.github.io/bh/#overview
+gem 'bh', '~> 1.2'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
