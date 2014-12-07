@@ -17,6 +17,7 @@
   %body
     .container
       = render 'shared/nav_bar'
+
       // container
       - if flash[:notice].present?
         = alert_box flash[:notice], dismissible: true, context: :success

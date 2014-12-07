@@ -1,0 +1,27 @@
+.row
+  .col-md-12
+    = link_to new_donor_path do
+      %button.btn.btn-success Add Donor
+%br
+
+.table-responsive
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th.col-md-5 Name
+        %th.col-md-1 Gender
+        %th.col-md-2 Date Of Birth
+        %th.col-md-1 Type
+        %th.col-md-1 Level
+        %th.col-md-2 Controls
+    %tbody
+      - @donors.each do |donor|
+        %tr
+          %td= donor.full_name
+          %td= donor.gender.humanize
+          %td= donor.date_of_birth
+          %td= donor.donor_type.humanize
+          %td= donor.level.humanize
+          %td
+            = link_to 'Edit', edit_donor_path(donor), class: "btn btn-primary"
+            = link_to 'Destroy', donor, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
