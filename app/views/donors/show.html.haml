@@ -1,0 +1,70 @@
+%h1= @donor.full_name
+
+%span.label.label-default= @donor.gender.humanize
+%span.label.label-default= @donor.date_of_birth.strftime("%d/%m/%Y")
+
+
+%p
+  %b Gender:
+  = @donor.gender
+%p
+  %b Date of birth:
+  = @donor.date_of_birth
+%p
+  %b Type:
+  = @donor.donor_type
+%p
+  %b Level:
+  = @donor.level
+%p
+  %b Pan card no:
+  = @donor.pan_card_no
+%p
+  %b Trust no:
+  = @donor.trust_no
+%p
+  %b Mobile:
+  = @donor.mobile
+%p
+  %b Telephone:
+  = @donor.telephone
+%p
+  %b Email:
+  = @donor.email
+%p
+  %b Address:
+  = @donor.address
+%p
+  %b City:
+  = @donor.city
+%p
+  %b Pincode:
+  = @donor.pincode
+%p
+  %b State:
+  = @donor.state
+%p
+  %b Country:
+  = @donor.country.name
+%p
+  %b Solicit:
+  = @donor.solicit
+%p
+  %b Contact frequency:
+  = @donor.contact_frequency
+%p
+  %b Preferred communication mode:
+  = @donor.preferred_communication_mode
+%p
+  %b Remarks:
+  = @donor.remarks
+
+= link_to 'Edit', edit_donor_path(@donor)
+\|
+= link_to 'Back', donors_path
+
+/ %table.table.table-hover
+/   %tbody
+/     %tr
+/       %td
+/       %td

@@ -37,6 +37,9 @@ gem 'will_paginate', '~> 3.0.6'
 # http://fullscreen.github.io/bh/#overview
 gem 'bh', '~> 1.2'
 
+gem 'momentjs-rails', '>= 2.8.1'
+gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

@@ -5,4 +5,6 @@ class Person < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   enum type_cd: {volunteer: 0, admin: 1}
+
+  validates :type_cd, presence: true
 end

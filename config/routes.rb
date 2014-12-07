@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :donors
+
   resources :countries
 
   resources :categories

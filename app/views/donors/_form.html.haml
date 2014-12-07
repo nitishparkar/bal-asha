@@ -1,0 +1,25 @@
+= render partial: "shared/errors", locals: { object: @donor }
+
+= form_for @donor, layout: :basic do |f|
+  = f.text_field :first_name
+  = f.text_field :last_name
+  = f.select :gender, options_for_select(Donor.genders.collect { |t| [t[0].humanize, t[0]] }, selected: @donor.gender)
+  = f.text_field :date_of_birth, class: 'datepicker', data: { "date-format" => "DD/MM/YYYY" }
+  = f.select :donor_type, options_for_select(Donor.donor_types.collect { |t| [t[0].humanize, t[0]] }, selected: @donor.donor_type)
+  = f.select :level, options_for_select(Donor.levels.collect { |t| [t[0].humanize, t[0]] }, selected: @donor.level)
+  = f.text_field :pan_card_no
+  = f.text_field :trust_no
+  = f.text_field :mobile
+  = f.text_field :telephone
+  = f.text_field :email
+  = f.text_area :address
+  = f.text_field :city
+  = f.text_field :pincode
+  = f.text_field :state
+  = f.select :country_id, options_from_collection_for_select(Country.all, :id, :name), selected: @donor.country_id
+  = f.check_box :solicit
+  = f.select :contact_frequency, options_for_select(Donor.contact_frequencies.collect { |t| [t[0].humanize, t[0]] }, selected: @donor.contact_frequency)
+  = f.select :preferred_communication_mode, options_for_select(Donor.preferred_communication_modes.collect { |t| [t[0].humanize, t[0]] }, selected: @donor.preferred_communication_mode)
+  = f.text_area :remarks
+  .actions
+    = f.submit 'Save'

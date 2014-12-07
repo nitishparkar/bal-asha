@@ -14,3 +14,13 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
+//= require moment
+//= require bootstrap-datetimepicker
+
+$(document).ready(function() {
+  $('.datepicker').datetimepicker({
+    pickTime: false,
+    maxDate: new Date(),
+    defaultDate: "1/1/1990"
+  });
+});
