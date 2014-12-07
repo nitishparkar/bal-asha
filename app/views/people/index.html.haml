@@ -1,0 +1,24 @@
+.row
+  .col-md-12
+    = link_to new_person_path do
+      %button.btn.btn-success Add Person
+%br
+
+.table-responsive
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th.col-md-6 Email
+        %th.col-md-4 Type
+        %th.col-md-2 Controls
+    %tbody
+      - @people.each do |person|
+        %tr
+          %td= person.email
+          %td= person.type_cd.humanize
+          %td
+            = link_to 'Edit', edit_person_path(person), class: "btn btn-primary"
+            = link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
+
+%br
+  = will_paginate @people

@@ -3,4 +3,6 @@ class Person < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  enum type_cd: {volunteer: 0, admin: 1}
 end

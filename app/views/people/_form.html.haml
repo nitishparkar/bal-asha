@@ -1,0 +1,7 @@
+= render partial: "shared/errors", locals: { object: @person }
+
+= form_for @person, layout: :basic do |f|
+  = f.email_field :email
+  = f.password_field :password
+  = f.select :type_cd, options_for_select(Person.type_cds.collect { |t| [t[0].humanize, t[0]] }, selected: @person.type_cd), label: "Type"
+  = f.submit

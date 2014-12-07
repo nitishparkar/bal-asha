@@ -32,6 +32,8 @@ gem 'devise'
 
 gem 'haml'
 
+gem 'will_paginate', '~> 3.0.6'
+
 # http://fullscreen.github.io/bh/#overview
 gem 'bh', '~> 1.2'
 
