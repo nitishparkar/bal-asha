@@ -17,9 +17,9 @@
     %tbody
       - @donors.each do |donor|
         %tr
-          %td= donor.full_name
+          %td= link_to donor.full_name, donor_path(donor)
           %td= donor.gender.humanize
-          %td= donor.date_of_birth
+          %td= donor.date_of_birth.strftime("%d/%m/%Y")
           %td= donor.donor_type.humanize
           %td= donor.level.humanize
           %td

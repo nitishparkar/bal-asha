@@ -1,2 +1,8 @@
-%h1 Welcome#index
-%p Find me in app/views/welcome/index.html.erb
+%br
+%h2 Upcoming Birthdays
+%table.table.table-hover
+  %tbody
+    - @donors.each do |donor|
+      %tr
+        %td= link_to donor.full_name, donor_path(donor)
+        %td= donor.date_of_birth.strftime("%d/%m/%Y")
