@@ -1,70 +1,68 @@
+= link_to "Edit Info", edit_donor_path(@donor), class: "btn btn-link pull-right"
 %h1= @donor.full_name
 
-%span.label.label-default= @donor.gender.humanize
-%span.label.label-default= @donor.date_of_birth.strftime("%d/%m/%Y")
+.row
+  .col-md-6
+    %table.table.table-hover
+      %tbody
+        %tr
+          %td Gender
+          %td= @donor.gender.humanize
+        %tr
+          %td Gender
+          %td= @donor.date_of_birth.strftime("%d/%m/%Y")
+        %tr
+          %td Type:
+          %td= @donor.donor_type.humanize
+        %tr
+          %td Level:
+          %td= @donor.level.humanize
+        %tr
+          %td Pan card no:
+          %td= @donor.pan_card_no
+        %tr
+          %td Trust no:
+          %td= @donor.trust_no
+
+        %tr
+          %td Solicit:
+          %td= @donor.solicit ? "Yes" : "No"
+        %tr
+          %td Contact frequency:
+          %td= @donor.contact_frequency.humanize
+        %tr
+          %td Preferred communication mode:
+          %td= @donor.preferred_communication_mode.humanize
+        %tr
+          %td Remarks:
+          %td= @donor.remarks
+
+  .col-md-6
+    %table.table.table-hover.col-md-6
+      %tbody
+        %tr
+          %td Mobile:
+          %td= @donor.mobile
+        %tr
+          %td Telephone:
+          %td= @donor.telephone
+        %tr
+          %td Email:
+          %td= @donor.email
+        %tr
+          %td Address:
+          %td= @donor.address
+        %tr
+          %td City:
+          %td= @donor.city
+        %tr
+          %td Pincode:
+          %td= @donor.pincode
+        %tr
+          %td State:
+          %td= @donor.state
+        %tr
+          %td Country:
+          %td= @donor.country.name
 
 
-%p
-  %b Gender:
-  = @donor.gender
-%p
-  %b Date of birth:
-  = @donor.date_of_birth
-%p
-  %b Type:
-  = @donor.donor_type
-%p
-  %b Level:
-  = @donor.level
-%p
-  %b Pan card no:
-  = @donor.pan_card_no
-%p
-  %b Trust no:
-  = @donor.trust_no
-%p
-  %b Mobile:
-  = @donor.mobile
-%p
-  %b Telephone:
-  = @donor.telephone
-%p
-  %b Email:
-  = @donor.email
-%p
-  %b Address:
-  = @donor.address
-%p
-  %b City:
-  = @donor.city
-%p
-  %b Pincode:
-  = @donor.pincode
-%p
-  %b State:
-  = @donor.state
-%p
-  %b Country:
-  = @donor.country.name
-%p
-  %b Solicit:
-  = @donor.solicit
-%p
-  %b Contact frequency:
-  = @donor.contact_frequency
-%p
-  %b Preferred communication mode:
-  = @donor.preferred_communication_mode
-%p
-  %b Remarks:
-  = @donor.remarks
-
-= link_to 'Edit', edit_donor_path(@donor)
-\|
-= link_to 'Back', donors_path
-
-/ %table.table.table-hover
-/   %tbody
-/     %tr
-/       %td
-/       %td
