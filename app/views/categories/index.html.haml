@@ -1,0 +1,20 @@
+.row
+  .col-md-12
+    = link_to new_category_path do
+      %button.btn.btn-success Add Category
+%br
+
+.table-responsive
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th.col-md-10 Name
+        %th.col-md-2 Controls
+    %tbody
+      - @categories.each do |category|
+        %tr
+          %td= category.name
+          %td
+            = link_to 'Edit', edit_category_path(category), class: "btn btn-primary"
+            = link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
+

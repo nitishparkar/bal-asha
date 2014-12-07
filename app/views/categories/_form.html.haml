@@ -1,0 +1,5 @@
+= render partial: "shared/errors", locals: { object: @category }
+
+= form_for @category, layout: :basic do |f|
+  = f.text_field :name
+  = f.submit

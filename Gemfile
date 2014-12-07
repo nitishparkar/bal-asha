@@ -30,7 +30,7 @@ gem 'figaro'
 
 gem 'devise'
 
-gem 'haml'
+gem 'haml-rails'
 
 gem 'will_paginate', '~> 3.0.6'
 

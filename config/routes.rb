@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :countries
+
+  resources :categories
+
   get 'welcome/index'
 
   devise_for :people
