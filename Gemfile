@@ -49,3 +49,13 @@ gem 'bh', '~> 1.2'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4.1'
+gem 'simple_form'
+gem 'rabl'
+# Distribution of the v8 runtime libraries and headers
+gem 'libv8', '3.3.10.4', platform: :ruby
+# Javascript runtime
+gem 'therubyracer', '0.10.2', platform: :ruby
+# To annotate only models: annotate --exclude tests,fixtures,factories
+gem 'annotate', '>=2.6.0'
+
