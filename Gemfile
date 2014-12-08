@@ -18,13 +18,6 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
-# bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0',          group: :doc
-
-# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-gem 'spring',        group: :development
 
 gem 'figaro'
 
@@ -61,4 +54,50 @@ gem 'libv8', '3.3.10.4', platform: :ruby
 gem 'therubyracer', '0.10.2', platform: :ruby
 # To annotate only models: annotate --exclude tests,fixtures,factories
 gem 'annotate', '>=2.6.0'
+gem 'jquery-turbolinks'
+gem 'passenger'
+gem 'country_select'
+
+group :doc do
+  # bundle exec rake doc:rails generates the API under doc/api.
+  gem 'sdoc', '~> 0.4.0'
+end
+
+group :development do
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+  # Removes assets request logs
+  gem 'quiet_assets'
+  gem 'rails_best_practices'
+  gem 'capistrano', '~> 3.2.0'
+  gem 'rvm1-capistrano3', require: false
+  # rails specific capistrano funcitons
+  gem 'capistrano-rails', '~> 1.1.0'
+  # integrate bundler with capistrano
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails-collection'
+  gem 'capistrano-rails-console'
+  gem 'erb2haml'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'meta_request'
+  gem 'capistrano-db-tasks', require: false
+  gem 'capistrano-resque', '~> 0.2.1', require: false
+end
+
+group :development, :test do
+  # Use debugger
+  # gem 'debugger'
+  gem 'byebug'
+  gem 'ruby-debug-passenger'
+  # Launching browser
+  gem 'launchy'
+  # Preview email in the browser without setting up email system
+  gem 'letter_opener'
+  # Detect unused eager loading and log N+1 queries
+  gem 'bullet'
+  # Profiling middleware for development
+  gem 'rack-mini-profiler'
+end
+
 

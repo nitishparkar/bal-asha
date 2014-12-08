@@ -27,4 +27,6 @@ class Person < ActiveRecord::Base
   enum type_cd: {volunteer: 0, admin: 1}
 
   validates :type_cd, presence: true
+
+  has_many :donations
 end
