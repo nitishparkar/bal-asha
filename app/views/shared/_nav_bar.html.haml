@@ -1,0 +1,38 @@
+- if person_signed_in?
+  / Static navbar
+  %nav.navbar.navbar-inverse{role: "navigation"}
+    .container-fluid
+      .navbar-header
+        %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", type: "button"}
+          %span.sr-only Toggle navigation
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        %a.navbar-brand{href: root_path} Bal Asha
+      #navbar.navbar-collapse.collapse
+        %ul.nav.navbar-nav
+          / %li.active
+          /   %a{href: "#"} Home
+          - if current_person.admin?
+            %li{class: ("active" if params[:controller] == "people" && params[:action] != "change_password")}
+              %a{href: people_path} People
+          %li{class: ("active" if params[:controller] == "donations")}
+            %a{href: donations_path} Donations
+          %li{class: ("active" if params[:controller] == "donors")}
+            %a{href: donors_path} Donors
+          %li{class: ("active" if params[:controller] == "items")}
+            %a{href: items_path} Items
+          %li{class: ("active" if params[:controller] == "categories")}
+            %a{href: categories_path} Categories
+          %li{class: ("active" if params[:controller] == "countries")}
+            %a{href: countries_path} Countries
+        %ul.nav.navbar-nav.navbar-right
+          %li.dropdown
+            %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", href: "#", role: "button"}
+              = current_person.email
+              %span.caret
+            %ul.dropdown-menu{role: "menu"}
+              %li
+                %a{href: change_password_people_path} Change Password
+              %li
+                = link_to "Sign out", destroy_person_session_path, method: :delete

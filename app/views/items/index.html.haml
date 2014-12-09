@@ -1,0 +1,26 @@
+.row
+  .col-md-12
+    = link_to new_item_path do
+      %button.btn.btn-success Add Item
+%br
+
+.table-responsive
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th.col-md-5 Name
+        %th.col-md-5 Remarks
+        %th.col-md-2 Controls
+    %tbody
+      - @items.each do |item|
+        %tr
+          %td= item.name
+          %td
+            - if item.remarks
+              = item.remarks
+            - else
+              = link_to "Add remarks for better visibilty", edit_item_path(item)
+          %td
+            = link_to 'Edit', edit_item_path(item), class: "btn btn-primary"
+            = link_to 'Remove', item, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
+

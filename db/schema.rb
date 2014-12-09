@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141207111823) do
+ActiveRecord::Schema.define(version: 20141207140343) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -24,6 +24,23 @@ ActiveRecord::Schema.define(version: 20141207111823) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "donations", force: true do |t|
+    t.datetime "date"
+    t.integer  "donor_id"
+    t.integer  "type_cd"
+    t.decimal  "amount",     precision: 10, scale: 2
+    t.decimal  "quantity",   precision: 6,  scale: 2
+    t.text     "remarks"
+    t.boolean  "deleted",                             default: false, null: false
+    t.text     "meta_data"
+    t.integer  "person_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "donations", ["donor_id"], name: "index_donations_on_donor_id", using: :btree
+  add_index "donations", ["person_id"], name: "index_donations_on_person_id", using: :btree
 
   create_table "donors", force: true do |t|
     t.string   "first_name"
@@ -42,7 +59,7 @@ ActiveRecord::Schema.define(version: 20141207111823) do
     t.string   "pincode"
     t.string   "state"
     t.integer  "country_id"
-    t.boolean  "solicit"
+    t.boolean  "solicit",                      default: false
     t.integer  "contact_frequency",            default: 0
     t.integer  "preferred_communication_mode", default: 0
     t.text     "remarks"
@@ -51,6 +68,15 @@ ActiveRecord::Schema.define(version: 20141207111823) do
   end
 
   add_index "donors", ["country_id"], name: "index_donors_on_country_id", using: :btree
+
+  create_table "items", force: true do |t|
+    t.string   "name",       default: "",    null: false
+    t.text     "remarks"
+    t.boolean  "deleted",    default: false, null: false
+    t.text     "meta_data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "people", force: true do |t|
     t.string   "email",                  default: "", null: false

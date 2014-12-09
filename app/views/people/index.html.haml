@@ -18,7 +18,7 @@
           %td= person.type_cd.humanize
           %td
             = link_to 'Edit', edit_person_path(person), class: "btn btn-primary"
-            = link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
+            = link_to 'Remove', person, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
 
 / %br
 / = will_paginate @people
