@@ -63,6 +63,9 @@
           %td= @donor.state
         %tr
           %td Country:
-          %td= @donor.country.name
+          %td
+            = Country.find_country_by_alpha2(@donor.country_code).try(:name)
+
+
 
 

@@ -28,7 +28,6 @@
 #
 
 class Donor < ActiveRecord::Base
-  belongs_to :country
 
   enum gender: {male: 0, female: 1, other: 2, not_specified: 3}
 
@@ -43,7 +42,7 @@ class Donor < ActiveRecord::Base
   has_many :donations
 
   validates :first_name, :last_name, :gender, :donor_type, :level,
-      :country_id, :contact_frequency, :preferred_communication_mode,
+      :country_code, :contact_frequency, :preferred_communication_mode,
         presence: true
 
   def full_name

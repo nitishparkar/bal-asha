@@ -56,6 +56,8 @@ gem 'therubyracer', '0.10.2', platform: :ruby
 gem 'annotate', '>=2.6.0'
 gem 'jquery-turbolinks'
 gem 'passenger'
+
+gem 'countries'
 gem 'country_select'
 
 group :doc do

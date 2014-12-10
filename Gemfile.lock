@@ -308,6 +308,7 @@ DEPENDENCIES
   capistrano-rails-console
   capistrano-resque (~> 0.2.1)
   coffee-rails (~> 4.0.0)
+  countries
   country_select
   devise
   erb2haml

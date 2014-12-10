@@ -11,15 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141207140343) do
+ActiveRecord::Schema.define(version: 20141210182451) do
 
   create_table "categories", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "countries", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -58,16 +52,16 @@ ActiveRecord::Schema.define(version: 20141207140343) do
     t.string   "city"
     t.string   "pincode"
     t.string   "state"
-    t.integer  "country_id"
-    t.boolean  "solicit",                      default: false
+    t.boolean  "solicit"
     t.integer  "contact_frequency",            default: 0
     t.integer  "preferred_communication_mode", default: 0
     t.text     "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "country_code"
   end
 
-  add_index "donors", ["country_id"], name: "index_donors_on_country_id", using: :btree
+  add_index "donors", ["country_code"], name: "index_donors_on_country_code", using: :btree
 
   create_table "items", force: true do |t|
     t.string   "name",       default: "",    null: false
