@@ -4,7 +4,7 @@
   = f.text_field :first_name
   = f.text_field :last_name
   = f.select :gender, options_for_select(Donor.genders.collect { |t| [t[0].humanize, t[0]] }, selected: @donor.gender)
-  = f.text_field :date_of_birth, class: 'datepicker', data: { "date-format" => "DD/MM/YYYY" }, value: (f.object.date_of_birth? ? f.object.date_of_birth.strftime("%d/%m/%Y") : "")
+  = f.text_field :date_of_birth, class: 'birthdatepicker', data: { "date-format" => "DD/MM/YYYY" }, value: (f.object.date_of_birth? ? f.object.date_of_birth.strftime("%d/%m/%Y") : "")
   = f.select :donor_type, options_for_select(Donor.donor_types.collect { |t| [t[0].humanize, t[0]] }, selected: @donor.donor_type)
   = f.select :level, options_for_select(Donor.levels.collect { |t| [t[0].humanize, t[0]] }, selected: @donor.level)
   = f.text_field :pan_card_no

@@ -19,9 +19,13 @@
 //= require bootstrap-datetimepicker
 
 $(document).ready(function() {
-  $('.datepicker').datetimepicker({
+  $('.birthdatepicker').datetimepicker({
     pickTime: false,
     maxDate: new Date(),
     defaultDate: "1/1/1990"
+  });
+
+  $('.datepicker').datetimepicker({
+    pickTime: false
   });
 });
