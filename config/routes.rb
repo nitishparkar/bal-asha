@@ -9,8 +9,6 @@ Rails.application.routes.draw do
     member { get :show_partial }
   end
 
-  resources :countries
-
   resources :categories
 
   get 'welcome/index'
