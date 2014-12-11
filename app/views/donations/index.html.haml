@@ -17,10 +17,12 @@
     %tbody
       - @donations.each do |donation|
         %tr
-          %td= link_to donation.date, donation
+          %td= link_to donation.date.strftime("%b %m, %Y"), donation
           %td= link_to donation.donor_full_name, donation.donor
-          %td= donation.donor_contact_info
+          %td= raw(donation.donor_contact_info)
           %td= donation.type_cd.humanize
           %td
-            = link_to 'Edit', edit_donation_path(donation)
-            = link_to 'Remove', donation, method: :delete, data: { confirm: 'Are you sure?' }
+            = link_to 'Edit', edit_donation_path(donation), class: "btn btn-primary"
+            = link_to 'Remove', donation, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
+%br
+= paginate @donations

@@ -14,6 +14,7 @@
 #  person_id  :integer
 #  created_at :datetime
 #  updated_at :datetime
+#  item_id    :integer
 #
 
 class Donation < ActiveRecord::Base
@@ -23,6 +24,7 @@ class Donation < ActiveRecord::Base
 
   belongs_to :donor
   belongs_to :acceptor, class_name: Person, foreign_key: 'person_id'
+  belongs_to :item
 
   enum type_cd: {cash: 0, kind: 1}
 
@@ -30,4 +32,6 @@ class Donation < ActiveRecord::Base
 
   delegate :full_name, to: :donor, prefix: true
   delegate :contact_info, to: :donor, prefix: true
+  delegate :email, to: :acceptor, prefix: true
+  delegate :identifier, to: :item, prefix: true
 end

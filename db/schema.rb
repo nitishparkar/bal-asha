@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141210182451) do
+ActiveRecord::Schema.define(version: 20141211080915) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -31,9 +31,11 @@ ActiveRecord::Schema.define(version: 20141210182451) do
     t.integer  "person_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "item_id"
   end
 
   add_index "donations", ["donor_id"], name: "index_donations_on_donor_id", using: :btree
+  add_index "donations", ["item_id"], name: "index_donations_on_item_id", using: :btree
   add_index "donations", ["person_id"], name: "index_donations_on_person_id", using: :btree
 
   create_table "donors", force: true do |t|
@@ -52,7 +54,7 @@ ActiveRecord::Schema.define(version: 20141210182451) do
     t.string   "city"
     t.string   "pincode"
     t.string   "state"
-    t.boolean  "solicit"
+    t.boolean  "solicit",                      default: false
     t.integer  "contact_frequency",            default: 0
     t.integer  "preferred_communication_mode", default: 0
     t.text     "remarks"
@@ -90,5 +92,16 @@ ActiveRecord::Schema.define(version: 20141210182451) do
 
   add_index "people", ["email"], name: "index_people_on_email", unique: true, using: :btree
   add_index "people", ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true, using: :btree
+
+  create_table "versions", force: true do |t|
+    t.string   "item_type",  null: false
+    t.integer  "item_id",    null: false
+    t.string   "event",      null: false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
 end

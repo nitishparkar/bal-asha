@@ -1,11 +1,15 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 
+  respond_to :html, :json
+
   # GET /items
   # GET /items.json
   def index
     @search = Item.ransack(params[:q])
     @items = @search.result(distinct: true).page(params[:page])
+
+    respond_with(@items)
   end
 
   # GET /items/1

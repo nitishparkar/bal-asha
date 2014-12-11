@@ -1,10 +1,12 @@
 class DonorsController < ApplicationController
-  before_action :set_donor, only: [:show, :edit, :update, :destroy]
+  before_action :set_donor, only: [:show, :edit, :update, :destroy, :show_partial]
 
-  respond_to :html
+  respond_to :html, :json
 
   def index
-    @donors = Donor.all
+    @search = Donor.ransack(params[:q])
+    @donors = @search.result(distinct: true).page(params[:page])
+
     respond_with(@donors)
   end
 
@@ -34,6 +36,10 @@ class DonorsController < ApplicationController
   def destroy
     @donor.destroy
     respond_with(@donor)
+  end
+
+  def show_partial
+    render partial: "show", locals: {donor: @donor}
   end
 
   private

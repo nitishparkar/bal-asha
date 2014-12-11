@@ -20,6 +20,6 @@ class Item < ActiveRecord::Base
   validates_uniqueness_of :name, {scope: [:deleted, :remarks]}
 
   def identifier
-    name + " | " + remarks
+    remarks.empty? ? name : name + " | " + remarks
   end
 end

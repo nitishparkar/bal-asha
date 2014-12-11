@@ -18,13 +18,13 @@
 #  city                         :string(255)
 #  pincode                      :string(255)
 #  state                        :string(255)
-#  country_id                   :integer
 #  solicit                      :boolean          default(FALSE)
 #  contact_frequency            :integer          default(0)
 #  preferred_communication_mode :integer          default(0)
 #  remarks                      :text
 #  created_at                   :datetime
 #  updated_at                   :datetime
+#  country_code                 :string(255)
 #
 
 class Donor < ActiveRecord::Base
@@ -52,5 +52,9 @@ class Donor < ActiveRecord::Base
   def self.upcoming_birthdays
     today = Date.today
     where("extract(month from date_of_birth) = ? AND extract(day from date_of_birth) > ?", today.month, today.day).order("extract(day from date_of_birth)")
+  end
+
+  def contact_info
+    [[address, city].join(', '), [state, pincode].join(' - '), country_code, mobile].join("<br/>")
   end
 end

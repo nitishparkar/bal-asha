@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
 
+  mount RailsAdmin::Engine => '/manage', as: 'rails_admin'
   resources :donations
 
   resources :items
 
-  resources :donors
+  resources :donors do
+    member { get :show_partial }
+  end
 
   resources :countries
 

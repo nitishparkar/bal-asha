@@ -1,11 +1,16 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_admin!, except: :change_password
+  before_action :authenticate_admin!, except: [:change_password, :index, :show]
+
+  respond_to :html, :json
 
   # GET /people
   # GET /people.json
   def index
-    @people = Person.all #.paginate(page: params[:page], per_page: 30)
+    @search = Person.ransack(params[:q])
+    @people = @search.result(distinct: true).page(params[:page])
+
+    respond_with(@people)
   end
 
   # GET /people/1

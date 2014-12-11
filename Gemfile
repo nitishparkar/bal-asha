@@ -25,8 +25,6 @@ gem 'devise'
 
 gem 'haml-rails'
 
-gem 'will_paginate', '~> 3.0.6'
-
 # http://fullscreen.github.io/bh/#overview
 gem 'bh', '~> 1.2'
 
@@ -56,9 +54,13 @@ gem 'therubyracer', '0.10.2', platform: :ruby
 gem 'annotate', '>=2.6.0'
 gem 'jquery-turbolinks'
 gem 'passenger'
-
+gem 'rails_admin'
 gem 'countries'
 gem 'country_select'
+gem 'paper_trail', '~> 3.0.6'
+gem 'kaminari'
+gem 'kaminari-bootstrap', '~> 3.0.1'
+gem 'select2-rails'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
