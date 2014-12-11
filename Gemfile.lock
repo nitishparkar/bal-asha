@@ -86,6 +86,9 @@ GEM
       capistrano
       resque
       resque-scheduler
+    capistrano-rvm (0.1.1)
+      capistrano (~> 3.0)
+      sshkit (~> 1.2)
     code_analyzer (0.4.5)
       sexp_processor
     coderay (1.1.0)
@@ -346,6 +349,7 @@ DEPENDENCIES
   capistrano-rails-collection
   capistrano-rails-console
   capistrano-resque (~> 0.2.1)
+  capistrano-rvm
   coffee-rails (~> 4.0.0)
   countries
   country_select
