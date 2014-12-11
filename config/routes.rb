@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  require 'figaro'
+  Figaro.load
 
   mount RailsAdmin::Engine => '/manage', as: 'rails_admin'
   resources :donations
