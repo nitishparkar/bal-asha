@@ -61,6 +61,7 @@ gem 'paper_trail', '~> 3.0.6'
 gem 'kaminari'
 gem 'kaminari-bootstrap', '~> 3.0.1'
 gem 'select2-rails'
+gem 'faker'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

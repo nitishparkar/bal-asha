@@ -19,7 +19,7 @@
         %tr
           %td= link_to donor.full_name, donor_path(donor)
           %td= donor.gender.humanize
-          %td= donor.date_of_birth.strftime("%d/%m/%Y")
+          %td= donor.date_of_birth.strftime("%d/%m/%Y") rescue nil
           %td= donor.donor_type.humanize
           %td= donor.level.humanize
           %td

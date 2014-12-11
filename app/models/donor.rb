@@ -37,9 +37,9 @@ class Donor < ActiveRecord::Base
 
   enum contact_frequency: {once_in_15_days: 0, once_in_30_days: 1}
 
-  enum preferred_communication_mode: {call: 0, sms: 1, email: 2, any: 4}
+  enum preferred_communication_mode: {call: 0, sms: 1, email: 2, any: 3}
 
-  has_many :donations
+  has_many :donations, dependent: :nullify
 
   validates :first_name, :last_name, :gender, :donor_type, :level,
       :country_code, :contact_frequency, :preferred_communication_mode,

@@ -28,7 +28,7 @@ class Donation < ActiveRecord::Base
 
   enum type_cd: {cash: 0, kind: 1}
 
-  validates_presence_of :donor, :acceptor, :type_cd, :date
+  validates_presence_of :donor_id, :person_id, :type_cd, :date
 
   delegate :full_name, to: :donor, prefix: true
   delegate :contact_info, to: :donor, prefix: true

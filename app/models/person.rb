@@ -28,5 +28,5 @@ class Person < ActiveRecord::Base
 
   validates :type_cd, presence: true
 
-  has_many :donations
+  has_many :donations, dependent: :nullify
 end

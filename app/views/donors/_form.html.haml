@@ -1,4 +1,4 @@
-= render partial: "shared/errors", locals: { object: @donor }
+= render "shared/errors", object: @donor
 
 .row
   = form_for @donor, layout: :basic do |f|
