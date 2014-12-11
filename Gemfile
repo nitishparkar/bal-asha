@@ -74,6 +74,7 @@ group :development do
   gem 'quiet_assets'
   gem 'rails_best_practices'
   gem 'capistrano', '~> 3.2.0'
+  gem 'capistrano-rvm'
   gem 'rvm1-capistrano3', require: false
   # rails specific capistrano funcitons
   gem 'capistrano-rails', '~> 1.1.0'

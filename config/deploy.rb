@@ -4,8 +4,8 @@ lock '3.2.1'
 set :application, 'balasha'
 set :repo_url, 'https://github.com/geniitech/bal-asha.git'
 set :stages, %w(production staging)
-set :deploy_to, "/home/#{ENV['STAGING_SERVER_USERNAME']}/sites/#{fetch(:application)}"
-set :user, ENV['STAGING_SERVER_USERNAME']
+set :deploy_to, "/home/webadmin/sites/#{fetch(:application)}"
+set :user, "webadmin"
 set :ssh_options, {
   forward_agent: true
 }
@@ -54,3 +54,22 @@ namespace :deploy do
     end
   end
 end
+
+
+namespace :figaro do
+  desc "SCP transfer figaro configuration to the shared folder"
+  task :setup do
+    on roles(:app) do
+      upload! "config/application.yml", "#{shared_path}/application.yml", via: :scp
+    end
+  end
+
+  desc "Symlink application.yml to the release path"
+  task :symlink do
+    on roles(:app) do
+      execute "ln -sf #{shared_path}/application.yml #{current_path}/config/application.yml"
+    end
+  end
+end
+after "deploy:started", "figaro:setup"
+after "deploy:symlink:release", "figaro:symlink"
