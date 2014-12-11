@@ -47,7 +47,7 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
-production:
+staging:
   <<: *default
   database: bal-asha_staging
   username: <%= ENV['DB_USERNAME'] %>
