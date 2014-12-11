@@ -75,4 +75,23 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.action_mailer.default_url_options = { host: 'balasha.geniilabs.in' }
+
+  config.action_mailer.smtp_settings = {
+    address:   'smtp.mandrillapp.com',
+    port:      25, # ports 587 and 2525 are also supported with STARTTLS
+    enable_starttls_auto: true, # detects and uses STARTTLS
+    user_name: 'tanay@genii.in',
+    password:  'hU5KMcV29M7oTTvj4tWwNQ', # SMTP password is any valid API key
+    authentication: 'login', # Mandrill supports 'plain' or 'login'
+    domain: 'geniilabs.in', # your domain to identify your server when connecting
+  }
 end
+
+BalAsha::Application.config.middleware.use ExceptionNotification::Rack,
+  email: {
+    email_prefix: '(Staging) BalAsha Error - ',
+    sender_address: %{'GeniiLabs' <error@genii.in>},
+    exception_recipients: %w{tanay@genii.in nitish@genii.in}
+  }
