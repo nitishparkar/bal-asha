@@ -1,8 +1,15 @@
-%br
-%h2 Upcoming Birthdays
-%table.table.table-hover
-  %tbody
-    - @donors.each do |donor|
-      %tr
-        %td= link_to donor.full_name, donor_path(donor)
-        %td= donor.date_of_birth.strftime("%d/%m/%Y")
+.row
+  .col-md-6
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Upcoming Birthdays
+      .panel-body
+        - if @donors.empty?
+          %p No upcoming birthdays
+        - else
+          %table.table
+            %tbody
+              - @donors.each do |donor|
+                %tr
+                  %td= link_to donor.full_name, donor_path(donor)
+                  %td= donor.date_of_birth.strftime("%d/%m/%Y")
