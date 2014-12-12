@@ -25,3 +25,6 @@
           %td
             = link_to 'Edit', edit_donor_path(donor), class: "btn btn-primary"
             = link_to 'Remove', donor, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
+%br
+.text-center
+  = paginate @donors
