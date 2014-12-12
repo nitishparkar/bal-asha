@@ -17,6 +17,7 @@
 //= require bootstrap
 //= require moment
 //= require bootstrap-datetimepicker
+//= require jquery.typing-0.2.0.min
 //= require select2
 
 $(document).ready(function() {
@@ -183,4 +184,11 @@ $(document).ready(function() {
       $(".donation_amount").addClass("hidden");
     }
   })
+
+  $(".donor-search").typing({
+    stop: function (event, $elem) {
+      $.get($(".donor_search").attr("action"), $(".donor_search").serialize(), null, "script");
+    },
+    delay: 200
+  });
 });

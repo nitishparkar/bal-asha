@@ -1,30 +1,13 @@
 .row
-  .col-md-12
-    = link_to new_donor_path do
-      %button.btn.btn-success Add Donor
+  .col-md-6
+    = search_form_for @search, url: donors_path, method: :get, remote: true do |f|
+      = f.search_field :last_name_cont, class: "form-control donor-search", placeholder: "Search by last name"
+  .col-md-6
+    .pull-right
+      = link_to new_donor_path do
+        %button.btn.btn-success Add Donor
+    .clearfix
 %br
 
-.table-responsive
-  %table.table.table-bordered
-    %thead
-      %tr
-        %th.col-md-5 Name
-        %th.col-md-1 Gender
-        %th.col-md-2 Date Of Birth
-        %th.col-md-1 Type
-        %th.col-md-1 Level
-        %th.col-md-2 Controls
-    %tbody
-      - @donors.each do |donor|
-        %tr
-          %td= link_to donor.full_name, donor_path(donor)
-          %td= donor.gender.humanize
-          %td= donor.date_of_birth.strftime("%d/%m/%Y") rescue nil
-          %td= donor.donor_type.humanize
-          %td= donor.level.humanize
-          %td
-            = link_to 'Edit', edit_donor_path(donor), class: "btn btn-primary"
-            = link_to 'Remove', donor, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
-%br
-.text-center
-  = paginate @donors
+#donors_listing
+  = render "index", donors: @donors

@@ -1,7 +1,7 @@
 class DonorsController < ApplicationController
   before_action :set_donor, only: [:show, :edit, :update, :destroy, :show_partial]
 
-  respond_to :html, :json
+  respond_to :html, :json, :js
 
   def index
     @search = Donor.ransack(params[:q])

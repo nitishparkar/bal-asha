@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :donors do
     member { get :show_partial }
+    collection { get :index }
   end
 
   resources :categories
