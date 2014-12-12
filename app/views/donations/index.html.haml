@@ -31,4 +31,5 @@
             = link_to 'Edit', edit_donation_path(donation), class: "btn btn-primary"
             = link_to 'Remove', donation, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
 %br
-= paginate @donations
+.text-center
+  = paginate @donations
