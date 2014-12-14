@@ -5,6 +5,7 @@ class DonorsController < ApplicationController
 
   def index
     @search = Donor.ransack(params[:q])
+    @search.sorts = 'first_name asc' if @search.sorts.empty?
     @donors = @search.result(distinct: true).page(params[:page])
 
     respond_with(@donors)

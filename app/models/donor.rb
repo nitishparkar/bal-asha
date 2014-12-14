@@ -39,14 +39,25 @@ class Donor < ActiveRecord::Base
 
   enum preferred_communication_mode: {call: 0, sms: 1, email: 2, any: 3}
 
+  enum solicit: {no: false, yes: true}
+
   has_many :donations, dependent: :nullify
 
-  validates :first_name, :last_name, :gender, :donor_type, :level,
-      :country_code, :contact_frequency, :preferred_communication_mode,
+  validates :first_name, :donor_type, :level,
+      :country_code, :solicit,
         presence: true
 
+  validates :trust_no, presence: true,
+      if: Proc.new { |d| d.donor_type == "trust" }
+
+  validate :one_contact_present
+
   def full_name
-    first_name + " " + last_name
+    if last_name.present?
+      first_name + " " + last_name
+    else
+      first_name
+    end
   end
 
   def self.upcoming_birthdays
@@ -57,4 +68,11 @@ class Donor < ActiveRecord::Base
   def contact_info
     [[address, city].join(', '), [state, pincode].join(' - '), country_code, mobile].join("<br/>")
   end
+
+  private
+    def one_contact_present
+      if %w(mobile telephone email).all?{|attr| self[attr].blank?}
+        errors.add :base, "Atleast one contact info is required. Enter mobile, email or telephone."
+      end
+    end
 end

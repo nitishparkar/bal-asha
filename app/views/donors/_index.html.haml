@@ -2,9 +2,10 @@
   %table.table.table-bordered
     %thead
       %tr
-        %th.col-md-5 Name
-        %th.col-md-1 Gender
-        %th.col-md-2 Date Of Birth
+        %th.col-md-4 Name
+        %th.col-md-2 Contact No.
+        %th.col-md-1 Email
+        %th.col-md-1 Solicit
         %th.col-md-1 Type
         %th.col-md-1 Level
         %th.col-md-2 Controls
@@ -12,8 +13,11 @@
       - donors.each do |donor|
         %tr
           %td= link_to donor.full_name, donor_path(donor)
-          %td= donor.gender.humanize
-          %td= donor.date_of_birth.strftime("%d/%m/%Y") rescue nil
+          %td
+            %div= donor.mobile.present? ? "#{donor.mobile} (M) " : ""
+            %div= donor.telephone.present? ? "#{donor.telephone} (T)" : ""
+          %td= mail_to donor.email
+          %td= donor.solicit.humanize
           %td= donor.donor_type.humanize
           %td= donor.level.humanize
           %td

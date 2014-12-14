@@ -40,10 +40,10 @@
 
             %tr
               %td Solicit:
-              %td= donor.solicit ? "Yes" : "No"
-            %tr
-              %td Contact frequency:
-              %td= donor.contact_frequency.humanize
+              %td= donor.solicit.humanize
+            / %tr
+            /   %td Contact frequency:
+            /   %td= donor.contact_frequency.humanize
             %tr
               %td Preferred communication mode:
               %td= donor.preferred_communication_mode.humanize

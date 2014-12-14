@@ -92,7 +92,7 @@ $(document).ready(function() {
     id: function(result) {
       return result.person.id
     },
-    placeholder: "Search for volunteer by email",
+    placeholder: "Search for staff by email",
     ajax: {
       url: "/people",
       dataType: "json",
@@ -185,10 +185,19 @@ $(document).ready(function() {
     }
   })
 
+  var filterDonors = function() {
+    console.log('haha');
+    $.get($("#donor_search").attr("action"), $("#donor_search").serialize(), null, "script");
+  }
+
   $(".donor-search").typing({
     stop: function (event, $elem) {
-      $.get($(".donor_search").attr("action"), $(".donor_search").serialize(), null, "script");
+      filterDonors();
     },
     delay: 200
+  });
+
+  $(".donor-search-select").change(function() {
+    filterDonors();
   });
 });

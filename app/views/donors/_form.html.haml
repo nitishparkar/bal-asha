@@ -3,7 +3,7 @@
 .row
   = form_for @donor, layout: :basic do |f|
     .col-md-6
-      = f.text_field :first_name
+      = f.text_field :first_name, label: "First Name/Title"
     .col-md-6
       = f.text_field :last_name
     .col-md-3
@@ -34,12 +34,12 @@
     .form-group.col-md-6
       %label{:for => "donor_country_code"} Country
       = f.country_select("country_code", {priority_countries: ["IN"]}, class: "form-control")
-    .col-md-3
+    .col-md-3.hide
       = f.select :contact_frequency, options_for_select(Donor.contact_frequencies.collect { |t| [t[0].humanize, t[0]] }, selected: @donor.contact_frequency)
     .col-md-3
       = f.select :preferred_communication_mode, options_for_select(Donor.preferred_communication_modes.collect { |t| [t[0].humanize, t[0]] }, selected: @donor.preferred_communication_mode)
     .col-md-3
-      = f.check_box :solicit
+      = f.select :solicit, options_for_select(Donor.solicits.collect { |t| [t[0].humanize, t[0]] }, selected: @donor.solicit)
     .col-md-12
       = f.text_area :remarks
     .actions.col-md-12
