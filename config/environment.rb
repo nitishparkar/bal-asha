@@ -1,7 +1,8 @@
+require 'figaro'
+Figaro.load
+
 # Load the Rails application.
 require File.expand_path('../application', __FILE__)
 
-require 'figaro'
-Figaro.load
 # Initialize the Rails application.
 Rails.application.initialize!
