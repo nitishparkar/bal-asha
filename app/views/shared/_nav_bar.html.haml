@@ -16,14 +16,14 @@
           - if current_person.admin?
             %li{class: ("active" if params[:controller] == "people" && params[:action] != "change_password")}
               %a{href: people_path} People
-          %li{class: ("active" if params[:controller] == "donations")}
-            %a{href: donations_path} Donations
           %li{class: ("active" if params[:controller] == "donors")}
             %a{href: donors_path} Donors
-          %li{class: ("active" if params[:controller] == "items")}
-            %a{href: items_path} Items
-          %li{class: ("active" if params[:controller] == "categories")}
-            %a{href: categories_path} Categories
+          / %li{class: ("active" if params[:controller] == "donations")}
+          /   %a{href: donations_path} Donations
+          / %li{class: ("active" if params[:controller] == "items")}
+          /   %a{href: items_path} Items
+          / %li{class: ("active" if params[:controller] == "categories")}
+          /   %a{href: categories_path} Categories
         %ul.nav.navbar-nav.navbar-right
           %li.dropdown
             %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", href: "#", role: "button"}
