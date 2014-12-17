@@ -7,7 +7,6 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 
 require 'figaro'
-Figaro.load
 
 module BalAsha
   class Application < Rails::Application
