@@ -33,7 +33,7 @@ class Donor < ActiveRecord::Base
 
   enum donor_type: {individual: 0, company: 1, trust: 2, group_: 3}
 
-  enum level: {general: 0, medium: 1, vip: 2}
+  enum level: {general: 0, vip: 2}
 
   enum contact_frequency: {once_in_15_days: 0, once_in_30_days: 1}
 
