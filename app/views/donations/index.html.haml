@@ -17,7 +17,7 @@
     %tbody
       - @donations.each do |donation|
         %tr
-          %td= link_to donation.date.strftime("%b %m, %Y"), donation
+          %td= link_to l(donation.date, format: :formal), donation
           %td
             - if donation.donor
               = link_to donation.donor_full_name, donation.donor

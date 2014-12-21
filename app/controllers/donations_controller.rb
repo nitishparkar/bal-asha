@@ -5,6 +5,7 @@ class DonationsController < ApplicationController
   # GET /donations.json
   def index
     @search = Donation.ransack(params[:q])
+    @search.sorts = 'created_at DESC' if @search.sorts.empty?
     @donations = @search.result(distinct: true).page(params[:page])
   end
 
@@ -29,7 +30,7 @@ class DonationsController < ApplicationController
 
     respond_to do |format|
       if @donation.save
-        format.html { redirect_to @donation, notice: 'Donation was successfully added.' }
+        format.html { redirect_to donations_url, notice: 'Donation was successfully added.' }
         format.json { render :show, status: :created, location: @donation }
       else
         format.html { render :new }

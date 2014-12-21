@@ -66,7 +66,11 @@ class Donor < ActiveRecord::Base
   end
 
   def contact_info
-    [[address, city].join(', '), [state, pincode].join(' - '), country_code, mobile].join("<br/>")
+    contact_info_arr = []
+    contact_info_arr << (mobile.present? ? "#{mobile} (M) " : nil)
+    contact_info_arr << (telephone.present? ? "#{telephone} (T)" : nil)
+    contact_info_arr << email
+    contact_info_arr.compact.join("<br/>")
   end
 
   private

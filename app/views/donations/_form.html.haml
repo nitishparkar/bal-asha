@@ -6,7 +6,7 @@
       .col-xs-6
         .form-group
           = f.input :donor_id, input_html: {class: "form-control", hidden: true, style: "width: 100%;", data: {"init-text" => (@donation.donor_full_name rescue '')}}
-          = f.input :date, as: :string, input_html: {class: "form-control datepicker", data: { "date-format" => "DD/MM/YYYY" }, value: Date.today.strftime("%d/%m/%Y")}
+          = f.input :date, as: :string, input_html: {class: "form-control datepicker", data: { "date-format" => "DD/MM/YYYY" }, value: l(Date.today, format: :formal)}
           = f.input :type_cd, label: "Type", collection: [['Cash', 'cash'], ['Kind', 'kind']], selected: @donation.type_cd
           = f.input :amount, input_html: {class: "form-control"}
           = f.input :item_id, input_html: {class: "form-control", hidden: true, style: "width: 100%;", data: {"init-text" => (@donation.item_identifier rescue '')}}

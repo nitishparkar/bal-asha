@@ -24,7 +24,7 @@
               %td.col-md-7= donor.gender.humanize
             %tr
               %td DOB
-              %td= donor.date_of_birth.strftime("%d/%m/%Y") rescue nil
+              %td= donor.date_of_birth.nil? ? "" : l(donor.date_of_birth, format: :formal)
             %tr
               %td Type:
               %td= donor.donor_type.humanize
