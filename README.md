@@ -15,3 +15,15 @@ Setup
     ```
 
 2.  Run `rake db:setup` to create and seed database.
+
+
+Git Strategy
+=============
+
+Due to some issues with Figaro, we are using a private bitbucket repo to deploy this app.
+
+On you local machine, you should have two branches,
+1. **master** pointing to **GitHub** repo's **master**
+2. **deploy** pointing to **Bitbucket** repo's **master**
+
+All changes and bugfixes should happen on the master branch. To deploy: merge master into deploy, push deploy to bitbucket and then `cap deploy`.
