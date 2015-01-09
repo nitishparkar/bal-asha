@@ -15,6 +15,7 @@
 #  created_at :datetime
 #  updated_at :datetime
 #  item_id    :integer
+#  cheque_no  :string(255)
 #
 
 class Donation < ActiveRecord::Base
@@ -26,9 +27,15 @@ class Donation < ActiveRecord::Base
   belongs_to :acceptor, class_name: Person, foreign_key: 'person_id'
   belongs_to :item
 
-  enum type_cd: {cash: 0, kind: 1}
+  enum type_cd: {cash: 0, kind: 1, cheque: 2}
 
   validates_presence_of :donor_id, :person_id, :type_cd, :date
+
+  validates :cheque_no, presence: true,
+      if: Proc.new { |d| d.type_cd == "cheque" }
+
+  validates :amount, presence: true,
+      if: Proc.new { |d| d.type_cd != "kind" }
 
   delegate :full_name, to: :donor, prefix: true
   delegate :contact_info, to: :donor, prefix: true

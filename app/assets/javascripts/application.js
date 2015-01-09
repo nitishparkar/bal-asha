@@ -50,7 +50,7 @@ $(document).ready(function() {
       quietMillis: 200,
       data: function (term, page) {
         return {
-          q: { full_name_cont: term },
+          q: { first_name_or_last_name_cont: term },
           page: page,
         }
       },
@@ -166,24 +166,35 @@ $(document).ready(function() {
     }
   }).data("select2");
 
-  $(".donation_quantity").addClass("hidden");
+  /*$(".donation_quantity").addClass("hidden");
   $(".donation_item_id").addClass("hidden");
+  $(".donation_cheque_no").addClass("hidden");*/
 
+  var donationTypeChanged = function() {
+    var type_val = $("#donation_type_cd").val();
+    console.log(type_val);
 
-  $("body").on("change", "#donation_type_cd", function() {
-    var type_field = $(this);
-
-    if(type_field.val() == "cash") {
+    if(type_val == "cash") {
+      $(".donation_quantity").addClass("hidden");
+      $(".donation_item_id").addClass("hidden");
+      $(".donation_cheque_no").addClass("hidden");
+      $(".donation_amount").removeClass("hidden");
+    } else if(type_val == "kind") {
+      $(".donation_amount").addClass("hidden");
+      $(".donation_cheque_no").addClass("hidden");
+      $(".donation_quantity").removeClass("hidden");
+      $(".donation_item_id").removeClass("hidden");
+    } else if(type_val == "cheque") {
       $(".donation_quantity").addClass("hidden");
       $(".donation_item_id").addClass("hidden");
       $(".donation_amount").removeClass("hidden");
-
-    } else if(type_field.val() == "kind") {
-      $(".donation_quantity").removeClass("hidden");
-      $(".donation_item_id").removeClass("hidden");
-      $(".donation_amount").addClass("hidden");
+      $(".donation_cheque_no").removeClass("hidden");
     }
-  })
+  }
+  donationTypeChanged();
+  $("body").on("change", "#donation_type_cd", function() {
+    donationTypeChanged();
+  });
 
   var filterDonors = function() {
     console.log('haha');

@@ -37,7 +37,7 @@ class Donor < ActiveRecord::Base
 
   enum contact_frequency: {once_in_15_days: 0, once_in_30_days: 1}
 
-  enum preferred_communication_mode: {call: 0, sms: 1, email: 2, any: 3}
+  enum preferred_communication_mode: {call: 0, sms: 1, email: 2, any: 3, whatsapp: 4}
 
   enum solicit: {no: false, yes: true}
 
