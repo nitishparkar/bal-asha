@@ -18,7 +18,7 @@
 #  city                         :string(255)
 #  pincode                      :string(255)
 #  state                        :string(255)
-#  solicit                      :boolean          default(FALSE)
+#  solicit                      :boolean
 #  contact_frequency            :integer          default(0)
 #  preferred_communication_mode :integer          default(0)
 #  remarks                      :text

@@ -166,10 +166,6 @@ $(document).ready(function() {
     }
   }).data("select2");
 
-  /*$(".donation_quantity").addClass("hidden");
-  $(".donation_item_id").addClass("hidden");
-  $(".donation_cheque_no").addClass("hidden");*/
-
   var donationTypeChanged = function() {
     var type_val = $("#donation_type_cd").val();
     console.log(type_val);
@@ -191,13 +187,14 @@ $(document).ready(function() {
       $(".donation_cheque_no").removeClass("hidden");
     }
   }
+
   donationTypeChanged();
+
   $("body").on("change", "#donation_type_cd", function() {
     donationTypeChanged();
   });
 
   var filterDonors = function() {
-    console.log('haha');
     $.get($("#donor_search").attr("action"), $("#donor_search").serialize(), null, "script");
   }
 
@@ -210,5 +207,17 @@ $(document).ready(function() {
 
   $(".donor-search-select").change(function() {
     filterDonors();
+  });
+
+
+  var filterDonations = function() {
+    $.get($("#donation_search").attr("action"), $("#donation_search").serialize(), null, "script");
+  }
+
+  $(".donation-donor-search").typing({
+    stop: function (event, $elem) {
+      filterDonations();
+    },
+    delay: 200
   });
 });

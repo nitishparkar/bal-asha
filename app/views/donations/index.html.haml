@@ -1,35 +1,16 @@
 .row
-  .col-md-12
-    = link_to new_donation_path do
-      %button.btn.btn-success Add Donation
+  .col-md-10
+    = search_form_for @search, url: donations_path, method: :get, remote: true, class: "form-inline" do |f|
+      .row
+        .form-group.col-md-6
+          .input-group.col-md-12
+            = f.search_field :donor_first_name_or_donor_last_name_cont, class: "form-control donation-donor-search", placeholder: "Search by Donor Name"
+  .col-md-2
+    .pull-right.clearfix
+      = link_to new_donation_path do
+        %button.btn.btn-success Add Donation
+
 %br
 
-.table-responsive
-  %table.table.table-bordered
-    %thead
-      %tr
-        %th.col-md-2 Date
-        %th.col-md-3 Donor
-        %th.col-md-3 Contact Information
-        %th.col-md-2 Type
-        %th.col-md-2 Controls
-
-    %tbody
-      - @donations.each do |donation|
-        %tr
-          %td= link_to l(donation.date, format: :formal), donation
-          %td
-            - if donation.donor
-              = link_to donation.donor_full_name, donation.donor
-            - else
-              Unknown
-          %td
-            - if donation.donor
-              = raw(donation.donor_contact_info)
-          %td= donation.type_cd.humanize
-          %td
-            = link_to 'Edit', edit_donation_path(donation), class: "btn btn-primary"
-            = link_to 'Remove', donation, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
-%br
-.text-center
-  = paginate @donations
+#donations_listing
+  = render "index", donations: @donations
