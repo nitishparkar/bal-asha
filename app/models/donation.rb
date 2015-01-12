@@ -28,6 +28,8 @@ class Donation < ActiveRecord::Base
   belongs_to :acceptor, class_name: Person, foreign_key: 'person_id'
   belongs_to :item
 
+  has_many :transaction_items, as: :transactionable
+
   enum type_cd: {cash: 0, kind: 1, cheque: 2}
 
   enum thank_you_sent: {no: false, yes: true}
