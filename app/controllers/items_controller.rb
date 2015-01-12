@@ -7,6 +7,7 @@ class ItemsController < ApplicationController
   # GET /items.json
   def index
     @search = Item.ransack(params[:q])
+    @search.sorts = 'name asc' if @search.sorts.empty?
     @items = @search.result(distinct: true).page(params[:page])
 
     respond_with(@items)
@@ -74,6 +75,6 @@ class ItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
-      params[:item].permit(:name, :remarks)
+      params[:item].permit(:name, :remarks, :current_rate, :unit, :minimum_quantity, :category_id)
     end
 end

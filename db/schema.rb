@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150109141952) do
+ActiveRecord::Schema.define(version: 20150112120859) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20150109141952) do
     t.string   "city"
     t.string   "pincode"
     t.string   "state"
-    t.boolean  "solicit"
+    t.boolean  "solicit",                      default: false
     t.integer  "contact_frequency",            default: 0
     t.integer  "preferred_communication_mode", default: 0
     t.text     "remarks"
@@ -68,13 +68,19 @@ ActiveRecord::Schema.define(version: 20150109141952) do
   add_index "donors", ["country_code"], name: "index_donors_on_country_code", using: :btree
 
   create_table "items", force: true do |t|
-    t.string   "name",       default: "",    null: false
+    t.string   "name",                                     default: "",    null: false
     t.text     "remarks"
-    t.boolean  "deleted",    default: false, null: false
+    t.boolean  "deleted",                                  default: false, null: false
     t.text     "meta_data"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "current_rate",     precision: 8, scale: 2
+    t.string   "unit"
+    t.decimal  "minimum_quantity", precision: 7, scale: 2
+    t.integer  "category_id"
   end
+
+  add_index "items", ["category_id"], name: "index_items_on_category_id", using: :btree
 
   create_table "people", force: true do |t|
     t.string   "email",                  default: "", null: false
