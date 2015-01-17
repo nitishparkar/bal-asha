@@ -12,4 +12,4 @@
               - @donors.each do |donor|
                 %tr
                   %td= link_to donor.full_name, donor_path(donor)
-                  %td= donor.date_of_birth.strftime("%d/%m/%Y")
+                  %td= l(donor.date_of_birth, format: :formal)

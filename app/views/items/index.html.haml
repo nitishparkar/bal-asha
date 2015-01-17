@@ -8,13 +8,17 @@
   %table.table.table-bordered
     %thead
       %tr
-        %th.col-md-5 Name
-        %th.col-md-5 Remarks
+        %th.col-md-4 Name
+        %th.col-md-1 Current Rate (per unit)
+        %th.col-md-1 Minimum Quantity
+        %th.col-md-4 Remarks
         %th.col-md-2 Controls
     %tbody
       - @items.each do |item|
         %tr
           %td= item.name
+          %td= item.current_rate
+          %td= item.minimum_quantity
           %td
             - if item.remarks
               = item.remarks

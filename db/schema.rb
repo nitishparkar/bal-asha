@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141211080915) do
+ActiveRecord::Schema.define(version: 20150112133039) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -23,15 +23,17 @@ ActiveRecord::Schema.define(version: 20141211080915) do
     t.datetime "date"
     t.integer  "donor_id"
     t.integer  "type_cd"
-    t.decimal  "amount",     precision: 10, scale: 2
-    t.decimal  "quantity",   precision: 6,  scale: 2
+    t.decimal  "amount",         precision: 10, scale: 2
+    t.decimal  "quantity",       precision: 6,  scale: 2
     t.text     "remarks"
-    t.boolean  "deleted",                             default: false, null: false
+    t.boolean  "deleted",                                 default: false, null: false
     t.text     "meta_data"
     t.integer  "person_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "item_id"
+    t.string   "cheque_no"
+    t.boolean  "thank_you_sent",                          default: false
   end
 
   add_index "donations", ["donor_id"], name: "index_donations_on_donor_id", using: :btree
@@ -66,13 +68,19 @@ ActiveRecord::Schema.define(version: 20141211080915) do
   add_index "donors", ["country_code"], name: "index_donors_on_country_code", using: :btree
 
   create_table "items", force: true do |t|
-    t.string   "name",       default: "",    null: false
+    t.string   "name",                                     default: "",    null: false
     t.text     "remarks"
-    t.boolean  "deleted",    default: false, null: false
+    t.boolean  "deleted",                                  default: false, null: false
     t.text     "meta_data"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "current_rate",     precision: 8, scale: 2
+    t.string   "unit"
+    t.decimal  "minimum_quantity", precision: 7, scale: 2
+    t.integer  "category_id"
   end
+
+  add_index "items", ["category_id"], name: "index_items_on_category_id", using: :btree
 
   create_table "people", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -92,6 +100,28 @@ ActiveRecord::Schema.define(version: 20141211080915) do
 
   add_index "people", ["email"], name: "index_people_on_email", unique: true, using: :btree
   add_index "people", ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true, using: :btree
+
+  create_table "purchases", force: true do |t|
+    t.date     "purchase_date"
+    t.string   "vendor"
+    t.text     "remarks"
+    t.text     "meta_data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "transaction_items", force: true do |t|
+    t.integer  "item_id"
+    t.decimal  "rate",                 precision: 8, scale: 2
+    t.decimal  "quantity",             precision: 7, scale: 2
+    t.integer  "transactionable_id"
+    t.string   "transactionable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "transaction_items", ["item_id"], name: "index_transaction_items_on_item_id", using: :btree
+  add_index "transaction_items", ["transactionable_id", "transactionable_type"], name: "transaction_index", using: :btree
 
   create_table "versions", force: true do |t|
     t.string   "item_type",  null: false
