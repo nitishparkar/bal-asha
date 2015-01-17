@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :items
 
   resources :donors do
-    member { get :show_partial }
+    member { get :info }
     collection { get :index }
   end
 

@@ -41,7 +41,7 @@ class Donor < ActiveRecord::Base
 
   enum solicit: {no: false, yes: true}
 
-  has_many :donations, dependent: :nullify
+  has_many :donations, -> { order("date DESC") }, dependent: :nullify
 
   validates :first_name, :donor_type, :level,
       :country_code, :solicit,

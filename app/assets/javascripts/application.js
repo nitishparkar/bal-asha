@@ -67,7 +67,7 @@ $(document).ready(function() {
     formatSelection: function(result) {
       if(result.donor) {
         $.ajax({
-          url: "/donors/" + result.donor.id + "/show_partial",
+          url: "/donors/" + result.donor.id + "/info",
           type: "GET",
           dataType: "html"
         })
@@ -82,8 +82,17 @@ $(document).ready(function() {
     },
     dropdownCssClass: "bigdrop",
     initSelection : function (element, callback) {
-      var elementText = $(element).attr("data-init-text");
-      callback({"term":elementText});
+      var id = $(element).val();
+      if(id !== "") {
+          $.ajax("/donors/" + id + "/info", {
+            dataType: "html"
+          }).done(function(data) {
+            $("#donation_donor").html(data);
+
+            var elementText = $(element).attr("data-init-text");
+            callback({"term":elementText});
+          });
+      }
     }
   }).data("select2");
 

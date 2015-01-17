@@ -8,7 +8,7 @@
       .col-xs-6
         .form-group
           = f.input :donor_id, input_html: {class: "form-control", hidden: true, style: "width: 100%;", data: {"init-text" => (@donation.donor_full_name rescue '')}}
-          = f.input :date, as: :string, input_html: {class: "form-control datepicker", data: { "date-format" => "DD/MM/YYYY" }, value: l(Date.today, format: :formal)}
+          = f.input :date, as: :string, input_html: {class: "form-control datepicker", data: { "date-format" => "DD/MM/YYYY" }, value: l(@donation.date || Date.today, format: :formal)}
           = f.input :type_cd, label: "Type", collection: Donation.type_cds.collect { |t| [t[0].humanize, t[0]] }, selected: @donation.type_cd
           = f.input :cheque_no, input_html: {class: "form-control"}
           = f.input :amount, input_html: {class: "form-control"}
@@ -43,8 +43,6 @@
 
       .col-xs-6
         #donation_donor
-          - if @donation.donor
-            = render "donors/show", donor: @donation.donor
 
   .form-actions
     = f.button :submit, "#{@donation.new_record? ? 'Add Donation' : 'Update Donation'}", class: "btn btn-primary"

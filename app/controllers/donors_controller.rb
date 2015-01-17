@@ -1,5 +1,5 @@
 class DonorsController < ApplicationController
-  before_action :set_donor, only: [:show, :edit, :update, :destroy, :show_partial]
+  before_action :set_donor, only: [:show, :edit, :update, :destroy, :info]
 
   respond_to :html, :json, :js
 
@@ -39,8 +39,9 @@ class DonorsController < ApplicationController
     respond_with(@donor)
   end
 
-  def show_partial
-    render partial: "show", locals: {donor: @donor}
+  def info
+    @donations = @donor.donations
+    render partial: "info", locals: {donor: @donor, donations: @donations}
   end
 
   private
