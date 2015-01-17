@@ -48,4 +48,12 @@ class Donation < ActiveRecord::Base
   delegate :contact_info, to: :donor, prefix: true
   delegate :email, to: :acceptor, prefix: true
   delegate :identifier, to: :item, prefix: true
+
+  after_create :set_token
+
+  private
+    def set_token
+      token_number = self.id.to_s.rjust(6, '0')
+      self.update_attribute(:token, "#{self.type_cd.upcase}#{token_number}")
+    end
 end

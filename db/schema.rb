@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150112133039) do
+ActiveRecord::Schema.define(version: 20150117155853) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20150112133039) do
     t.integer  "item_id"
     t.string   "cheque_no"
     t.boolean  "thank_you_sent",                          default: false
+    t.string   "token"
   end
 
   add_index "donations", ["donor_id"], name: "index_donations_on_donor_id", using: :btree
