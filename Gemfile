@@ -45,6 +45,7 @@ gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'
 
 gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4.1'
 gem 'simple_form'
+gem 'nested_form'
 gem 'rabl'
 # Distribution of the v8 runtime libraries and headers
 gem 'libv8', '3.3.10.4', platform: :ruby

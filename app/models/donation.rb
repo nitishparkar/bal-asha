@@ -30,6 +30,8 @@ class Donation < ActiveRecord::Base
 
   has_many :transaction_items, as: :transactionable
 
+  accepts_nested_attributes_for :transaction_items, allow_destroy: true
+
   enum type_cd: {cash: 0, kind: 1, cheque: 2}
 
   enum thank_you_sent: {no: false, yes: true}

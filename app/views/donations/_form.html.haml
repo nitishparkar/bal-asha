@@ -1,6 +1,6 @@
--# = render "shared/errors", object: @donation
+/ = render "shared/errors", object: @donation
 
-= simple_form_for @donation do |f|
+= simple_nested_form_for @donation, html: { id: "donation-form" } do |f|
   = f.error_notification
 
   .form-inputs
@@ -12,8 +12,31 @@
           = f.input :type_cd, label: "Type", collection: Donation.type_cds.collect { |t| [t[0].humanize, t[0]] }, selected: @donation.type_cd
           = f.input :cheque_no, input_html: {class: "form-control"}
           = f.input :amount, input_html: {class: "form-control"}
-          = f.input :item_id, input_html: {class: "form-control", style: "width: 100%;", data: {"init-text" => (@donation.item_identifier rescue '')}}
-          = f.input :quantity, input_html: {class: "form-control"}
+          .panel.panel-default#items
+            .panel-body
+              .row
+                .col-md-5
+                  %p Item
+                .col-md-3
+                  %p Quantity
+                .col-md-3
+                  %p Rate
+                .col-md-1
+
+              = f.fields_for :transaction_items do |builder|
+                .row
+                  .col-md-5
+                    = builder.association :item, label: false do
+                      = builder.select :item_id, Item.all.map{|item| [item.name, item.id, {data: {current_rate: item.current_rate}} ] }, {prompt: "Select an item"}, class: "form-control transaction_item_select"
+                  .col-md-3
+                    = builder.input :quantity, label: false
+                  .col-md-3
+                    %p.item-rate
+                  .col-md-1
+                    = builder.link_to_remove "Remove"
+
+              = f.link_to_add "Add an item", :transaction_items
+
           = f.input :remarks, input_html: {class: "form-control"}
           = f.input :person_id, input_html: {class: "form-control", style: "width: 100%;", data: {"init-text" => (@donation.acceptor_email rescue current_person.email)}, value: current_person.id}
           = f.input :thank_you_sent, collection: Donation.thank_you_sents.collect { |t| [t[0].humanize, t[0]] }, selected: @donation.thank_you_sent
@@ -24,5 +47,5 @@
             = render "donors/show", donor: @donation.donor
 
   .form-actions
-    = f.button :submit, "#{current_page?(new_donation_path) ? 'Add Item' : 'Update Item'}", class: "btn btn-primary"
+    = f.button :submit, "#{@donation.new_record? ? 'Add Donation' : 'Update Donation'}", class: "btn btn-primary"
 

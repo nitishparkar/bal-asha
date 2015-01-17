@@ -16,5 +16,12 @@ class TransactionItem < ActiveRecord::Base
   belongs_to :item
   belongs_to :transactionable, polymorphic: true
 
-  validates :item_id, :rate, :quantity, :transactionable_id, :transactionable_type, presence: true
+  validates :item_id, :rate, :quantity, :transactionable_type, presence: true
+
+  before_validation :set_rate, on: :create
+
+  private
+    def set_rate
+      self.rate = self.item.current_rate
+    end
 end

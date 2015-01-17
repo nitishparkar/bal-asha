@@ -19,6 +19,7 @@
 //= require bootstrap-datetimepicker
 //= require jquery.typing-0.2.0.min
 //= require select2
+//= require jquery_nested_form
 
 $(document).ready(function() {
   $(".birthdatepicker").datetimepicker({
@@ -171,18 +172,15 @@ $(document).ready(function() {
     console.log(type_val);
 
     if(type_val == "cash") {
-      $(".donation_quantity").addClass("hidden");
-      $(".donation_item_id").addClass("hidden");
+      $("#items").addClass("hidden");
       $(".donation_cheque_no").addClass("hidden");
       $(".donation_amount").removeClass("hidden");
     } else if(type_val == "kind") {
       $(".donation_amount").addClass("hidden");
       $(".donation_cheque_no").addClass("hidden");
-      $(".donation_quantity").removeClass("hidden");
-      $(".donation_item_id").removeClass("hidden");
+      $("#items").removeClass("hidden");
     } else if(type_val == "cheque") {
-      $(".donation_quantity").addClass("hidden");
-      $(".donation_item_id").addClass("hidden");
+      $("#items").addClass("hidden");
       $(".donation_amount").removeClass("hidden");
       $(".donation_cheque_no").removeClass("hidden");
     }
@@ -220,4 +218,18 @@ $(document).ready(function() {
     },
     delay: 200
   });
+
+  $("#donation-form").on("change", ".transaction_item_select", function() {
+    var current_rate = $(this).find(':selected').data('current-rate');
+    $(this).parent().parent().find('.item-rate').text(current_rate);
+  });
+
+  $("#donation-form").submit(function(evt) {
+    if($("#donation_type_cd").val() !== "kind") {
+      $("#items").remove();
+    }
+  });
+
+  // Initial fill
+  $("#donation-form .transaction_item_select").trigger('change');
 });

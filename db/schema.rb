@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20150112133039) do
     t.string   "city"
     t.string   "pincode"
     t.string   "state"
-    t.boolean  "solicit",                      default: false
+    t.boolean  "solicit"
     t.integer  "contact_frequency",            default: 0
     t.integer  "preferred_communication_mode", default: 0
     t.text     "remarks"
