@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150117155853) do
+ActiveRecord::Schema.define(version: 20150125070032) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -109,7 +109,11 @@ ActiveRecord::Schema.define(version: 20150117155853) do
     t.text     "meta_data"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "deleted",       default: false
+    t.integer  "person_id"
   end
+
+  add_index "purchases", ["person_id"], name: "index_purchases_on_person_id", using: :btree
 
   create_table "transaction_items", force: true do |t|
     t.integer  "item_id"

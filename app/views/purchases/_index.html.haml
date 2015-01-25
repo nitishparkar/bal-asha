@@ -1,0 +1,21 @@
+.table-responsive
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th.col-md-2 Date
+        %th.col-md-3 Vendor
+        %th.col-md-5 Remarks
+        %th.col-md-2 Controls
+
+    %tbody
+      - purchases.each do |purchase|
+        %tr
+          %td= link_to l(purchase.purchase_date, format: :formal), purchase
+          %td= purchase.vendor
+          %td= purchase.remarks
+          %td
+            = link_to 'Edit', edit_purchase_path(purchase), class: "btn btn-primary"
+            = link_to 'Remove', purchase, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
+%br
+.text-center
+  = paginate purchases

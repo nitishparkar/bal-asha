@@ -24,6 +24,8 @@
             %a{href: items_path} Items
           %li{class: ("active" if params[:controller] == "categories")}
             %a{href: categories_path} Categories
+          %li{class: ("active" if params[:controller] == "purchases")}
+            %a{href: purchases_path} Purchases
         %ul.nav.navbar-nav.navbar-right
           %li.dropdown
             %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", href: "#", role: "button"}

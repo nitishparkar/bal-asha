@@ -12,11 +12,16 @@
 #
 
 class Purchase < ActiveRecord::Base
+  default_scope -> { where(deleted: false) }
 
   store :meta_data, accessors: [], coder: Hash
 
   has_many :transaction_items, as: :transactionable
+  belongs_to :creator, class_name: Person, foreign_key: 'person_id'
+
+  accepts_nested_attributes_for :transaction_items, allow_destroy: true
 
   validates :purchase_date, presence: true
 
+  delegate :email, to: :acceptor, prefix: true
 end

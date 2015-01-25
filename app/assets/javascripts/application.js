@@ -96,7 +96,7 @@ $(document).ready(function() {
     }
   }).data("select2");
 
-  var volunteer_select2 = $("input[id='donation_person_id']").select2({
+  var volunteer_select2 = $("#volunteer_select2").select2({
     allowClear: true,
     minimumInputLength: 2,
     id: function(result) {
@@ -228,7 +228,20 @@ $(document).ready(function() {
     delay: 200
   });
 
-  $("#donation-form").on("change", ".transaction_item_select", function() {
+
+  var filterPurchases = function() {
+    $.get($("#purchase_search").attr("action"), $("#purchase_search").serialize(), null, "script");
+  }
+
+  $(".purchase-vendor-search").typing({
+    stop: function (event, $elem) {
+      filterPurchases();
+    },
+    delay: 200
+  });
+
+
+  $("#purchase-form, #donation-form").on("change", ".transaction_item_select", function() {
     var current_rate = $(this).find(':selected').data('current-rate');
     $(this).parent().parent().find('.item-rate').text(current_rate);
   });
@@ -240,5 +253,5 @@ $(document).ready(function() {
   });
 
   // Initial fill
-  $("#donation-form .transaction_item_select").trigger('change');
+  $("#purchase-form .transaction_item_select, #donation-form .transaction_item_select").trigger('change');
 });

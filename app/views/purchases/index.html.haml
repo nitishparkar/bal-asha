@@ -1,0 +1,16 @@
+.row
+  .col-md-10
+    = search_form_for @search, url: purchases_path, method: :get, remote: true, class: "form-inline" do |f|
+      .row
+        .form-group.col-md-6
+          .input-group.col-md-12
+            = f.search_field :vendor_cont, class: "form-control purchase-vendor-search", placeholder: "Search by Vendor"
+  .col-md-2
+    .pull-right.clearfix
+      = link_to new_purchase_path do
+        %button.btn.btn-success Add purchase
+
+%br
+
+#purchases_listing
+  = render "index", purchases: @purchases
