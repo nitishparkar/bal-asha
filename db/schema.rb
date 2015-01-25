@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150125070032) do
+ActiveRecord::Schema.define(version: 20150125111855) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -23,22 +23,20 @@ ActiveRecord::Schema.define(version: 20150125070032) do
     t.datetime "date"
     t.integer  "donor_id"
     t.integer  "type_cd"
-    t.decimal  "amount",         precision: 10, scale: 2
-    t.decimal  "quantity",       precision: 6,  scale: 2
+    t.decimal  "amount",          precision: 10, scale: 2
     t.text     "remarks"
-    t.boolean  "deleted",                                 default: false, null: false
+    t.boolean  "deleted",                                  default: false, null: false
     t.text     "meta_data"
     t.integer  "person_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "item_id"
-    t.string   "cheque_no"
-    t.boolean  "thank_you_sent",                          default: false
+    t.boolean  "thank_you_sent",                           default: false
     t.string   "token"
+    t.string   "receipt_number"
+    t.string   "payment_details"
   end
 
   add_index "donations", ["donor_id"], name: "index_donations_on_donor_id", using: :btree
-  add_index "donations", ["item_id"], name: "index_donations_on_item_id", using: :btree
   add_index "donations", ["person_id"], name: "index_donations_on_person_id", using: :btree
 
   create_table "donors", force: true do |t|

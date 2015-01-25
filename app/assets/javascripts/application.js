@@ -182,16 +182,19 @@ $(document).ready(function() {
 
     if(type_val == "cash") {
       $("#items").addClass("hidden");
-      $(".donation_cheque_no").addClass("hidden");
+      $(".donation_payment_details").addClass("hidden");
       $(".donation_amount").removeClass("hidden");
+      $(".donation_receipt_number").removeClass("hidden");
     } else if(type_val == "kind") {
       $(".donation_amount").addClass("hidden");
-      $(".donation_cheque_no").addClass("hidden");
+      $(".donation_payment_details").addClass("hidden");
       $("#items").removeClass("hidden");
-    } else if(type_val == "cheque") {
+      $(".donation_receipt_number").addClass("hidden");
+    } else if(type_val == "cheque" || type_val == "neft") {
       $("#items").addClass("hidden");
       $(".donation_amount").removeClass("hidden");
-      $(".donation_cheque_no").removeClass("hidden");
+      $(".donation_payment_details").removeClass("hidden");
+      $(".donation_receipt_number").removeClass("hidden");
     }
   }
 

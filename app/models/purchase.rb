@@ -9,6 +9,8 @@
 #  meta_data     :text
 #  created_at    :datetime
 #  updated_at    :datetime
+#  deleted       :boolean          default(FALSE)
+#  person_id     :integer
 #
 
 class Purchase < ActiveRecord::Base
@@ -23,5 +25,5 @@ class Purchase < ActiveRecord::Base
 
   validates :purchase_date, presence: true
 
-  delegate :email, to: :acceptor, prefix: true
+  delegate :email, to: :creator, prefix: true
 end

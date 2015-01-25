@@ -7,11 +7,12 @@
     .row
       .col-xs-6
         .form-group
-          = f.input :donor_id, input_html: {class: "form-control", hidden: true, style: "width: 100%;", data: {"init-text" => (@donation.donor_full_name rescue '')}}
-          = f.input :date, as: :string, input_html: {class: "form-control datepicker", data: { "date-format" => "DD/MM/YYYY" }, value: l(@donation.date || Date.today, format: :formal)}
+          = f.input :donor_id, input_html: {hidden: true, style: "width: 100%;", data: {"init-text" => (@donation.donor_full_name rescue '')}}
+          = f.input :date, as: :string, input_html: {class: "datepicker", data: { "date-format" => "DD/MM/YYYY" }, value: l(@donation.date || Date.today, format: :formal)}
           = f.input :type_cd, label: "Type", collection: Donation.type_cds.collect { |t| [t[0].humanize, t[0]] }, selected: @donation.type_cd
-          = f.input :cheque_no, input_html: {class: "form-control"}
-          = f.input :amount, input_html: {class: "form-control"}
+          = f.input :payment_details, input_html: {class: "donation_payment_details"}, label: 'Cheque No\NEFT details'
+          = f.input :amount
+          = f.input :receipt_number, input_html: {class: "donation_receipt_number"}
           .panel.panel-default#items
             .panel-body
               .row
