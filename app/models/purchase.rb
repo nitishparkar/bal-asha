@@ -26,4 +26,8 @@ class Purchase < ActiveRecord::Base
   validates :purchase_date, presence: true
 
   delegate :email, to: :creator, prefix: true
+
+  ransacker :purchase_date do
+    Arel.sql('purchase_date')
+  end
 end

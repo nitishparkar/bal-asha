@@ -47,6 +47,10 @@ class Donation < ActiveRecord::Base
   delegate :contact_info, to: :donor, prefix: true
   delegate :email, to: :acceptor, prefix: true
 
+  ransacker :date do
+    Arel.sql('date(date)')
+  end
+
   after_create :set_token
 
   private

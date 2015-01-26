@@ -16,6 +16,7 @@
 //= require turbolinks
 //= require bootstrap
 //= require moment
+//= require daterangepicker
 //= require bootstrap-datetimepicker
 //= require jquery.typing-0.2.0.min
 //= require select2
@@ -231,6 +232,9 @@ $(document).ready(function() {
     delay: 200
   });
 
+  $('#donation_search .daterangepicker').on('hide.daterangepicker', function(ev, picker) {
+    filterDonations();
+  });
 
   var filterPurchases = function() {
     $.get($("#purchase_search").attr("action"), $("#purchase_search").serialize(), null, "script");
@@ -241,6 +245,10 @@ $(document).ready(function() {
       filterPurchases();
     },
     delay: 200
+  });
+
+  $('#purchase_search .daterangepicker').on('hide.daterangepicker', function(ev, picker) {
+    filterPurchases();
   });
 
 
@@ -257,4 +265,14 @@ $(document).ready(function() {
 
   // Initial fill
   $("#purchase-form .transaction_item_select, #donation-form .transaction_item_select").trigger('change');
+
+
+  $(".daterangepicker").daterangepicker(
+    {
+      format: 'DD/MM/YYYY'
+    },
+    function(start, end, label) {
+
+    }
+  );
 });

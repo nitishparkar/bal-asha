@@ -5,6 +5,9 @@
         .form-group.col-md-6
           .input-group.col-md-12
             = f.search_field :donor_first_name_or_donor_last_name_cont, class: "form-control donation-donor-search", placeholder: "Search by Donor Name"
+        .form-group.col-md-3
+          .input-group.col-md-12
+            = f.text_field :date_daterange, class: "form-control daterangepicker"
   .col-md-2
     .pull-right.clearfix
       = link_to new_donation_path do

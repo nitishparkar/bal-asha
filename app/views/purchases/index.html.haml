@@ -5,6 +5,9 @@
         .form-group.col-md-6
           .input-group.col-md-12
             = f.search_field :vendor_cont, class: "form-control purchase-vendor-search", placeholder: "Search by Vendor"
+        .form-group.col-md-3
+          .input-group.col-md-12
+            = f.text_field :purchase_date_daterange, class: "form-control daterangepicker"
   .col-md-2
     .pull-right.clearfix
       = link_to new_purchase_path do
