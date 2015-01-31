@@ -28,6 +28,7 @@ class Donation < ActiveRecord::Base
   belongs_to :acceptor, class_name: Person, foreign_key: 'person_id'
 
   has_many :transaction_items, as: :transactionable
+  has_many :comments, as: :commentable
 
   accepts_nested_attributes_for :transaction_items, allow_destroy: true
 

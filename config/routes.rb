@@ -12,6 +12,10 @@ Rails.application.routes.draw do
     collection { get :index }
   end
 
+  resources :donations do
+    resources :comments
+  end
+
   resources :categories
 
   get 'welcome/index'

@@ -1,6 +1,46 @@
-%p#notice= notice
+.page-header
+  %h1
+    Donation details
+    %small= link_to "Edit Donor Info", edit_donor_path(@donation.donor), class: "btn btn-link"
+    %small= link_to "Edit Donation Info", edit_donation_path(@donation), class: "btn btn-link"
 
+.row
+  .col-md-12
+    %table.table.table-hover
+      %tbody
+        %tr
+          %td.col-md-5 Date
+          %td.col-md-7= @donation.date.strftime("%d/%m/%Y") rescue nil
+        %tr
+          %td Donation type
+          %td= @donation.type_cd.humanize
+        %tr
+          %td Amount
+          %td= @donation.amount
+        - if @donation.cheque?
+          %tr
+            %td Payment details
+            %td= @donation.payment_details
+        %tr
+          %td Remarks
+          %td= @donation.remarks
 
-= link_to 'Edit', edit_donation_path(@donation)
-\|
-= link_to 'Back', donations_path
+= render "/donors/show", donor: @donation.donor
+
+%hr
+
+.row
+  .col-md-12
+    %h2 Comments:
+
+.row
+  .col-md-6
+    = render @donation.comments
+
+  .col-md-6
+    = form_for [@donation, @donation.comments.build], layout: :basic do |f|
+      = f.hidden_field :person_id, value: current_person.id
+      = f.hidden_field :commentable_type, value: @donation.class.name
+      = f.hidden_field :commentable_id, value: @donation.id
+      = f.text_area :content
+      = f.submit "Comment"

@@ -1,0 +1,7 @@
+.bs-callout.bs-callout-default
+  %p
+    %b= comment.person.email
+  - if comment.person == current_person
+    = link_to 'Delete', [comment.commentable, comment],
+      method: :delete, data: { confirm: 'Are you sure?' }, class: "pull-right"
+  %p= comment.content
