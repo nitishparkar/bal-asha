@@ -1,6 +1,46 @@
-%p#notice= notice
+.row
+  .col-md-12
+    = link_to "Edit Purchase", edit_purchase_path(@purchase), class: "btn btn-link"
 
+%hr
 
-= link_to 'Edit', edit_purchase_path(@purchase)
-\|
-= link_to 'Back', purchases_path
+.row
+  .col-md-6
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Purchase Info
+      .panel-body
+        %table.table.table-hover
+          %tbody
+            %tr
+              %td Vendor
+              %td= @purchase.vendor
+            %tr
+              %td.col-md-5 Date
+              %td.col-md-7= @purchase.purchase_date.nil? ? "" : l(@purchase.purchase_date, format: :formal)
+            %tr
+              %td Remarks
+              %td= @purchase.remarks
+  .col-md-6
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Items
+      .panel-body
+        %table.table.table-hover
+          %thead
+            %tr
+              %th.col-md-4
+                Item name
+              %th.col-md-4
+                Item Quantity
+              %th.col-md-4
+                Item Rate
+          %tbody
+            - @purchase.transaction_items.each do |i|
+              %tr
+                %td.col-md-5
+                  = i.item.name
+                %td.col-md-5
+                  = i.quantity
+                %td.col-md-5
+                  = i.rate

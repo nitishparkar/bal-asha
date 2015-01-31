@@ -30,7 +30,7 @@ class PurchasesController < ApplicationController
 
     respond_to do |format|
       if @purchase.save
-        format.html { redirect_to purchases_url, notice: 'purchase was successfully added.' }
+        format.html { redirect_to purchases_url, notice: 'Purchase was successfully added.' }
         format.json { render :show, status: :created, location: @purchase }
       else
         format.html { render :new }
