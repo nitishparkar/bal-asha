@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  mount RailsAdmin::Engine => '/manage', as: 'rails_admin'
   resources :donations
 
   resources :purchases

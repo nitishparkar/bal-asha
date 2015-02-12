@@ -55,7 +55,6 @@ gem 'therubyracer', '0.10.2', platform: :ruby
 gem 'annotate', '>=2.6.0'
 gem 'jquery-turbolinks'
 gem 'passenger'
-gem 'rails_admin'
 gem 'countries'
 gem 'country_select'
 gem 'paper_trail', '~> 3.0.6'
