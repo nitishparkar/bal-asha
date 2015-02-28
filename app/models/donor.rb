@@ -73,6 +73,16 @@ class Donor < ActiveRecord::Base
     contact_info_arr.compact.join("<br/>")
   end
 
+  def full_address
+    address_info_arr = []
+    address_info_arr << address
+    address_info_arr << city
+    address_info_arr << state
+    address_info_arr << country_code
+    address_info_arr << pincode
+    address_info_arr.compact.join(", ")
+  end
+
   private
     def one_contact_present
       if %w(mobile telephone email).all?{|attr| self[attr].blank?}
