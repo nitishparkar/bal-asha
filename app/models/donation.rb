@@ -57,6 +57,11 @@ class Donation < ActiveRecord::Base
   private
     def set_token
       token_number = self.id.to_s.rjust(6, '0')
-      self.update_attribute(:token, "#{self.type_cd.upcase}#{token_number}")
+      token = "#{self.type_cd.upcase}#{token_number}"
+      if self.kind?
+        self.update_attributes(token: token, receipt_number: token)
+      else
+        self.update_attribute(:token, token)
+      end
     end
 end

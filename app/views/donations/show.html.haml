@@ -9,21 +9,49 @@
     %table.table.table-hover
       %tbody
         %tr
+          %td Auto ID
+          %td= @donation.token
+        %tr
           %td.col-md-5 Date
           %td.col-md-7= @donation.date.strftime("%d/%m/%Y") rescue nil
         %tr
+          %td Receipt Number
+          %td= @donation.receipt_number
+        %tr
           %td Donation type
           %td= @donation.type_cd.humanize
-        %tr
-          %td Amount
-          %td= @donation.amount
-        - if @donation.cheque?
+        - unless @donation.kind?
+          %tr
+            %td Amount
+            %td= @donation.amount
+        - if @donation.cheque? || @donation.neft?
           %tr
             %td Payment details
             %td= @donation.payment_details
         %tr
+          %td Thank You Sent?
+          %td= @donation.thank_you_sent.humanize
+        %tr
           %td Remarks
           %td= @donation.remarks
+
+  - if @donation.kind?
+    .col-md-12
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title Kind Donation Details
+        %table.table.table-striped
+          %thead
+            %tr
+              %th Item
+              %th Rate
+              %th Quantity
+          %tbody
+            - @donation.transaction_items.each do |transaction_item|
+              %tr
+                %td= transaction_item.item.name
+                %td= transaction_item.rate
+                %td= transaction_item.quantity
 
 = render "/donors/show", donor: @donation.donor
 
