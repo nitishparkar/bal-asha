@@ -1,6 +1,8 @@
 .row
   .col-md-12
-    %h1 New Donation
+    %h1
+      New Donation
+      %small= link_to "Add donor", new_donor_path, class: "btn btn-link"
     %hr
 
 = render 'form'

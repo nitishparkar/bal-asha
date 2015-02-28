@@ -1,6 +1,7 @@
 .panel.panel-default
-  .panel-heading
-    %h2.panel-title= donor.full_name
+  .panel-heading.clearfix
+    %h2.panel-title.pull-left= donor.full_name
+    = link_to "Edit Donor Details", edit_donor_path(donor), class: "pull-right"
   .panel-body
     %p= raw donor.contact_info
     %p= donor.full_address
