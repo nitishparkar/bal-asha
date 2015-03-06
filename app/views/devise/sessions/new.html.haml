@@ -57,7 +57,7 @@
     .panel.panel-default
       .panel-heading
         .row-fluid.user-row
-          %img.img-responsive{:alt => "Conxole Admin", :src => "http://balashatrust.org/wp-content/uploads/2012/05/Bal-Asha-Trust_logo3.png"}/
+          %img.img-responsive{:alt => "Conxole Admin", :src => asset_path("logo.png")}/
       .panel-body
         = form_for(resource, as: resource_name, url: session_path(resource_name), class: "form-signin", "accept-charset" => "UTF-8", role: "form") do |f|
           %fieldset
