@@ -13,7 +13,7 @@
           %td= @donation.token
         %tr
           %td.col-md-5 Date
-          %td.col-md-7= @donation.date.strftime("%d/%m/%Y") rescue nil
+          %td.col-md-7= @donation.date.strftime("%d/%m/%Y")
         %tr
           %td Receipt Number
           %td= @donation.receipt_number
@@ -70,5 +70,5 @@
       = f.hidden_field :person_id, value: current_person.id
       = f.hidden_field :commentable_type, value: @donation.class.name
       = f.hidden_field :commentable_id, value: @donation.id
-      = f.text_area :content
+      = f.text_area :content, required: true
       = f.submit "Comment"

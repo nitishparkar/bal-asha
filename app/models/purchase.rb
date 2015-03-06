@@ -23,9 +23,9 @@ class Purchase < ActiveRecord::Base
 
   accepts_nested_attributes_for :transaction_items, allow_destroy: true
 
-  validates :purchase_date, presence: true
+  validates :purchase_date, :person_id, :vendor, :transaction_items, presence: true
 
-  delegate :email, to: :creator, prefix: true
+  delegate :email, to: :creator, prefix: true, allow_nil: true
 
   ransacker :purchase_date do
     Arel.sql('purchase_date')

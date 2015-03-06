@@ -44,9 +44,12 @@ class Donation < ActiveRecord::Base
   validates :amount, :receipt_number, presence: true,
       if: Proc.new { |d| d.type_cd != "kind" }
 
-  delegate :full_name, to: :donor, prefix: true
+  validates :transaction_items, presence: true,
+      if: Proc.new { |d| d.type_cd == "kind" }
+
+  delegate :full_name, to: :donor, prefix: true, allow_nil: true
   delegate :contact_info, to: :donor, prefix: true
-  delegate :email, to: :acceptor, prefix: true
+  delegate :email, to: :acceptor, prefix: true, allow_nil: true
 
   ransacker :date do
     Arel.sql('date(date)')

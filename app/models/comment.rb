@@ -14,4 +14,6 @@
 class Comment < ActiveRecord::Base
   belongs_to :commentable
   belongs_to :person
+
+  validates :person, :commentable, :content, presence: true
 end
