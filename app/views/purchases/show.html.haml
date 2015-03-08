@@ -1,8 +1,7 @@
-.row
-  .col-md-12
-    = link_to "Edit Purchase", edit_purchase_path(@purchase), class: "btn btn-link"
-
-%hr
+.page-header
+  %h1
+    Purchase details
+    %small= link_to "Edit Purchase", edit_purchase_path(@purchase), class: "btn btn-link"
 
 .row
   .col-md-6

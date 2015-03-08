@@ -5,70 +5,77 @@
     %small= link_to "Edit Donation Info", edit_donation_path(@donation), class: "btn btn-link"
 
 .row
-  .col-md-12
-    %table.table.table-hover
-      %tbody
-        %tr
-          %td Auto ID
-          %td= @donation.token
-        %tr
-          %td.col-md-5 Date
-          %td.col-md-7= @donation.date.strftime("%d/%m/%Y")
-        %tr
-          %td Receipt Number
-          %td= @donation.receipt_number
-        %tr
-          %td Donation type
-          %td= @donation.type_cd.humanize
-        - unless @donation.kind?
-          %tr
-            %td Amount
-            %td= @donation.amount
-        - if @donation.cheque? || @donation.neft?
-          %tr
-            %td Payment details
-            %td= @donation.payment_details
-        %tr
-          %td Thank You Sent?
-          %td= @donation.thank_you_sent.humanize
-        %tr
-          %td Remarks
-          %td= @donation.remarks
-
-  - if @donation.kind?
-    .col-md-12
-      .panel.panel-default
-        .panel-heading
-          %h3.panel-title Kind Donation Details
-        %table.table.table-striped
-          %thead
-            %tr
-              %th Item
-              %th Rate
-              %th Quantity
+  .col-md-6
+    .row
+      .col-md-12
+        %table.table.table-hover
           %tbody
-            - @donation.transaction_items.each do |transaction_item|
+            %tr
+              %td Auto ID
+              %td= @donation.token
+            %tr
+              %td.col-md-5 Date
+              %td.col-md-7= @donation.date.strftime("%d/%m/%Y")
+            %tr
+              %td Receipt Number
+              %td= @donation.receipt_number
+            %tr
+              %td Donation type
+              %td= @donation.type_cd.humanize
+            - unless @donation.kind?
               %tr
-                %td= transaction_item.item.name
-                %td= transaction_item.rate
-                %td= transaction_item.quantity
+                %td Amount
+                %td= @donation.amount
+            - if @donation.cheque? || @donation.neft?
+              %tr
+                %td Payment details
+                %td= @donation.payment_details
+            %tr
+              %td Thank You Sent?
+              %td= @donation.thank_you_sent.humanize
+            %tr
+              %td Remarks
+              %td= @donation.remarks
 
-= render "/donors/show", donor: @donation.donor
+      - if @donation.kind?
+        .col-md-12
+          .panel.panel-default
+            .panel-heading
+              %h3.panel-title Kind Donation Details
+            %table.table.table-striped
+              %thead
+                %tr
+                  %th Item
+                  %th Rate
+                  %th Quantity
+              %tbody
+                - @donation.transaction_items.each do |transaction_item|
+                  %tr
+                    %td= transaction_item.item.name
+                    %td= transaction_item.rate
+                    %td= transaction_item.quantity
 
-%hr
-
-.row
-  .col-md-12
-    %h2 Comments:
-
-.row
   .col-md-6
-    = render @donation.comments
+    .row
+      .col-md-12
+        %h5= @donation.donor.full_name
+        %p= raw @donation.donor.contact_info
+        %p= @donation.donor.full_address
 
-  .col-md-6
-    = form_for [@donation, @donation.comments.build], layout: :basic do |f|
-      = f.hidden_field :person_id, value: current_person.id
-      = f.hidden_field :commentable_type, value: @donation.class.name
-      = f.hidden_field :commentable_id, value: @donation.id
-      = f.text_area :content, required: true
-      = f.submit "Comment"
+    %hr
+
+    .row
+      .col-md-12
+        %h5 Comments:
+
+      .col-md-12
+        = render @donation.comments
+
+      .col-md-12
+        = form_for [@donation, @donation.comments.build], layout: :basic do |f|
+          = f.hidden_field :person_id, value: current_person.id
+          = f.hidden_field :commentable_type, value: @donation.class.name
+          = f.hidden_field :commentable_id, value: @donation.id
+          = f.text_area :content, required: true, label: "New comment:", placeholder: "Enter comment here"
+          = f.submit "Comment"
+
