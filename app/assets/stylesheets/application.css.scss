@@ -17,3 +17,30 @@
  *= require daterangepicker-bs3
  *= require bootstrap-callout
  */
+
+#items {
+  .header-row {
+    margin-bottom: 1em;
+    h6 {
+      font-weight: bold;
+    }
+  }
+
+  p.item-rate {
+    margin: 0;
+    font-size: 1.2em;
+    margin-top: 5px;
+  }
+
+  .close-link {
+    line-height: 2.6em;
+
+    a {
+      margin-left: 1em;
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}

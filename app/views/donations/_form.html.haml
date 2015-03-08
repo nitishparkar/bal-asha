@@ -13,30 +13,7 @@
           = f.input :payment_details, input_html: {class: "donation_payment_details"}, label: 'Cheque No\NEFT details'
           = f.input :amount
           = f.input :receipt_number, input_html: {class: "donation_receipt_number"}
-          .panel.panel-default#items
-            .panel-body
-              .row
-                .col-md-5
-                  %p Item
-                .col-md-3
-                  %p Quantity
-                .col-md-3
-                  %p Rate
-                .col-md-1
-
-              = f.fields_for :transaction_items do |builder|
-                .row
-                  .col-md-5
-                    = builder.association :item, label: false do
-                      = builder.select :item_id, Item.all.map{|item| [item.name, item.id, {data: {current_rate: item.current_rate}} ] }, {prompt: "Select an item"}, class: "form-control transaction_item_select"
-                  .col-md-3
-                    = builder.input :quantity, label: false
-                  .col-md-3
-                    %p.item-rate
-                  .col-md-1
-                    = builder.link_to_remove "Remove"
-
-              = f.link_to_add "Add an item", :transaction_items
+          = render "shared/transaction_items_panel", f: f
 
           = f.input :remarks, input_html: {class: "form-control"}
           = f.input :person_id, input_html: {class: "form-control", style: "width: 100%;", data: {"init-text" => (@donation.acceptor_email || current_person.email)}, value: current_person.id, id: "volunteer_select2"}
