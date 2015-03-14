@@ -8,7 +8,6 @@
 #  type_cd         :integer
 #  amount          :decimal(10, 2)
 #  remarks         :text
-#  deleted         :boolean          default(FALSE), not null
 #  meta_data       :text
 #  person_id       :integer
 #  created_at      :datetime
@@ -17,10 +16,11 @@
 #  token           :string(255)
 #  receipt_number  :string(255)
 #  payment_details :string(255)
+#  deleted_at      :datetime
 #
 
 class Donation < ActiveRecord::Base
-  default_scope -> { where(deleted: false) }
+  acts_as_paranoid
 
   store :meta_data, accessors: [], coder: Hash
 

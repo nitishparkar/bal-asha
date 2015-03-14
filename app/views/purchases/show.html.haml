@@ -38,7 +38,7 @@
             - @purchase.transaction_items.each do |i|
               %tr
                 %td.col-md-5
-                  = i.item.name
+                  = i.item.try(:name)
                 %td.col-md-5
                   = i.quantity
                 %td.col-md-5

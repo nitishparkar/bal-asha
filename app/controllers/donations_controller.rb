@@ -12,6 +12,7 @@ class DonationsController < ApplicationController
   # GET /donations/1
   # GET /donations/1.json
   def show
+    @donor = @donation.donor
   end
 
   # GET /donations/new

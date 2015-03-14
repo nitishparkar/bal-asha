@@ -8,7 +8,8 @@
   %table.table.table-bordered
     %thead
       %tr
-        %th.col-md-4 Name
+        %th.col-md-2 Name
+        %th.col-md-2 Category
         %th.col-md-1 Current Rate (per unit)
         %th.col-md-1 Minimum Quantity
         %th.col-md-4 Remarks
@@ -17,6 +18,7 @@
       - @items.each do |item|
         %tr
           %td= item.name
+          %td= item.category.name
           %td= item.current_rate
           %td= item.minimum_quantity
           %td

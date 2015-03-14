@@ -9,12 +9,12 @@
 #  meta_data     :text
 #  created_at    :datetime
 #  updated_at    :datetime
-#  deleted       :boolean          default(FALSE)
 #  person_id     :integer
+#  deleted_at    :datetime
 #
 
 class Purchase < ActiveRecord::Base
-  default_scope -> { where(deleted: false) }
+  acts_as_paranoid
 
   store :meta_data, accessors: [], coder: Hash
 

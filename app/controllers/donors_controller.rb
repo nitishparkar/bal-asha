@@ -36,7 +36,7 @@ class DonorsController < ApplicationController
 
   def destroy
     @donor.destroy
-    respond_with(@donor)
+    redirect_to donors_path
   end
 
   def info

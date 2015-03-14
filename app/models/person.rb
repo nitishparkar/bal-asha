@@ -16,9 +16,12 @@
 #  created_at             :datetime
 #  updated_at             :datetime
 #  type_cd                :integer          default(0)
+#  deleted_at             :datetime
 #
 
 class Person < ActiveRecord::Base
+  acts_as_paranoid
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,
@@ -28,5 +31,5 @@ class Person < ActiveRecord::Base
 
   validates :type_cd, presence: true
 
-  has_many :donations, dependent: :nullify
+  has_many :donations
 end

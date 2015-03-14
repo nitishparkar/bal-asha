@@ -5,7 +5,6 @@
 #  id               :integer          not null, primary key
 #  name             :string(255)      default(""), not null
 #  remarks          :text
-#  deleted          :boolean          default(FALSE), not null
 #  meta_data        :text
 #  created_at       :datetime
 #  updated_at       :datetime
@@ -13,10 +12,11 @@
 #  unit             :string(255)
 #  minimum_quantity :decimal(7, 2)
 #  category_id      :integer
+#  deleted_at       :datetime
 #
 
 class Item < ActiveRecord::Base
-  default_scope -> { where(deleted: false) }
+  acts_as_paranoid
 
   belongs_to :category
 

@@ -1,7 +1,8 @@
 .page-header
   %h1
     Donation details
-    %small= link_to "Edit Donor Info", edit_donor_path(@donation.donor), class: "btn btn-link"
+    - if @donor
+      %small= link_to "Edit Donor Info", edit_donor_path(@donor), class: "btn btn-link"
     %small= link_to "Edit Donation Info", edit_donation_path(@donation), class: "btn btn-link"
 
 .row
@@ -51,16 +52,16 @@
               %tbody
                 - @donation.transaction_items.each do |transaction_item|
                   %tr
-                    %td= transaction_item.item.name
+                    %td= transaction_item.item.try(:name)
                     %td= transaction_item.rate
                     %td= transaction_item.quantity
 
   .col-md-6
     .row
       .col-md-12
-        %h5= @donation.donor.full_name
-        %p= raw @donation.donor.contact_info
-        %p= @donation.donor.full_address
+        %h5= @donor.try(:full_name)
+        %p= raw @donor.try(:contact_info)
+        %p= @donor.try(:full_address)
 
     %hr
 

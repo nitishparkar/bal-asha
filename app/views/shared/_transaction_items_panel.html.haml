@@ -13,7 +13,7 @@
       .row
         .col-md-5
           = builder.association :item, label: false do
-            = builder.select :item_id, Item.all.map{|item| [item.name, item.id, {data: {current_rate: item.current_rate}} ] }, {prompt: "Select an item"}, class: "form-control transaction_item_select"
+            = builder.select :item_id, Item.all.map{|item| [item.name, item.id, {data: {current_rate: item.current_rate}} ] }, {include_blank: "Select an item"}, class: "form-control transaction_item_select"
         .col-md-3
           = builder.input :quantity, label: false
         .col-md-1

@@ -25,9 +25,11 @@
 #  created_at                   :datetime
 #  updated_at                   :datetime
 #  country_code                 :string(255)
+#  deleted_at                   :datetime
 #
 
 class Donor < ActiveRecord::Base
+  acts_as_paranoid
 
   enum gender: {male: 0, female: 1, other: 2, not_specified: 3}
 
@@ -41,7 +43,7 @@ class Donor < ActiveRecord::Base
 
   enum solicit: {no: false, yes: true}
 
-  has_many :donations, -> { order("date DESC") }, dependent: :nullify
+  has_many :donations, -> { order("date DESC") }
 
   validates :first_name, :donor_type, :level,
       :country_code, :solicit,

@@ -53,6 +53,7 @@ gem 'faker'
 # Sending email notifications when errors occur
 gem 'exception_notification'
 
+gem 'paranoia', '~> 2.0'
 
 group :development do
   # Removes assets request logs
