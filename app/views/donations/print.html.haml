@@ -1,0 +1,92 @@
+- if @donation.kind?
+
+  %p{style: "text-align: center;"} Kind Donation Receipt
+
+  .pull-left{style: "width: 300px;"}
+
+    %p= "Date: #{Date.today.strftime('%d/%m/%y')}"
+
+    %p= @donor.full_name
+    %p= @donor.full_address
+
+  .pull-right{style: "margin-right: 50px;"}
+    %p= "Receipt no K/#{@donation.receipt_number}"
+
+  .clearfix
+
+  %br
+  %br
+
+  %p= "Dear #{@donor.full_name},"
+
+  %p Greetings from Bal Asha Trust!
+
+  %p We gratefully acknowledge the donation in kind for the destitute children in care of Bal Asha Trust.  Your donation will help us to provide for the children’s needs.
+
+  %p The details of your kind donation are:
+
+  %table{border: 1, cellspacing: 0, style: "width: 100%; text-align: center;"}
+    %thead
+      %tr
+        %th Sr. No
+        %th Item
+        %th Quantity
+    %tbody
+      - @donation.transaction_items.each_with_index do |transaction_item, i|
+        %tr
+          %td= i + 1
+          %td= transaction_item.item.name
+          %td= transaction_item.quantity
+
+  %p Thank you for your generous donation and support to the children.
+
+  %br
+  %br
+
+  %p Authorized Signatory
+
+  %p Note:
+  %ol
+    %li Register with Bal Asha Trust to receive regular updates of our work and needs for destitute children.
+    %li This receipt is not valid for income tax purpose
+    %li You can also make a  Income Tax exempt cash/cheque donation to the Trust
+
+- else
+
+  .pull-left{style: "width: 300px;"}
+
+    %p= "Date: #{Date.today.strftime('%d/%m/%y')}"
+
+    %p= @donor.full_name
+    %p= @donor.full_address
+
+  .pull-right{style: "margin-right: 50px;"}
+    %p= "BAT/C/#{@donation.receipt_number}"
+
+  .clearfix
+
+  %br
+  %br
+
+  %p= "Dear #{@donor.full_name},"
+
+  %p Greetings from Bal Asha Trust!
+
+  %p= "Please find attached receipt no #{@donation.receipt_number} dated #{@donation.date.strftime('%d/%m/%y')} towards your donation of Rs. #{@donation.amount} by #{@donation.type_cd.upcase} to Bal Asha Trust."
+
+  %p We gratefully acknowledge your donation for the destitute children in care of Bal Asha Trust.
+
+  %p Your donation will help us to provide for the children’s needs like care, food, medical and developmental interventions.
+
+  %p We hope that you help us to continue helping these children in need of care and protection.
+
+  %p Thanks for your generous donation to support our work for destitute children.
+
+  %p Best Regards,
+
+  %br
+  %br
+  %br
+
+  %div Sunil Arora
+  %div Executive Director

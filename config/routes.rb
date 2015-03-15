@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   end
 
   resources :donations do
+    member { get :print }
     resources :comments
   end
 

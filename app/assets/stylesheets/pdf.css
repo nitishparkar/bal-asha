@@ -1,0 +1,26 @@
+body {
+  font-family: "serif"
+}
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
+.clearfix {
+  clear: both;
+}
+
+.container {
+  /*width: 90%;
+  margin: 0 auto;*/
+}
+
+.logo {
+  width: 150px;
+  margin: 0 auto;
+  display: block;
+}

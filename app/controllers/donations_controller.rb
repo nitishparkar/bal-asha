@@ -1,5 +1,5 @@
 class DonationsController < ApplicationController
-  before_action :set_donation, only: [:show, :edit, :update, :destroy]
+  before_action :set_donation, only: [:show, :edit, :update, :destroy, :print]
 
   # GET /donations
   # GET /donations.json
@@ -13,6 +13,18 @@ class DonationsController < ApplicationController
   # GET /donations/1.json
   def show
     @donor = @donation.donor
+  end
+
+  # GET /donations/1/print
+  # GET /donations/1/print.pdf
+  def print
+    @donor = @donation.donor
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "receipt", layout: "pdf.html", template: 'donations/print.html.haml'
+      end
+    end
   end
 
   # GET /donations/new
