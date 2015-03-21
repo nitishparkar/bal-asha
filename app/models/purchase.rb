@@ -30,4 +30,15 @@ class Purchase < ActiveRecord::Base
   ransacker :purchase_date do
     Arel.sql('purchase_date')
   end
+
+  after_create :update_stock
+
+  private
+    def update_stock
+      self.transaction_items.each do |transaction_item|
+        item = transaction_item.item
+        item.update_attribute(:stock_quantity,
+          item.stock_quantity + transaction_item.quantity)
+      end
+    end
 end

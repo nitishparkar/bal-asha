@@ -55,7 +55,7 @@ class Donation < ActiveRecord::Base
     Arel.sql('date(date)')
   end
 
-  after_create :set_token
+  after_create :set_token, :update_stock
 
   private
     def set_token
@@ -65,6 +65,16 @@ class Donation < ActiveRecord::Base
         self.update_attributes(token: token, receipt_number: token)
       else
         self.update_attribute(:token, token)
+      end
+    end
+
+    def update_stock
+      if self.kind?
+        self.transaction_items.each do |transaction_item|
+          item = transaction_item.item
+          item.update_attribute(:stock_quantity,
+            item.stock_quantity + transaction_item.quantity)
+        end
       end
     end
 end

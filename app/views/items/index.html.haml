@@ -9,9 +9,10 @@
     %thead
       %tr
         %th.col-md-2 Name
-        %th.col-md-2 Category
+        %th.col-md-1 Category
         %th.col-md-1 Current Rate (per unit)
         %th.col-md-1 Minimum Quantity
+        %th.col-md-1 Stock Quantity
         %th.col-md-4 Remarks
         %th.col-md-2 Controls
     %tbody
@@ -21,6 +22,7 @@
           %td= item.category.name
           %td= item.current_rate
           %td= item.minimum_quantity
+          %td= item.stock_quantity
           %td
             - if item.remarks
               = item.remarks

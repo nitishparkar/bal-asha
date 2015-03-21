@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150314120345) do
+ActiveRecord::Schema.define(version: 20150321040347) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -81,16 +81,17 @@ ActiveRecord::Schema.define(version: 20150314120345) do
   add_index "donors", ["country_code"], name: "index_donors_on_country_code", using: :btree
 
   create_table "items", force: true do |t|
-    t.string   "name",                                     default: "", null: false
+    t.string   "name",                                      default: "",  null: false
     t.text     "remarks"
     t.text     "meta_data"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "current_rate",     precision: 8, scale: 2
+    t.decimal  "current_rate",     precision: 8,  scale: 2
     t.string   "unit"
-    t.decimal  "minimum_quantity", precision: 7, scale: 2
+    t.decimal  "minimum_quantity", precision: 7,  scale: 2
     t.integer  "category_id"
     t.datetime "deleted_at"
+    t.decimal  "stock_quantity",   precision: 10, scale: 2, default: 0.0
   end
 
   add_index "items", ["category_id"], name: "index_items_on_category_id", using: :btree

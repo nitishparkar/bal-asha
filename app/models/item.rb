@@ -17,13 +17,14 @@
 
 class Item < ActiveRecord::Base
   acts_as_paranoid
+  has_paper_trail
 
   belongs_to :category
 
   store :meta_data, accessors: [], coder: Hash
 
-  validates_presence_of :name, :current_rate, :minimum_quantity, :category
-  validates_uniqueness_of :name, {scope: [:deleted, :remarks]}
+  validates_presence_of :name, :current_rate, :minimum_quantity, :category, :stock_quantity
+  validates_uniqueness_of :name
 
   def identifier
     remarks.empty? ? name : name + " | " + remarks
