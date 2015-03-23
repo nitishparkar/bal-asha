@@ -6,6 +6,6 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_person!
 
   def user_for_paper_trail
-    current_person.id
+    current_person.nil? ? "" : current_person.id
   end
 end
