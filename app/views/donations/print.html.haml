@@ -72,7 +72,7 @@
 
   %p Greetings from Bal Asha Trust!
 
-  %p= "Please find attached receipt no #{@donation.receipt_number} dated #{@donation.date.strftime('%d/%m/%y')} towards your donation of Rs. #{@donation.amount} by #{@donation.type_cd.upcase} to Bal Asha Trust."
+  %p= "Please find attached receipt no #{@donation.receipt_number} dated #{@donation.date.strftime('%d/%m/%y')} towards your donation of Rs. #{"%.2f" % @donation.amount} by #{@donation.type_cd.upcase} to Bal Asha Trust."
 
   %p We gratefully acknowledge your donation for the destitute children in care of Bal Asha Trust.
 

@@ -27,7 +27,7 @@
             - unless @donation.kind?
               %tr
                 %td Amount
-                %td= @donation.amount
+                %td= "%.2f" % @donation.amount
             - if @donation.cheque? || @donation.neft?
               %tr
                 %td Payment details
