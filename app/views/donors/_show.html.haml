@@ -88,3 +88,18 @@
         %tr
           %td.col-md-2 Remarks:
           %td.col-md-10= donor.remarks
+
+%h2 Donations
+
+.row
+  .col-md-12
+    %table.table.table-hover
+      %thead
+        %tr
+          %th.col-md-6 Date
+          %th.col-md-6 Type
+      %tbody
+        - donor.donations.each do |donation|
+          %tr
+            %td= link_to l(donation.date, format: :formal), donation
+            %td= donation.type_cd.humanize

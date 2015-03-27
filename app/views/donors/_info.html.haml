@@ -14,13 +14,11 @@
           %tr
             %th Date
             %th Type
-            %th Thanked?
         %tbody
           - donations.each do |donation|
             %tr
               %td= link_to l(donation.date, format: :formal), donation
               %td= donation.type_cd.humanize
-              %td= donation.thank_you_sent.humanize
 
 
 
