@@ -1,0 +1,55 @@
+%br
+%br
+%br
+%br
+%br
+%br
+%br
+%br
+%br
+%br
+%br
+%br
+%br
+%br
+%br
+
+.pull-left{style: "width: 300px;"}
+
+  %p= "Date: #{Date.today.strftime('%d/%m/%y')}"
+
+  %p= @donor.full_name
+  %p= @donor.full_address
+
+.pull-right{style: "margin-right: 100px;"}
+  %p= "BAT/DO/"
+
+.clearfix
+
+%br
+
+%p= "Dear #{@donor.full_name},"
+
+%p Greetings from Bal Asha Trust!
+
+%p We want to extend our heartfelt thank you for your donation. Our work aiding abandoned and destitute children depends upon the support of people like you. As we receive no government funding the money donated is vital to our work and charitable giving like yours is the lifeblood to our organization.
+
+%p= "We have attached the tax exempt receipt no. #{@donation.receipt_number} dated #{@donation.date.strftime('%d/%m/%y')} in reference to the donation received for RS.#{"%.2f" % @donation.amount}/-  via #{@donation.type_cd.downcase}, #{@donation.payment_details}"
+
+
+%p If you would like an overview of our work we invite you to look at our website which has several examples of individual children we have successfully helped. It can be accessed at http://balashatrust.org/
+
+%p For the past twenty-nine years we have been dedicated to the aid of abandoned and destitute children and have helped rehabilitate more than 1200 children and help care for the day to day needs of many more children with other needs.
+
+%p We cannot thank you enough for sharing our passion for this cause and once again thank you for your continuing support.
+
+%p You have made a real difference to these children’s lives!
+
+%p With Regards,
+
+%br
+%br
+%br
+
+%div Sunil Arora
+%div Executive Director
