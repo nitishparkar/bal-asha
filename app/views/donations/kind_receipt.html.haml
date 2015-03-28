@@ -1,0 +1,70 @@
+= wicked_pdf_image_tag "logo.png", class: "logo"
+%br
+%br
+
+%h3{style: "margin-bottom: 0px;"} Bal Asha Trust
+
+.small-text{style: "margin-top: 5px;"}
+  Anand Niketan, Dr. E. Moses Road, Mahalaxmi, Mumbai 400011, Maharashtra
+
+.small-text{style: "margin-top: 5px;"}
+  Phone nos: 24926526 / 24944090 / Email: balashatrust@gmail.com / Website: www.balashatrust.org
+
+.small-text{style: "margin-top: 5px;"}
+  Registration No. Under Public Trust Act – E10416 | FCRA No 083780329 dated 23rd December 1985.
+
+.small-text{style: "margin-top: 5px;"}
+  Projects: Destitute Children’s Home | Adoption | Education Sponsorship | Training and Development & Hope
+
+%hr
+
+%p{style: "text-align: center;"} Kind Donation Receipt
+
+.pull-left{style: "width: 300px;"}
+
+  %p= "Date: #{Date.today.strftime('%d/%m/%y')}"
+
+  %p= @donor.full_name
+  %p= @donor.full_address
+
+.pull-right{style: "margin-right: 50px;"}
+  %p Receipt no K/
+
+.clearfix
+
+%br
+
+%p= "Dear #{@donor.full_name},"
+
+%p Greetings from Bal Asha Trust!
+
+%p
+  We want to extend our heartfelt thank you for your donation. Our work aiding abandoned and destitute children depends upon the support of people like you.
+  %span Your donation will help us to give quality care to the children.
+
+%p The details of your kind donation are:
+
+%table{border: 1, cellspacing: 0, style: "width: 100%;"}
+  %thead
+    %tr
+      %th{style: "width: 10%"} Sr. No
+      %th{style: "width: 70%"} Item
+      %th{style: "width: 20%"} Quantity
+  %tbody
+    - @donation.transaction_items.each_with_index do |transaction_item, i|
+      %tr
+        %td= i + 1
+        %td= transaction_item.item.name
+        %td= transaction_item.quantity
+
+%p Thank you for your generous donation and support to the children.
+
+%br
+%br
+
+%p Authorized Signatory
+
+%p Note:
+%ol
+  %li This receipt is not valid for income tax purpose
+  %li You can also make a Income Tax exempt cash/cheque donation to the Trust under section 80G

@@ -22,7 +22,7 @@ class DonationsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "receipt", layout: "pdf.html", template: 'donations/print.html.haml'
+        render pdf: "receipt", layout: "pdf.html", template: "donations/#{@donation.kind? ? 'kind' : 'cash' }_receipt.html.haml"
       end
     end
   end

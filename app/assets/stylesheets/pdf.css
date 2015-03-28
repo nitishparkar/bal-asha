@@ -1,5 +1,10 @@
 body {
-  font-family: "serif"
+  font-family: "Times New Roman", Times, serif;
+  font-size: 16px;
+}
+
+table th {
+  text-align: left;
 }
 
 .pull-left {
@@ -23,4 +28,8 @@ body {
   width: 150px;
   margin: 0 auto;
   display: block;
+}
+
+.small-text {
+  font-size: 12px;
 }
