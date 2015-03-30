@@ -22,6 +22,8 @@
             %a{href: donations_path} Donations
           %li{class: ("active" if params[:controller] == "purchases")}
             %a{href: purchases_path} Purchases
+          %li{class: ("active" if params[:controller] == "disbursements")}
+            %a{href: disbursements_path} Disbursements
           %li{class: ("active" if params[:controller] == "items")}
             %a{href: items_path} Items
           %li{class: ("active" if params[:controller] == "categories")}

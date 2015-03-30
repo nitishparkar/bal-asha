@@ -13,6 +13,7 @@
 #  minimum_quantity :decimal(7, 2)
 #  category_id      :integer
 #  deleted_at       :datetime
+#  stock_quantity   :decimal(10, 2)   default(0.0)
 #
 
 class Item < ActiveRecord::Base

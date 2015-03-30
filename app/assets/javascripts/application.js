@@ -251,6 +251,14 @@ $(document).ready(function() {
     filterPurchases();
   });
 
+  var filterDisbursements = function() {
+    $.get($("#disbursement_search").attr("action"), $("#disbursement_search").serialize(), null, "script");
+  }
+
+  $('#disbursement_search .daterangepicker').on('hide.daterangepicker', function(ev, picker) {
+    filterDisbursements();
+  });
+
   $("#donation-form").submit(function(evt) {
     if($("#donation_type_cd").val() !== "kind") {
       $("#items").remove();

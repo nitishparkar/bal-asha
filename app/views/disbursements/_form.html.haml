@@ -1,0 +1,20 @@
+/ = render "shared/errors", object: @disbursement
+
+= simple_nested_form_for @disbursement, html: { id: "disbursement-form" } do |f|
+  = f.error_notification
+
+  .form-inputs
+    .row
+      .col-xs-6
+        .form-group
+          = f.input :disbursement_date, as: :string, input_html: {class: "form-control datepicker", data: { "date-format" => "DD/MM/YYYY" }, value: l(@disbursement.disbursement_date || Date.today, format: :formal)}
+          = f.input :remarks, input_html: {class: "form-control"}
+          = f.input :person_id, input_html: {class: "form-control", style: "width: 100%;", data: {"init-text" => (@disbursement.creator_email || current_person.email)}, value: current_person.id, id: "volunteer_select2"}
+
+      .col-xs-6
+        .form-group
+          = render "shared/transaction_items_panel", f: f
+
+  .form-actions
+    = f.button :submit, "#{@disbursement.new_record? ? 'Add disbursement' : 'Update disbursement'}", class: "btn btn-primary"
+
