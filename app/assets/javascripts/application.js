@@ -251,21 +251,11 @@ $(document).ready(function() {
     filterPurchases();
   });
 
-
-  $("#purchase-form, #donation-form").on("change", ".transaction_item_select", function() {
-    var current_rate = $(this).find(':selected').data('current-rate');
-    $(this).parent().parent().find('.item-rate').text(current_rate);
-  });
-
   $("#donation-form").submit(function(evt) {
     if($("#donation_type_cd").val() !== "kind") {
       $("#items").remove();
     }
   });
-
-  // Initial fill
-  $("#purchase-form .transaction_item_select, #donation-form .transaction_item_select").trigger('change');
-
 
   $(".daterangepicker").daterangepicker(
     {
