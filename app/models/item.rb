@@ -26,6 +26,10 @@ class Item < ActiveRecord::Base
   validates_presence_of :name, :current_rate, :minimum_quantity, :category, :stock_quantity
   validates_uniqueness_of :name
 
+  def self.needs
+    where("stock_quantity < minimum_quantity")
+  end
+
   def identifier
     remarks.empty? ? name : name + " | " + remarks
   end
