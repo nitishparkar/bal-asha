@@ -31,14 +31,23 @@ class Purchase < ActiveRecord::Base
     Arel.sql('purchase_date')
   end
 
-  after_create :update_stock
+  after_create :add_to_stock
+  before_destroy :remove_from_stock
 
   private
-    def update_stock
+    def add_to_stock
       self.transaction_items.each do |transaction_item|
         item = transaction_item.item
         item.update_attribute(:stock_quantity,
           item.stock_quantity + transaction_item.quantity)
+      end
+    end
+
+    def remove_from_stock
+      self.transaction_items.each do |transaction_item|
+        item = transaction_item.item
+        item.update_attribute(:stock_quantity,
+          item.stock_quantity - transaction_item.quantity)
       end
     end
 end

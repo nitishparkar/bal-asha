@@ -27,10 +27,19 @@ class Disbursement < ActiveRecord::Base
     Arel.sql('disbursement_date')
   end
 
-  after_create :update_stock
+  after_create :remove_from_stock
+  before_destroy :add_to_stock
 
   private
-    def update_stock
+    def add_to_stock
+      self.transaction_items.each do |transaction_item|
+        item = transaction_item.item
+        item.update_attribute(:stock_quantity,
+          item.stock_quantity + transaction_item.quantity)
+      end
+    end
+
+    def remove_from_stock
       self.transaction_items.each do |transaction_item|
         item = transaction_item.item
         item.update_attribute(:stock_quantity,
