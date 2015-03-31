@@ -9,8 +9,6 @@ class ItemsController < ApplicationController
     @search = Item.ransack(params[:q])
     @search.sorts = 'name asc' if @search.sorts.empty?
     @items = @search.result(distinct: true).page(params[:page])
-
-    respond_with(@items)
   end
 
   # GET /items/1

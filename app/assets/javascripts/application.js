@@ -259,6 +259,17 @@ $(document).ready(function() {
     filterDisbursements();
   });
 
+  var filterItems = function() {
+    $.get($("#item_search").attr("action"), $("#item_search").serialize(), null, "script");
+  }
+
+  $(".item-name-search").typing({
+    stop: function (event, $elem) {
+      filterItems();
+    },
+    delay: 200
+  });
+
   $("#donation-form").submit(function(evt) {
     if($("#donation_type_cd").val() !== "kind") {
       $("#items").remove();
