@@ -18,15 +18,13 @@
 
   %p= "Date: #{Date.today.strftime('%d/%m/%y')}"
 
-  %p= @donor.full_name
-  %p= @donor.full_address
+  %p{style: "margin-bottom: 5px;"}= @donor.full_name
+  %p{style: "margin-top: 5px;"}= @donor.full_address
 
 .pull-right{style: "margin-right: 100px;"}
   %p= "BAT/DO/"
 
 .clearfix
-
-%br
 
 %p= "Dear #{@donor.full_name},"
 
@@ -47,7 +45,6 @@
 
 %p With Regards,
 
-%br
 %br
 %br
 
