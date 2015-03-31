@@ -2,14 +2,16 @@
   %table.table.table-bordered
     %thead
       %tr
-        %th.col-md-3 Date
-        %th.col-md-7 Remarks
+        %th.col-md-2 Date
+        %th.col-md-3 Items
+        %th.col-md-5 Remarks
         %th.col-md-2 Controls
 
     %tbody
       - disbursements.each do |disbursement|
         %tr
           %td= link_to l(disbursement.disbursement_date, format: :formal), disbursement
+          %td= disbursement.transaction_items.map{|ti| ti.item.name}.join(", ")
           %td= disbursement.remarks
           %td
             = link_to 'Edit', edit_disbursement_path(disbursement), class: "btn btn-primary"
