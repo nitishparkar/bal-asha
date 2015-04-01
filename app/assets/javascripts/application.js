@@ -179,11 +179,10 @@ $(document).ready(function() {
 
   var donationTypeChanged = function() {
     var type_val = $("#donation_type_cd").val();
-    console.log(type_val);
 
     if(type_val == "cash") {
       $("#items").addClass("hidden");
-      $(".donation_payment_details").addClass("hidden");
+      $(".donation_payment_details").removeClass("hidden");
       $(".donation_amount").removeClass("hidden");
       $(".donation_receipt_number").removeClass("hidden");
     } else if(type_val == "kind") {

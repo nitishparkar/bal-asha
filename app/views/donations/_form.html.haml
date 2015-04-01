@@ -10,7 +10,7 @@
           = f.input :donor_id, input_html: {hidden: true, style: "width: 100%;", data: {"init-text" => (@donation.donor_full_name || '')}}
           = f.input :date, as: :string, input_html: {class: "datepicker", data: { "date-format" => "DD/MM/YYYY" }, value: l(@donation.date || Date.today, format: :formal)}
           = f.input :type_cd, label: "Type", collection: Donation.type_cds.collect { |t| [t[0].humanize, t[0]] }, selected: @donation.type_cd, disabled: (params[:action] == 'edit' || params[:action] == 'update')
-          = f.input :payment_details, input_html: {class: "donation_payment_details"}, label: 'Cheque No\NEFT details'
+          = f.input :payment_details, input_html: {class: "donation_payment_details"}, label: 'Payment Details'
           = f.input :amount
           = f.input :receipt_number, input_html: {class: "donation_receipt_number"}
           = render "shared/transaction_items_panel", f: f
