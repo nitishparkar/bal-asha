@@ -1,37 +1,18 @@
 .row
-  .col-md-12
-    = link_to new_item_path, class: "pull-right clearfix" do
-      %button.btn.btn-success Add Item
+  .col-md-10
+    = search_form_for @search, url: items_path, method: :get, remote: true, class: "form-inline" do |f|
+      .row
+        .form-group.col-md-6
+          .input-group.col-md-12
+            = f.search_field :name_cont, class: "form-control item-name-search", placeholder: "Search by Item Name"
+  .col-md-2
+    .pull-right.clearfix
+      = link_to new_item_path do
+        %button.btn.btn-success Add Item
+
 %br
 
-.table-responsive
-  %table.table.table-bordered
-    %thead
-      %tr
-        %th.col-md-2 Name
-        %th.col-md-1 Category
-        %th.col-md-1 Current Rate (per unit)
-        %th.col-md-1 Minimum Quantity
-        %th.col-md-1 Stock Quantity
-        %th.col-md-4 Remarks
-        %th.col-md-2 Controls
-    %tbody
-      - @items.each do |item|
-        %tr
-          %td= item.name
-          %td= item.category.name
-          %td= item.current_rate
-          %td= item.minimum_quantity
-          %td= item.stock_quantity
-          %td
-            - if item.remarks
-              = item.remarks
-            - else
-              = link_to "Add remarks for better visibilty", edit_item_path(item)
-          %td
-            = link_to 'Edit', edit_item_path(item), class: "btn btn-primary"
-            = link_to 'Remove', item, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
-%br
-.text-center
-  = paginate @items
+#items_listing
+  = render "index", items: @items
+
 

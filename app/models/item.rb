@@ -13,6 +13,7 @@
 #  minimum_quantity :decimal(7, 2)
 #  category_id      :integer
 #  deleted_at       :datetime
+#  stock_quantity   :decimal(10, 2)   default(0.0)
 #
 
 class Item < ActiveRecord::Base
@@ -25,6 +26,10 @@ class Item < ActiveRecord::Base
 
   validates_presence_of :name, :current_rate, :minimum_quantity, :category, :stock_quantity
   validates_uniqueness_of :name
+
+  def self.needs
+    where("stock_quantity < minimum_quantity")
+  end
 
   def identifier
     remarks.empty? ? name : name + " | " + remarks

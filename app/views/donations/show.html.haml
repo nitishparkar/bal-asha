@@ -45,14 +45,12 @@
               %thead
                 %tr
                   %th Item
-                  %th Rate
                   %th Quantity
               %tbody
                 - @donation.transaction_items.each do |transaction_item|
                   %tr
                     %td= transaction_item.item.try(:name)
-                    %td= transaction_item.rate
-                    %td= transaction_item.quantity
+                    %td= "#{transaction_item.quantity} #{transaction_item.item.try(:unit)}"
 
   .col-md-6
     .row

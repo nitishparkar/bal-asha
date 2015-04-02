@@ -179,11 +179,10 @@ $(document).ready(function() {
 
   var donationTypeChanged = function() {
     var type_val = $("#donation_type_cd").val();
-    console.log(type_val);
 
     if(type_val == "cash") {
       $("#items").addClass("hidden");
-      $(".donation_payment_details").addClass("hidden");
+      $(".donation_payment_details").removeClass("hidden");
       $(".donation_amount").removeClass("hidden");
       $(".donation_receipt_number").removeClass("hidden");
     } else if(type_val == "kind") {
@@ -251,10 +250,23 @@ $(document).ready(function() {
     filterPurchases();
   });
 
+  var filterDisbursements = function() {
+    $.get($("#disbursement_search").attr("action"), $("#disbursement_search").serialize(), null, "script");
+  }
 
-  $("#purchase-form, #donation-form").on("change", ".transaction_item_select", function() {
-    var current_rate = $(this).find(':selected').data('current-rate');
-    $(this).parent().parent().find('.item-rate').text(current_rate);
+  $('#disbursement_search .daterangepicker').on('hide.daterangepicker', function(ev, picker) {
+    filterDisbursements();
+  });
+
+  var filterItems = function() {
+    $.get($("#item_search").attr("action"), $("#item_search").serialize(), null, "script");
+  }
+
+  $(".item-name-search").typing({
+    stop: function (event, $elem) {
+      filterItems();
+    },
+    delay: 200
   });
 
   $("#donation-form").submit(function(evt) {
@@ -262,10 +274,6 @@ $(document).ready(function() {
       $("#items").remove();
     }
   });
-
-  // Initial fill
-  $("#purchase-form .transaction_item_select, #donation-form .transaction_item_select").trigger('change');
-
 
   $(".daterangepicker").daterangepicker(
     {

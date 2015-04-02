@@ -1,6 +1,4 @@
 = wicked_pdf_image_tag "logo.png", class: "logo"
-%br
-%br
 
 %h3{style: "margin-bottom: 0px;"} Bal Asha Trust
 
@@ -24,15 +22,13 @@
 
   %p= "Date: #{Date.today.strftime('%d/%m/%y')}"
 
-  %p= @donor.full_name
-  %p= @donor.full_address
+  %p{style: "margin-bottom: 5px;"}= @donor.full_name
+  %p{style: "margin-top: 5px;"}= @donor.full_address
 
 .pull-right{style: "margin-right: 50px;"}
-  %p Receipt no K/
+  %p= "Receipt no K/#{@donation.receipt_number}"
 
 .clearfix
-
-%br
 
 %p= "Dear #{@donor.full_name},"
 

@@ -1,25 +1,25 @@
+- editing_disabled = (params[:action] == 'edit' || params[:action] == 'update')
+
 .panel.panel-default#items
   .panel-body
     .row.header-row
       .col-md-5
         %h6 Item
-      .col-md-3
+      .col-md-4
         %h6 Quantity
-      .col-md-1
-        %h6 Rate
       .col-md-3
 
     = f.fields_for :transaction_items do |builder|
       .row
         .col-md-5
           = builder.association :item, label: false do
-            = builder.select :item_id, Item.all.map{|item| [item.name, item.id, {data: {current_rate: item.current_rate}} ] }, {include_blank: "Select an item"}, class: "form-control transaction_item_select"
-        .col-md-3
-          = builder.input :quantity, label: false
-        .col-md-1
-          %p.item-rate
-        .col-md-3.close-link
-          = builder.link_to_remove "Remove" do
-            = image_tag "cross.svg"
+            = builder.select :item_id, Item.all.map{|item| [item.name, item.id, {data: {current_rate: item.current_rate}} ] }, {include_blank: "Select an item"}, class: "form-control transaction_item_select", disabled: editing_disabled
+        .col-md-4
+          = builder.input :quantity, label: false, disabled: editing_disabled
+        - unless editing_disabled
+          .col-md-3.close-link
+            = builder.link_to_remove "Remove" do
+              = image_tag "cross.svg"
 
-    = f.link_to_add "Add an item", :transaction_items
+    - unless editing_disabled
+      = f.link_to_add "Add an item", :transaction_items

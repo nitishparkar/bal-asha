@@ -13,3 +13,26 @@
                 %tr
                   %td= link_to donor.full_name, donor_path(donor)
                   %td= l(donor.date_of_birth, format: :formal)
+
+  .col-md-6
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Needs
+      .panel-body
+        - if @needs.empty?
+          %p Everything is awesome!
+        - else
+          %table.table
+            %thead
+              %tr
+                %th.col-md-4 Item
+                %th.col-md-3 Minimum Quantity
+                %th.col-md-3 Stock Quantity
+                %th.col-md-2 Wishlist
+            %tbody
+              - @needs.each do |item|
+                %tr
+                  %td= item.name
+                  %td= "#{item.minimum_quantity} #{item.unit}"
+                  %td= "#{item.stock_quantity} #{item.unit}"
+                  %td= item.minimum_quantity - item.stock_quantity

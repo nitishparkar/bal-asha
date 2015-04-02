@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :disbursements
+
   resources :donations
 
   resources :purchases

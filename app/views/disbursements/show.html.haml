@@ -1,0 +1,42 @@
+.page-header
+  %h1
+    Disbursement Details
+    %small= link_to "Edit disbursement", edit_disbursement_path(@disbursement), class: "btn btn-link"
+
+.row
+  .col-md-6
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Disbursement Info
+      .panel-body
+        %table.table.table-hover
+          %tbody
+            %tr
+              %td.col-md-5 Date
+              %td.col-md-7= @disbursement.disbursement_date.nil? ? "" : l(@disbursement.disbursement_date, format: :formal)
+            %tr
+              %td Remarks
+              %td= @disbursement.remarks
+  .col-md-6
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Items
+      .panel-body
+        %table.table.table-hover
+          %thead
+            %tr
+              %th.col-md-4
+                Item name
+              %th.col-md-4
+                Item Quantity
+              %th.col-md-4
+                Item Rate
+          %tbody
+            - @disbursement.transaction_items.each do |i|
+              %tr
+                %td.col-md-5
+                  = i.item.try(:name)
+                %td.col-md-5
+                  = i.quantity
+                %td.col-md-5
+                  = i.rate

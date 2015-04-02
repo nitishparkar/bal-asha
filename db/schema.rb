@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150321040347) do
+ActiveRecord::Schema.define(version: 20150330071501) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -31,6 +31,18 @@ ActiveRecord::Schema.define(version: 20150321040347) do
 
   add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
   add_index "comments", ["person_id"], name: "index_comments_on_person_id", using: :btree
+
+  create_table "disbursements", force: true do |t|
+    t.date     "disbursement_date"
+    t.text     "remarks"
+    t.datetime "deleted_at"
+    t.integer  "person_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "disbursements", ["deleted_at"], name: "index_disbursements_on_deleted_at", using: :btree
+  add_index "disbursements", ["person_id"], name: "index_disbursements_on_person_id", using: :btree
 
   create_table "donations", force: true do |t|
     t.datetime "date"
@@ -68,7 +80,7 @@ ActiveRecord::Schema.define(version: 20150321040347) do
     t.string   "city"
     t.string   "pincode"
     t.string   "state"
-    t.boolean  "solicit",                      default: false
+    t.boolean  "solicit"
     t.integer  "contact_frequency",            default: 0
     t.integer  "preferred_communication_mode", default: 0
     t.text     "remarks"

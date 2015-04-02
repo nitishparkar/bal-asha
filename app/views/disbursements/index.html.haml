@@ -1,0 +1,17 @@
+.row
+  .col-md-10
+    = search_form_for @search, url: disbursements_path, method: :get, remote: true, class: "form-inline" do |f|
+      .row
+        .form-group.col-md-3
+          .input-group.col-md-12
+            = f.text_field :disbursement_date_daterange, class: "form-control daterangepicker"
+  .col-md-2
+    .pull-right.clearfix
+      = link_to new_disbursement_path do
+        %button.btn.btn-success Add Disbursement
+
+%br
+
+#disbursements_listing
+  = render "index", disbursements: @disbursements
+
