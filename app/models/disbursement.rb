@@ -20,6 +20,7 @@ class Disbursement < ActiveRecord::Base
   accepts_nested_attributes_for :transaction_items, allow_destroy: true
 
   validates :disbursement_date, :person_id, :transaction_items, presence: true
+  validate :stock_remains_positive
 
   delegate :email, to: :creator, prefix: true, allow_nil: true
 
@@ -31,6 +32,15 @@ class Disbursement < ActiveRecord::Base
   before_destroy :add_to_stock
 
   private
+    def stock_remains_positive
+      self.transaction_items.each do |transaction_item|
+        item = transaction_item.item
+        if item.stock_quantity - transaction_item.quantity < 0
+          errors.add(:base, "Not enough #{item.name}")
+        end
+      end
+    end
+
     def add_to_stock
       self.transaction_items.each do |transaction_item|
         item = transaction_item.item
