@@ -103,3 +103,27 @@
           %tr
             %td= link_to l(donation.date, format: :formal), donation
             %td= donation.type_cd.humanize
+
+
+%h2
+  Call for actions
+  %small= link_to "new", new_donor_call_for_action_path(donor), class: "btn btn-link"
+
+.row
+  .col-md-12
+    %table.table.table-hover
+      %thead
+        %tr
+          %th.col-md-2 Date
+          %th.col-md-1 Status
+          %th.col-md-7 Remarks
+          %th.col-md-2
+      %tbody
+        - donor.call_for_actions.each do |call_for_action|
+          %tr
+            %td= l(call_for_action.date_of_action, format: :formal)
+            %td= call_for_action.status.titleize
+            %td= call_for_action.remarks
+            %td
+              = link_to "Edit", edit_donor_call_for_action_path(donor, call_for_action), class: "btn btn-primary"
+              = link_to "Remove", donor_call_for_action_path(donor, call_for_action), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"

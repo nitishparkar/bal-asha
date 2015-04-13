@@ -1,7 +1,7 @@
-/ = render "shared/errors", object: @disbursement
+= render "shared/errors", object: @disbursement
 
 = simple_nested_form_for @disbursement, html: { id: "disbursement-form" } do |f|
-  = f.error_notification
+  / = f.error_notification
 
   .form-inputs
     .row

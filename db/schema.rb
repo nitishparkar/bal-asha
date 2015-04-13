@@ -11,7 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150330071501) do
+ActiveRecord::Schema.define(version: 20150413155004) do
+
+  create_table "call_for_actions", force: true do |t|
+    t.datetime "date_of_action"
+    t.integer  "donor_id"
+    t.integer  "status",         default: 0
+    t.integer  "person_id"
+    t.text     "remarks"
+    t.datetime "deleted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "call_for_actions", ["donor_id"], name: "index_call_for_actions_on_donor_id", using: :btree
+  add_index "call_for_actions", ["person_id"], name: "index_call_for_actions_on_person_id", using: :btree
 
   create_table "categories", force: true do |t|
     t.string   "name"

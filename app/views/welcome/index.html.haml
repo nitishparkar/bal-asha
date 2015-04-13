@@ -36,3 +36,26 @@
                   %td= "#{item.minimum_quantity} #{item.unit}"
                   %td= "#{item.stock_quantity} #{item.unit}"
                   %td= item.minimum_quantity - item.stock_quantity
+
+.row
+  .col-md-12
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Call for actions
+      .panel-body
+        - if @call_for_actions.empty?
+          %p No pending call for actions
+        - else
+          %table.table
+            %thead
+              %tr
+                %th.col-md-2 Date
+                %th.col-md-2 Donor
+                %th.col-md-8 Remarks
+            %tbody
+              - @call_for_actions.each do |call_for_action|
+                - donor = call_for_action.donor
+                %tr
+                  %td= link_to l(call_for_action.date_of_action, format: :formal), donor_call_for_action_path(donor, call_for_action)
+                  %td= link_to donor.full_name, donor_path(donor)
+                  %td= call_for_action.remarks
