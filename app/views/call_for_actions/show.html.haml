@@ -1,0 +1,20 @@
+.page-header
+  %h1
+    = "Call for action for #{l(@call_for_action.date_of_action, format: :formal)}"
+    %small= link_to "Edit", edit_donor_call_for_action_path(@donor, @call_for_action), class: "btn btn-link"
+
+.row
+  .col-md-12
+    %table.table.table-hover
+      %tbody
+        %tr
+          %td Date
+          %td= l(@call_for_action.date_of_action, format: :formal)
+        %tr
+          %td Status
+          %td= @call_for_action.status
+        %tr
+          %td Remarks
+          %td= @call_for_action.remarks
+
+

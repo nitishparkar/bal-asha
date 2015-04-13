@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :items
 
   resources :donors do
+    resources :call_for_actions
     member { get :info }
     collection { get :index }
   end

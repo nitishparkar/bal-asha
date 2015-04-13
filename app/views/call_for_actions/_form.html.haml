@@ -1,0 +1,19 @@
+/ = render "shared/errors", object: @call_for_action
+
+= simple_nested_form_for [@donor, @call_for_action] do |f|
+  = f.error_notification
+
+  .form-inputs
+    .form-group
+      .col-xs-4
+        = f.input :date_of_action, as: :string, input_html: {class: "datepicker", data: { "date-format" => "DD/MM/YYYY" }, value: l(@call_for_action.date_of_action || Date.today, format: :formal)}
+      .col-xs-4
+        = f.input :status, label: "Status", collection: CallForAction.statuses.collect { |t| [t[0].humanize, t[0]] }, selected: @call_for_action.status
+      .col-xs-4
+        = f.input :person_id, input_html: {class: "form-control", style: "width: 100%;", data: {"init-text" => (@call_for_action.person_email || current_person.email)}, value: current_person.id, id: "volunteer_select2"}
+    .col-xs-12
+      = f.input :remarks, input_html: {class: "form-control"}
+
+  .form-actions.col-xs-12
+    = f.button :submit, "#{@call_for_action.new_record? ? 'Add Call For Action' : 'Update Call For Action'}", class: "btn btn-primary"
+
