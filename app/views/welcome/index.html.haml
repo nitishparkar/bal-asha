@@ -40,8 +40,10 @@
 .row
   .col-md-12
     .panel.panel-default
-      .panel-heading
-        %h3.panel-title Call for actions
+      .panel-heading.clearfix
+        %h3.panel-title.pull-left Call for actions
+        = text_field_tag "donors", "", id: "donor-new-call-for-action", class: "col-md-3 pull-right"
+        %span.pull-right{ style: "padding-top: 1px;" } New Call For Action:
       .panel-body
         - if @call_for_actions.empty?
           %p No pending call for actions

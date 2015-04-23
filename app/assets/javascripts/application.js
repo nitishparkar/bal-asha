@@ -39,6 +39,44 @@ $(document).ready(function() {
     defaultDate: new Date()
   });
 
+  $("#donor-new-call-for-action").select2({
+    minimumInputLength: 2,
+    placeholder: "Search for donor by name",
+    id: function(result) {
+      return result.donor.id
+    },
+    ajax: {
+      url: "/donors",
+      dataType: "json",
+      quietMillis: 200,
+      data: function (term, page) {
+        return {
+          q: { first_name_or_last_name_cont: term },
+          page: page,
+        }
+      },
+      results: function(data, page) {
+        return {
+          results: data
+        }
+      },
+      cache: true
+    },
+    formatResult: function(result) {
+      return "<div class='select2-user-result'>" + result.donor.full_name + "</div>";
+    },
+    formatSelection: function(result) {
+      if(result.donor) {
+        return result.donor.full_name
+      } else {
+        return result.term;
+      }
+    },
+    dropdownCssClass: "bigdrop"
+  }).on("select2-selecting", function(e) {
+    window.location.replace("/donors/"+e.val+"/call_for_actions/new")
+  });
+
   var donor_select2 = $("input[id='donation_donor_id']").select2({
     allowClear: true,
     minimumInputLength: 2,
