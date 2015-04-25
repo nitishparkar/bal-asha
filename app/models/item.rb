@@ -28,7 +28,7 @@ class Item < ActiveRecord::Base
   validates_uniqueness_of :name
 
   def self.needs
-    where("stock_quantity < minimum_quantity")
+    joins(:category).where("stock_quantity < minimum_quantity").group_by(&:category)
   end
 
   def identifier

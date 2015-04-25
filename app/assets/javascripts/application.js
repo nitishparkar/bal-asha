@@ -23,6 +23,8 @@
 //= require jquery_nested_form
 
 $(document).ready(function() {
+  $('.collapse').collapse();
+
   $(".birthdatepicker").datetimepicker({
     pickTime: false,
     maxDate: new Date(),
