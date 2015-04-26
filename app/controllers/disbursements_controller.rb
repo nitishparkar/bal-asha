@@ -6,7 +6,7 @@ class DisbursementsController < ApplicationController
   def index
     @search = Disbursement.ransack(params[:q])
     @search.sorts = 'created_at DESC' if @search.sorts.empty?
-    @disbursements = @search.result(distinct: true).page(params[:page])
+    @disbursements = @search.result(distinct: true).includes(transaction_items: :item).page(params[:page])
   end
 
   def show

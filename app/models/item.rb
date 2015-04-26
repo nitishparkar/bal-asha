@@ -30,6 +30,6 @@ class Item < ActiveRecord::Base
   delegate :name, to: :category, prefix: true, allow_nil: true
 
   def self.needs
-    joins(:category).where("stock_quantity < minimum_quantity").group_by(&:category)
+    includes(:category).where("stock_quantity < minimum_quantity").group_by(&:category)
   end
 end

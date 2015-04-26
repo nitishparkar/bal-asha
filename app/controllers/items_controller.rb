@@ -8,7 +8,7 @@ class ItemsController < ApplicationController
   def index
     @search = Item.ransack(params[:q])
     @search.sorts = 'name asc' if @search.sorts.empty?
-    @items = @search.result(distinct: true).page(params[:page])
+    @items = @search.result(distinct: true).includes(:category).page(params[:page])
   end
 
   # GET /items/1
