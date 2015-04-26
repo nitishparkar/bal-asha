@@ -27,11 +27,9 @@ class Item < ActiveRecord::Base
   validates_presence_of :name, :current_rate, :minimum_quantity, :category, :stock_quantity
   validates_uniqueness_of :name
 
+  delegate :name, to: :category, prefix: true, allow_nil: true
+
   def self.needs
     joins(:category).where("stock_quantity < minimum_quantity").group_by(&:category)
-  end
-
-  def identifier
-    remarks.empty? ? name : name + " | " + remarks
   end
 end

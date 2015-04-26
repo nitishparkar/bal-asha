@@ -9,14 +9,14 @@ Rails.application.routes.draw do
   resources :items
 
   resources :donors do
-    resources :call_for_actions
+    resources :call_for_actions, except: [:index]
     member { get :info }
     collection { get :index }
   end
 
   resources :donations do
     member { get :print }
-    resources :comments
+    resources :comments, only: [:create, :destroy]
   end
 
   resources :categories

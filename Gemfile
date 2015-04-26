@@ -62,6 +62,7 @@ group :development do
   # Removes assets request logs
   gem 'quiet_assets'
 
+  # rails_best_practices -f html .
   gem 'rails_best_practices'
   gem 'capistrano', '~> 3.2.0'
   gem 'capistrano-rvm'
