@@ -18,10 +18,13 @@
     .container
       = render 'shared/nav_bar'
 
-      // container
       - if flash[:notice].present?
-        = alert_box flash[:notice], dismissible: true, context: :success
+        :javascript
+          toastr["success"]("#{flash[:notice]}")
+        / = alert_box flash[:notice], dismissible: true, context: :success
       - if flash[:alert].present?
-        = alert_box flash[:alert], dismissible: true, context: :danger
+        / = alert_box flash[:alert], dismissible: true, context: :danger
+        :javascript
+          toastr["error"]("#{flash[:alert]}")
 
       = yield
