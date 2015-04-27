@@ -8,12 +8,12 @@
   %table.table.table-bordered
     %thead
       %tr
-        %th.col-md-11 Name
-        %th.col-md-1 Controls
+        %th.col-md-10 Name
+        %th.col-md-2 Controls
     %tbody
       - @categories.each do |category|
         %tr
           %td= category.name
           %td
             = link_to 'Edit', edit_category_path(category), class: "btn btn-primary"
-
+            = link_to 'Remove', category, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger", disabled: @items_category_ids.include?(category.id)

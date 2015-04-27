@@ -3,6 +3,7 @@ class CategoriesController < ApplicationController
 
   def index
     @categories = Category.all
+    @items_category_ids = Item.pluck(:category_id).uniq
   end
 
   def show
@@ -33,8 +34,12 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    @category.destroy
-    redirect_to categories_path, notice: "Category was successfully destroyed."
+    if Item.where(category_id: @category.id).exists?
+      redirect_to categories_path, alert: "Cannot delete this Category. It has items."
+    else
+      @category.destroy
+      redirect_to categories_path, notice: "Category was successfully destroyed."
+    end
   end
 
   private
