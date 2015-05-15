@@ -82,6 +82,7 @@ end
 group :development, :test do
   gem 'byebug'
   gem 'ruby-debug-passenger'
+  gem 'minitest-reporters'
 
   # Preview email in the browser without setting up email system
   gem 'letter_opener'
