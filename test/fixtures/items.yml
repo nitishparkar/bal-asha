@@ -1,0 +1,13 @@
+milk:
+  name: Milk
+  current_rate: 50
+  minimum_quantity: 10
+  category: food
+  stock_quantity: 0
+
+bread:
+  name: Bread
+  current_rate: 20
+  minimum_quantity: 2
+  stock_quantity: 0
+  category: food
