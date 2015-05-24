@@ -21,8 +21,29 @@
 //= require jquery.typing-0.2.0.min
 //= require select2
 //= require jquery_nested_form
+//= require toaster.min
+
+toastr.options = {
+  "closeButton": false,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": true,
+  "positionClass": "toast-bottom-left",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
 
 $(document).ready(function() {
+  $('.collapse').collapse();
+
   $(".birthdatepicker").datetimepicker({
     pickTime: false,
     maxDate: new Date(),
@@ -37,6 +58,44 @@ $(document).ready(function() {
     pickTime: false,
     maxDate: new Date(),
     defaultDate: new Date()
+  });
+
+  $("#donor-new-call-for-action").select2({
+    minimumInputLength: 2,
+    placeholder: "Search for donor by name",
+    id: function(result) {
+      return result.donor.id
+    },
+    ajax: {
+      url: "/donors",
+      dataType: "json",
+      quietMillis: 200,
+      data: function (term, page) {
+        return {
+          q: { first_name_or_last_name_cont: term },
+          page: page,
+        }
+      },
+      results: function(data, page) {
+        return {
+          results: data
+        }
+      },
+      cache: true
+    },
+    formatResult: function(result) {
+      return "<div class='select2-user-result'>" + result.donor.full_name + "</div>";
+    },
+    formatSelection: function(result) {
+      if(result.donor) {
+        return result.donor.full_name
+      } else {
+        return result.term;
+      }
+    },
+    dropdownCssClass: "bigdrop"
+  }).on("select2-selecting", function(e) {
+    window.location.replace("/donors/"+e.val+"/call_for_actions/new")
   });
 
   var donor_select2 = $("input[id='donation_donor_id']").select2({

@@ -5,8 +5,8 @@ class DonationsController < ApplicationController
   # GET /donations.json
   def index
     @search = Donation.ransack(params[:q])
-    @search.sorts = 'created_at DESC' if @search.sorts.empty?
-    @donations = @search.result(distinct: true).page(params[:page])
+    @search.sorts = 'date DESC' if @search.sorts.empty?
+    @donations = @search.result(distinct: true).includes(:donor).page(params[:page])
   end
 
   # GET /donations/1

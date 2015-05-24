@@ -1,0 +1,16 @@
+john:
+  first_name: John
+  donor_type: 0
+  level: 0
+  country_code: "IN"
+  solicit: false
+  mobile: 9009990898
+
+balasha:
+  first_name: Bal Asha Trus
+  donor_type: 2
+  level: 0
+  country_code: "IN"
+  solicit: true
+  trust_no: INMUM4269
+  telephone: 23455456

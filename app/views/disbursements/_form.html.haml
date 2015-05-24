@@ -16,5 +16,5 @@
           = render "shared/transaction_items_panel", f: f
 
   .form-actions
-    = f.button :submit, "#{@disbursement.new_record? ? 'Add disbursement' : 'Update disbursement'}", class: "btn btn-primary"
+    = f.button :submit, "#{@disbursement.new_record? ? 'Add disbursement' : 'Update disbursement'}", class: "btn btn-primary", data: {disable_with: "Submitting..."}
 

@@ -16,4 +16,6 @@ class Comment < ActiveRecord::Base
   belongs_to :person
 
   validates :person, :commentable, :content, presence: true
+
+  delegate :email, to: :person, prefix: true, allow_nil: true
 end

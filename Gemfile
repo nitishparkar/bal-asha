@@ -62,6 +62,7 @@ group :development do
   # Removes assets request logs
   gem 'quiet_assets'
 
+  # rails_best_practices -f html .
   gem 'rails_best_practices'
   gem 'capistrano', '~> 3.2.0'
   gem 'capistrano-rvm'
@@ -81,6 +82,7 @@ end
 group :development, :test do
   gem 'byebug'
   gem 'ruby-debug-passenger'
+  gem 'minitest-reporters'
 
   # Preview email in the browser without setting up email system
   gem 'letter_opener'

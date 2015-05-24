@@ -8,7 +8,7 @@ class ItemsController < ApplicationController
   def index
     @search = Item.ransack(params[:q])
     @search.sorts = 'name asc' if @search.sorts.empty?
-    @items = @search.result(distinct: true).page(params[:page])
+    @items = @search.result(distinct: true).includes(:category).page(params[:page])
   end
 
   # GET /items/1
@@ -63,6 +63,11 @@ class ItemsController < ApplicationController
       format.html { redirect_to items_url, notice: 'Item was successfully removed.' }
       format.json { head :no_content }
     end
+  end
+
+  # GET /items/needs.csv
+  def needs
+    send_data Item.needs_csv
   end
 
   private

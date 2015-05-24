@@ -15,5 +15,5 @@
       = f.input :remarks, input_html: {class: "form-control"}
 
   .form-actions.col-xs-12
-    = f.button :submit, "#{@call_for_action.new_record? ? 'Add Call For Action' : 'Update Call For Action'}", class: "btn btn-primary"
+    = f.button :submit, "#{@call_for_action.new_record? ? 'Add Call For Action' : 'Update Call For Action'}", class: "btn btn-primary", data: {disable_with: "Submitting..."}
 

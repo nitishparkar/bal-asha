@@ -1,7 +1,7 @@
 Bal Asha Trust
 =============
 
-Internal app for [Bal Asha Trust](http://balashatrust.org/)
+Internal app for [Bal Asha Trust](http://balashatrust.org/). It helps them manage donor/donation information. It also serves as an inventory management system by keeping track of purchases and disbursements.
 
 
 Setup

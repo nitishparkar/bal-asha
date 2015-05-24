@@ -65,7 +65,7 @@ class Donor < ActiveRecord::Base
 
   def self.upcoming_birthdays
     today = Date.today
-    where("extract(month from date_of_birth) = ? AND extract(day from date_of_birth) > ?", today.month, today.day).order("extract(day from date_of_birth)")
+    where("extract(month from date_of_birth) = ? AND extract(day from date_of_birth) >= ?", today.month, today.day).order("extract(day from date_of_birth)")
   end
 
   def contact_info

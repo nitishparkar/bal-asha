@@ -27,11 +27,24 @@ class Item < ActiveRecord::Base
   validates_presence_of :name, :current_rate, :minimum_quantity, :category, :stock_quantity
   validates_uniqueness_of :name
 
+  delegate :name, to: :category, prefix: true, allow_nil: true
+
   def self.needs
-    where("stock_quantity < minimum_quantity")
+    includes(:category).where("stock_quantity < minimum_quantity").group_by(&:category)
   end
 
-  def identifier
-    remarks.empty? ? name : name + " | " + remarks
+  def self.needs_csv(options = {})
+    needs = self.needs
+
+    CSV.generate(options) do |csv|
+      csv << ["Name", "Wishlist"]
+      needs.each do |category, items|
+        csv << []
+        csv << [category.name]
+        items.each do |item|
+          csv << [item.name, item.minimum_quantity - item.stock_quantity]
+        end
+      end
+    end
   end
 end
