@@ -32,4 +32,19 @@ class Item < ActiveRecord::Base
   def self.needs
     includes(:category).where("stock_quantity < minimum_quantity").group_by(&:category)
   end
+
+  def self.needs_csv(options = {})
+    needs = self.needs
+
+    CSV.generate(options) do |csv|
+      csv << ["Name", "Wishlist"]
+      needs.each do |category, items|
+        csv << []
+        csv << [category.name]
+        items.each do |item|
+          csv << [item.name, item.minimum_quantity - item.stock_quantity]
+        end
+      end
+    end
+  end
 end

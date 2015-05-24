@@ -65,6 +65,11 @@ class ItemsController < ApplicationController
     end
   end
 
+  # GET /items/needs.csv
+  def needs
+    send_data Item.needs_csv
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_item

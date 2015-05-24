@@ -6,7 +6,9 @@ Rails.application.routes.draw do
 
   resources :purchases
 
-  resources :items
+  resources :items do
+    collection { get :needs }
+  end
 
   resources :donors do
     resources :call_for_actions, except: [:index]
