@@ -67,7 +67,7 @@ class ItemsController < ApplicationController
 
   # GET /items/needs.csv
   def needs
-    send_data Item.needs_csv
+    send_data(Item.needs_csv, filename: "needs-#{Time.now.strftime("%d-%b-%H-%M")}.csv")
   end
 
   private
