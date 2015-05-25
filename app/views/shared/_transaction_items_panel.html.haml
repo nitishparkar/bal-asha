@@ -13,7 +13,7 @@
       .row
         .col-md-5
           = builder.association :item, label: false do
-            = builder.select :item_id, Item.all.map{|item| [item.name, item.id, {data: {current_rate: item.current_rate}} ] }, {include_blank: "Select an item"}, class: "form-control transaction_item_select", disabled: editing_disabled
+            = builder.select :item_id, Item.order(:name).map{|item| [item.name, item.id, {data: {current_rate: item.current_rate}} ] }, {include_blank: "Select an item"}, class: "form-control transaction_item_select", disabled: editing_disabled
         .col-md-4
           = builder.input :quantity, label: false, disabled: editing_disabled
         - unless editing_disabled
