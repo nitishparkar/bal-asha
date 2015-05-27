@@ -1,0 +1,4 @@
+purchase1:
+  purchase_date: <%= Date.today %>
+  vendor: Genii
+  creator: nitish

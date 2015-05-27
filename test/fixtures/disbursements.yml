@@ -1,0 +1,3 @@
+disbursement1:
+  disbursement_date: <%= Date.today %>
+  creator: nitish

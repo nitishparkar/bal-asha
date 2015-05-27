@@ -13,4 +13,9 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  BigDecimal.class_eval do
+    def inspect
+      "#{to_s("F")}d"
+    end
+  end
 end
