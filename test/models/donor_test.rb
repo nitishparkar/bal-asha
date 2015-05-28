@@ -55,4 +55,21 @@ class DonorTest < ActiveSupport::TestCase
     assert_equal donor.full_name, "John"
   end
 
+  # fixture dependency
+  test "upcoming birthdays" do
+    # Total 2 donors in db
+    assert_equal Donor.count, 2
+
+    # Out of the 2, 1 has upcoming birthday
+    assert_equal Donor.upcoming_birthdays.count, 1
+  end
+
+  test "should respond to contact_info" do
+    assert_not_empty donors(:john).contact_info
+  end
+
+  test "should respond to full_address" do
+    assert_not_empty donors(:john).full_address
+  end
+
 end

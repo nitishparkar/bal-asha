@@ -4,6 +4,7 @@ john:
   level: 0
   country_code: "IN"
   solicit: false
+  date_of_birth: <%= Date.today - 1.year %>
   mobile: 9009990898
 
 balasha:
@@ -13,4 +14,5 @@ balasha:
   country_code: "IN"
   solicit: true
   trust_no: INMUM4269
+  date_of_birth: <%= Date.today - 1.year - 1.day %>
   telephone: 23455456
