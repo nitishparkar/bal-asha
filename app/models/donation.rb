@@ -44,6 +44,8 @@ class Donation < ActiveRecord::Base
   validates :amount, :receipt_number, presence: true,
       if: Proc.new { |d| d.type_cd != "kind" }
 
+  validates :amount, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
+
   validates :transaction_items, presence: true,
       if: Proc.new { |d| d.type_cd == "kind" }
 

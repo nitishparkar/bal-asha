@@ -1,0 +1,32 @@
+cash:
+  donor: john
+  date: <%= DateTime.now %>
+  type_cd: 0
+  amount: 1000
+  receipt_number: BAT00122
+  acceptor: nitish
+
+cheque:
+  donor: balasha
+  date: <%= DateTime.now - 1.day %>
+  type_cd: 2
+  amount: 5000
+  payment_details: Cheque No. 670021
+  receipt_number: BAT00125
+  acceptor: nitish
+
+neft:
+  donor: balasha
+  date: <%= DateTime.now - 3.days %>
+  type_cd: 2
+  amount: 10000
+  payment_details: NEFT 6762386670021
+  receipt_number: BAT00129
+  acceptor: nitish
+
+kind:
+  donor: john
+  date: <%= DateTime.now - 2.days %>
+  type_cd: 1
+  receipt_number: BAT00654
+  acceptor: nitish
