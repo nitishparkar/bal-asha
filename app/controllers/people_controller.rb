@@ -1,6 +1,6 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_admin!, except: [:change_password, :index, :show]
+  before_action :authenticate_admin!, except: [:change_password]
 
   respond_to :html, :json
 
