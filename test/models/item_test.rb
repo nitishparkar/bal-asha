@@ -40,10 +40,13 @@ class ItemTest < ActiveSupport::TestCase
   end
 
 
+  # fixture dependency
   test "needs" do
-    # fixture dependency
+    # Total 2 items in db
     assert_equal Item.count, 2
-    assert_equal Item.needs.values.first.count, 2
+
+    # Out of the 2, 1 is in need
+    assert_equal Item.needs.values.first.count, 1
   end
 
 end

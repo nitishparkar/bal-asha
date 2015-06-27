@@ -1,0 +1,37 @@
+transaction_item_purchase_1:
+  item: milk
+  rate: 50
+  quantity: 5
+  transactionable: purchase1 (Purchase)
+
+transaction_item_purchase_2:
+  item: bread
+  rate: 20
+  quantity: 5
+  transactionable: purchase1 (Purchase)
+
+
+transaction_item_disbursement_1:
+  item: milk
+  rate: 50
+  quantity: 5
+  transactionable: disbursement1 (Disbursement)
+
+transaction_item_disbursement_2:
+  item: bread
+  rate: 20
+  quantity: 5
+  transactionable: disbursement1 (Disbursement)
+
+
+transaction_item_donation_1:
+  item: milk
+  rate: 50
+  quantity: 5
+  transactionable: kind (Donation)
+
+transaction_item_donation_2:
+  item: bread
+  rate: 20
+  quantity: 5
+  transactionable: kind (Donation)

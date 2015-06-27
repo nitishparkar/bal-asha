@@ -1,0 +1,13 @@
+pending:
+  date_of_action: <%= DateTime.now %>
+  donor: john
+  status: 0
+  person: nitish
+  remarks: testing_pending
+
+done:
+  date_of_action: <%= DateTime.now %>
+  donor: john
+  status: 1
+  person: nitish
+  remarks: testing_done

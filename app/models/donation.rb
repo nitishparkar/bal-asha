@@ -22,15 +22,14 @@
 class Donation < ActiveRecord::Base
   acts_as_paranoid
 
+  include Transactionable
+
   store :meta_data, accessors: [], coder: Hash
 
   belongs_to :donor
   belongs_to :acceptor, class_name: Person, foreign_key: 'person_id'
 
-  has_many :transaction_items, as: :transactionable
   has_many :comments, as: :commentable
-
-  accepts_nested_attributes_for :transaction_items, allow_destroy: true
 
   enum type_cd: {cash: 0, kind: 1, cheque: 2, neft: 3}
 
@@ -43,6 +42,8 @@ class Donation < ActiveRecord::Base
 
   validates :amount, :receipt_number, presence: true,
       if: Proc.new { |d| d.type_cd != "kind" }
+
+  validates :amount, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 
   validates :transaction_items, presence: true,
       if: Proc.new { |d| d.type_cd == "kind" }
@@ -57,8 +58,8 @@ class Donation < ActiveRecord::Base
 
   after_create :set_token
 
-  after_create :add_to_stock
-  before_destroy :remove_from_stock
+  after_create :add_to_stock, if: :kind?
+  before_destroy :remove_from_stock, if: :kind?
 
   private
     def set_token
@@ -68,26 +69,6 @@ class Donation < ActiveRecord::Base
         self.update_attributes(token: token, receipt_number: token)
       else
         self.update_attribute(:token, token)
-      end
-    end
-
-    def add_to_stock
-      if self.kind?
-        self.transaction_items.each do |transaction_item|
-          item = transaction_item.item
-          item.update_attribute(:stock_quantity,
-            item.stock_quantity + transaction_item.quantity)
-        end
-      end
-    end
-
-    def remove_from_stock
-      if self.kind?
-        self.transaction_items.each do |transaction_item|
-          item = transaction_item.item
-          item.update_attribute(:stock_quantity,
-            item.stock_quantity - transaction_item.quantity)
-        end
       end
     end
 end

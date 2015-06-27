@@ -22,6 +22,6 @@ class TransactionItem < ActiveRecord::Base
 
   private
     def set_rate
-      self.rate = self.item.try(:current_rate)
+      self.rate = self.item.current_rate
     end
 end

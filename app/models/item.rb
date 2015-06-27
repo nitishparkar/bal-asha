@@ -37,12 +37,13 @@ class Item < ActiveRecord::Base
     needs = self.needs
 
     CSV.generate(options) do |csv|
-      csv << ["Name", "Wishlist"]
+      csv << ["Name", "Wishlist", "Cost"]
       needs.each do |category, items|
         csv << []
         csv << [category.name]
         items.each do |item|
-          csv << [item.name, item.minimum_quantity - item.stock_quantity]
+          wishlist_quantity = item.minimum_quantity - item.stock_quantity
+          csv << [item.name, wishlist_quantity, wishlist_quantity * item.current_rate]
         end
       end
     end

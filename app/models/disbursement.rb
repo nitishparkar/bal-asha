@@ -14,10 +14,9 @@
 class Disbursement < ActiveRecord::Base
   acts_as_paranoid
 
-  has_many :transaction_items, as: :transactionable
-  belongs_to :creator, class_name: Person, foreign_key: 'person_id'
+  include Transactionable
 
-  accepts_nested_attributes_for :transaction_items, allow_destroy: true
+  belongs_to :creator, class_name: Person, foreign_key: 'person_id'
 
   validates :disbursement_date, :person_id, :transaction_items, presence: true
   validate :stock_remains_positive
@@ -38,22 +37,6 @@ class Disbursement < ActiveRecord::Base
         if item.stock_quantity - transaction_item.quantity < 0
           errors.add(:base, "Not enough #{item.name}")
         end
-      end
-    end
-
-    def add_to_stock
-      self.transaction_items.each do |transaction_item|
-        item = transaction_item.item
-        item.update_attribute(:stock_quantity,
-          item.stock_quantity + transaction_item.quantity)
-      end
-    end
-
-    def remove_from_stock
-      self.transaction_items.each do |transaction_item|
-        item = transaction_item.item
-        item.update_attribute(:stock_quantity,
-          item.stock_quantity - transaction_item.quantity)
       end
     end
 end

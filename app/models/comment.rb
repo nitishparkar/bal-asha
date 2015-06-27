@@ -12,7 +12,7 @@
 #
 
 class Comment < ActiveRecord::Base
-  belongs_to :commentable
+  belongs_to :commentable, polymorphic: true
   belongs_to :person
 
   validates :person, :commentable, :content, presence: true
