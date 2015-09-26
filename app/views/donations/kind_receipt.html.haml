@@ -20,7 +20,7 @@
 
 .pull-left{style: "width: 300px;"}
 
-  %p= "Date: #{Date.today.strftime('%d/%m/%y')}"
+  %p= "Date: #{@donation.date.strftime('%d/%m/%y')}"
 
   %p{style: "margin-bottom: 5px;"}= @donor.full_name
   %p{style: "margin-top: 5px;"}= @donor.full_address
