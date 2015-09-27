@@ -1,5 +1,5 @@
 class DonationsController < ApplicationController
-  before_action :set_donation, only: [:show, :edit, :update, :destroy, :print]
+  before_action :set_donation, only: [:edit, :update, :destroy]
 
   # GET /donations
   # GET /donations.json
@@ -12,17 +12,21 @@ class DonationsController < ApplicationController
   # GET /donations/1
   # GET /donations/1.json
   def show
+    @donation = Donation.includes(transaction_items: :item).find(params[:id])
     @donor = @donation.donor
   end
 
   # GET /donations/1/print
   # GET /donations/1/print.pdf
   def print
+    @donation = Donation.includes(transaction_items: :item).find(params[:id])
     @donor = @donation.donor
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "receipt", layout: "pdf.html", template: "donations/#{@donation.kind? ? 'kind' : 'cash' }_receipt.html.haml"
+        render pdf: "receipt", layout: "pdf.html",
+          template: "donations/#{@donation.kind? ? 'kind' : 'cash' }_receipt.html.haml",
+          dpi: 300
       end
     end
   end
