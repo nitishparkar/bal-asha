@@ -9,7 +9,7 @@ module Transactionable
   private
     def add_to_stock
       self.transaction_items.each do |transaction_item|
-        item = transaction_item.item
+        item = transaction_item.item.reload
         item.update_attribute(:stock_quantity,
           item.stock_quantity + transaction_item.quantity)
       end
@@ -17,7 +17,7 @@ module Transactionable
 
     def remove_from_stock
       self.transaction_items.each do |transaction_item|
-        item = transaction_item.item
+        item = transaction_item.item.reload
         item.update_attribute(:stock_quantity,
           item.stock_quantity - transaction_item.quantity)
       end
