@@ -51,7 +51,8 @@ $(document).ready(function() {
   });
 
   $(".datepicker").datetimepicker({
-    pickTime: false
+    pickTime: false,
+    format: 'DD/MM/YYYY'
   });
 
   $("#donation_date").datetimepicker({

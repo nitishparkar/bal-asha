@@ -1,0 +1,36 @@
+.row
+  .col-md-10
+    = form_tag reports_daily_inventory_path, method: :get, class: "form-inline" do |f|
+      .row
+        .form-group.col-md-3
+          .input-group.col-md-12
+            = text_field_tag :inventory_date, params[:inventory_date], class: "form-control datepicker", placeholder: "Pick a date"
+        .form-group.col-md-3
+          .input-group.col-md-12
+            = select_tag :category_id, options_from_collection_for_select(Category.all, :id, :name, params[:category_id]), {include_blank: "Select Category", class: "form-control"}
+        .form-group.col-md-3
+          = submit_tag "Generate", class: "btn btn-primary", name: '', data: { disable_with: "Please wait.." }
+
+%br
+
+#inventory_listing
+  .table-responsive
+    %table.table.table-bordered
+      %thead
+        %tr
+          %th.col-md-2 Item (unit)
+          %th.col-md-2 Opening Balance
+          %th.col-md-2 Donations
+          %th.col-md-2 Purchase
+          %th.col-md-2 Disbursement
+          %th.col-md-2 Closing Balance
+      %tbody
+        - @daily_inventory.each do |inventory_item|
+          %tr
+            %td= "#{inventory_item.item.name} (#{inventory_item.item.unit})"
+            %td= inventory_item.opening_balance
+            %td= inventory_item.donations
+            %td= inventory_item.purchases
+            %td= inventory_item.disbursements
+            %td= inventory_item.closing_balance
+

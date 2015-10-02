@@ -31,6 +31,10 @@ Rails.application.routes.draw do
     match 'change_password', to: 'people#change_password', via: [:get, :post], on: :collection
   end
 
+  scope path: '/reports', as: 'reports' do
+    get :daily_inventory, to: "reports"
+  end
+
   root 'welcome#index'
 
 end
