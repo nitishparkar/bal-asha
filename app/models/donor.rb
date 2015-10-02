@@ -76,6 +76,13 @@ class Donor < ActiveRecord::Base
     contact_info_arr.compact.join("<br/>")
   end
 
+  def contact_number
+    contact_info_arr = []
+    contact_info_arr << (mobile.present? ? "#{mobile} (M) " : nil)
+    contact_info_arr << (telephone.present? ? "#{telephone} (T)" : nil)
+    contact_info_arr.compact.join(" | ")
+  end
+
   def full_address
     address_info_arr = []
     address_info_arr << address

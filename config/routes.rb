@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :donors do
     resources :call_for_actions, except: [:index]
     member { get :info }
-    collection { get :index }
+    collection { get :print_list }
   end
 
   resources :donations do

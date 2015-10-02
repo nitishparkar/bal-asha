@@ -44,6 +44,10 @@ class DonorsController < ApplicationController
     render partial: "info", locals: {donor: @donor, donations: @donations}
   end
 
+  def print_list
+    @donors = Donor.order(:first_name).all
+  end
+
   private
     def set_donor
       @donor = Donor.find(params[:id])
