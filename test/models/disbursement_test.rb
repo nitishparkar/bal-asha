@@ -74,4 +74,22 @@ class DisbursementTest < ActiveSupport::TestCase
     assert_equal  initial_bread_stock, items(:bread).reload.stock_quantity
   end
 
+  test "it shouldn't matter if an item is repeated in a disbursement" do
+    milk = items(:milk)
+
+    initial_milk_stock = milk.stock_quantity
+
+    disbursement = Disbursement.new(disbursement_date: Date.today, person_id: Person.first.id)
+    disbursement.transaction_items.build(item_id: milk.id, quantity: 5)
+    disbursement.transaction_items.build(item_id: milk.id, quantity: 10)
+    disbursement.transaction_items.build(item_id: milk.id, quantity: 15)
+    disbursement.save
+
+    assert_equal  initial_milk_stock - 30, items(:milk).reload.stock_quantity
+
+    disbursement.destroy
+
+    assert_equal  initial_milk_stock, items(:milk).reload.stock_quantity
+  end
+
 end
