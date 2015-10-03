@@ -343,4 +343,8 @@ $(document).ready(function() {
 
     }
   );
+
+  $("body").on("click", ".print-page", function() {
+    window.print();
+  });
 });

@@ -20,7 +20,7 @@ class DailyInventoryService
 
   def fetch_inventory
     response = []
-    Item.where(category_id: category.id).each do |item|
+    Item.order(:name).where(category_id: category.id).each do |item|
       opening_bal = opening_balance(item.id)
       dns = donations(item.id)
       pchs = purchases(item.id)
