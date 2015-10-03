@@ -33,9 +33,15 @@ class DailyInventoryService
 
 
   def opening_balance(item_id)
-    TransactionItem.where(item_id: item_id, transactionable_type: "Donation").sum(:quantity) +
-      TransactionItem.where(item_id: item_id, transactionable_type: "Purchase").sum(:quantity) -
-        TransactionItem.where(item_id: item_id, transactionable_type: "Disbursement").sum(:quantity)
+    Donation.joins(:transaction_items).where(type_cd: Donation.type_cds[:kind],
+      transaction_items: { item_id: item_id }).where("date < ?", inventory_date.beginning_of_day)
+        .sum("transaction_items.quantity") +
+    Purchase.joins(:transaction_items).where(transaction_items: { item_id: item_id })
+      .where("purchase_date < ?", inventory_date.beginning_of_day)
+        .sum("transaction_items.quantity") -
+    Disbursement.joins(:transaction_items).where(transaction_items: { item_id: item_id })
+      .where("disbursement_date < ?", inventory_date.beginning_of_day)
+        .sum("transaction_items.quantity")
   end
 
   def donations(item_id)
