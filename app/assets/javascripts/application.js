@@ -55,6 +55,12 @@ $(document).ready(function() {
     format: 'DD/MM/YYYY'
   });
 
+  $(".datepicker-max-today").datetimepicker({
+    pickTime: false,
+    maxDate: new Date(),
+    format: 'DD/MM/YYYY'
+  });
+
   $("#donation_date").datetimepicker({
     pickTime: false,
     maxDate: new Date(),

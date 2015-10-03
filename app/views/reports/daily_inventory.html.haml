@@ -4,7 +4,7 @@
       .row
         .form-group.col-md-3
           .input-group.col-md-12
-            = text_field_tag :inventory_date, params[:inventory_date], class: "form-control datepicker", placeholder: "Pick a date"
+            = text_field_tag :inventory_date, params[:inventory_date], class: "form-control datepicker-max-today", placeholder: "Pick a date"
         .form-group.col-md-3
           .input-group.col-md-12
             = select_tag :category_id, options_from_collection_for_select(Category.all, :id, :name, params[:category_id]), {include_blank: "Select Category", class: "form-control"}
