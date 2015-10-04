@@ -3,7 +3,7 @@ require 'capistrano-db-tasks'
 lock '3.2.1'
 
 set :application, 'balasha'
-set :repo_url, 'git@github.com:nitishparkar/bal-asha.git'
+set :repo_url, 'https://github.com/nitishparkar/bal-asha.git'
 set :branch, 'figaro'
 set :stages, %w(production staging)
 set :deploy_to, "/home/webadmin/sites/#{fetch(:application)}"
