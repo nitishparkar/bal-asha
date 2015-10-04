@@ -50,3 +50,30 @@
   text-decoration: none;
   color: inherit;
 }
+
+#print-list {
+  .panel {
+    margin-bottom: 0;
+    height: 140px;
+    width: 50%;
+    float: left;
+    border: 1px solid #dddddd;
+    box-shadow: none;
+    page-break-inside: avoid;
+
+    .panel-body {
+      padding: 5px 5px;
+    }
+  }
+
+  p {
+    margin: 0;
+  }
+
+  p.address {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    line-height: 1.6;
+  }
+}
+

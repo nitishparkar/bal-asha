@@ -93,6 +93,13 @@ class Donor < ActiveRecord::Base
     address_info_arr.compact.join(", ")
   end
 
+  def printable_address
+    line1 = address.strip
+    line2 = [city, state].reject(&:blank?).join(", ")
+    line2 += pincode.present? ? " - #{pincode}" : ""
+    [line1, line2].reject(&:blank?).join("<br/>")
+  end
+
   private
     def one_contact_present
       if %w(mobile telephone email).all?{|attr| self[attr].blank?}
