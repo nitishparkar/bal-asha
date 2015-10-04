@@ -1,11 +1,12 @@
-Bal Asha Trust
-=============
+# Bal Asha Trust
+
+[![Build Status](https://travis-ci.org/nitishparkar/bal-asha.svg?branch=master)](https://travis-ci.org/nitishparkar/bal-asha)
 
 Internal app for [Bal Asha Trust](http://balashatrust.org/). It helps them manage donor/donation information. It also serves as an inventory management system by keeping track of purchases and disbursements.
 
 
-Setup
-=============
+## Setup
+
 1.  Run `figaro install`. This will create `config/application.yaml`.
     Assign values to the following configuration variables:
 
@@ -15,15 +16,3 @@ Setup
     ```
 
 2.  Run `rake db:setup` to create and seed database.
-
-
-Git Strategy
-=============
-
-Due to some issues with Figaro, we are using a private bitbucket repo to deploy this app.
-
-On you local machine, you should have two branches,
-1. **master** pointing to **GitHub** repo's **master**
-2. **deploy** pointing to **Bitbucket** repo's **master**
-
-All changes and bugfixes should happen on the master branch. To deploy, merge master into deploy, push deploy to bitbucket and then `cap deploy`.
