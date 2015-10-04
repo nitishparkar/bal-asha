@@ -4,7 +4,7 @@ lock '3.2.1'
 
 set :application, 'balasha'
 set :repo_url, 'https://github.com/nitishparkar/bal-asha.git'
-set :branch, 'figaro'
+set :branch, 'master'
 set :stages, %w(production staging)
 set :deploy_to, "/home/webadmin/sites/#{fetch(:application)}"
 set :user, "webadmin"
