@@ -13,6 +13,8 @@
 #
 
 class TransactionItem < ActiveRecord::Base
+  acts_as_paranoid
+
   belongs_to :item
   belongs_to :transactionable, polymorphic: true
 

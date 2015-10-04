@@ -51,7 +51,14 @@ $(document).ready(function() {
   });
 
   $(".datepicker").datetimepicker({
-    pickTime: false
+    pickTime: false,
+    format: 'DD/MM/YYYY'
+  });
+
+  $(".datepicker-max-today").datetimepicker({
+    pickTime: false,
+    maxDate: new Date(),
+    format: 'DD/MM/YYYY'
   });
 
   $("#donation_date").datetimepicker({
@@ -342,4 +349,8 @@ $(document).ready(function() {
 
     }
   );
+
+  $("body").on("click", ".print-page", function() {
+    window.print();
+  });
 });

@@ -125,6 +125,25 @@ class DonationTest < ActiveSupport::TestCase
     assert_equal  initial_bread_stock, items(:bread).reload.stock_quantity
   end
 
+  test "it shouldn't matter if an item is repeated in a donation" do
+    milk = items(:milk)
+
+    initial_milk_stock = milk.stock_quantity
+
+    donation = Donation.new(date: Date.today, person_id: Person.first.id,
+      donor_id: Donor.first.id, amount: 1000, receipt_number: "BAT76554", type_cd: 1)
+    donation.transaction_items.build(item_id: milk.id, quantity: 10)
+    donation.transaction_items.build(item_id: milk.id, quantity: 10)
+    donation.transaction_items.build(item_id: milk.id, quantity: 10)
+    donation.save!
+
+    assert_equal  initial_milk_stock + 30, items(:milk).reload.stock_quantity
+
+    donation.destroy
+
+    assert_equal  initial_milk_stock, items(:milk).reload.stock_quantity
+  end
+
   test "receipt_number should get auto-generated for kind donations" do
     milk = items(:milk)
 

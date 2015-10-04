@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150413155004) do
+ActiveRecord::Schema.define(version: 20151003111748) do
 
   create_table "call_for_actions", force: true do |t|
     t.datetime "date_of_action"
@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(version: 20150413155004) do
     t.string   "city"
     t.string   "pincode"
     t.string   "state"
-    t.boolean  "solicit"
+    t.boolean  "solicit",                      default: false
     t.integer  "contact_frequency",            default: 0
     t.integer  "preferred_communication_mode", default: 0
     t.text     "remarks"
@@ -163,8 +163,10 @@ ActiveRecord::Schema.define(version: 20150413155004) do
     t.string   "transactionable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "deleted_at"
   end
 
+  add_index "transaction_items", ["deleted_at"], name: "index_transaction_items_on_deleted_at", using: :btree
   add_index "transaction_items", ["item_id"], name: "index_transaction_items_on_item_id", using: :btree
   add_index "transaction_items", ["transactionable_id", "transactionable_type"], name: "transaction_index", using: :btree
 
