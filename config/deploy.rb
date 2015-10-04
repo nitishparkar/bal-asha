@@ -3,7 +3,8 @@ require 'capistrano-db-tasks'
 lock '3.2.1'
 
 set :application, 'balasha'
-set :repo_url, 'https://github.com/geniitech/bal-asha.git'
+set :repo_url, 'git@github.com:nitishparkar/bal-asha.git'
+set :branch, 'figaro'
 set :stages, %w(production staging)
 set :deploy_to, "/home/webadmin/sites/#{fetch(:application)}"
 set :user, "webadmin"
@@ -13,6 +14,8 @@ set :ssh_options, {
 
 # Default value for linked_dirs is []
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/assets}
+
+set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml', 'config/application.yml')
 
 # Default value for keep_releases is 5
 set :keep_releases, 5
@@ -57,21 +60,11 @@ namespace :deploy do
 end
 
 namespace :figaro do
- desc "SCP transfer figaro configuration to the shared folder"
+  desc "SCP transfer figaro configuration to the shared folder"
    task :setup do
    on roles(:app) do
-   execute :mkdir, '-p', "#{shared_path}/config"
-   upload! "config/application.yml", "#{shared_path}/config/application.yml", via: :scp
+    upload! "config/application.yml", "#{shared_path}/config/application.yml", via: :scp
    end
- end
-
- desc "Symlink application.yml to the release path"
-   task :symlink do
-   on roles(:app) do
-   execute "ln -sf #{shared_path}/config/application.yml #{current_path}/config/application.yml"
-   end
- end
+  end
 end
 
-after "deploy:started", "figaro:setup"
-after "deploy:symlink:release", "figaro:symlink"
