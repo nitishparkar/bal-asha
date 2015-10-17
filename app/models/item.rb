@@ -29,6 +29,10 @@ class Item < ActiveRecord::Base
 
   delegate :name, to: :category, prefix: true, allow_nil: true
 
+  def has_transaction_items?
+    TransactionItem.where(item_id: id).exists?
+  end
+
   def self.needs
     includes(:category).where("stock_quantity < minimum_quantity").group_by(&:category)
   end

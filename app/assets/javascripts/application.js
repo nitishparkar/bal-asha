@@ -335,6 +335,10 @@ $(document).ready(function() {
     delay: 200
   });
 
+  $(".item-search-select").change(function() {
+    filterItems();
+  });
+
   $("#donation-form").submit(function(evt) {
     if($("#donation_type_cd").val() !== "kind") {
       $("#items").remove();
