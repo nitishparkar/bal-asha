@@ -353,4 +353,8 @@ $(document).ready(function() {
   $("body").on("click", ".print-page", function() {
     window.print();
   });
+
+  $('#audit_search .daterangepicker').on('hide.daterangepicker', function(ev, picker) {
+    $('#audit_search').submit();
+  });
 });

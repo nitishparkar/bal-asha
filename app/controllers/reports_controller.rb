@@ -17,4 +17,11 @@ class ReportsController < ApplicationController
     end
   end
 
+  def audit
+    @search = Donation.non_kind.ransack(params[:q])
+    @search.sorts = 'created_at ASC' if @search.sorts.empty?
+    @search.date_daterange = "#{l(Date.today - 1.month, format: :formal)} - #{l(Date.today, format: :formal)}" unless params[:q]
+    @donations = @search.result(distinct: true).includes(:donor)
+  end
+
 end
