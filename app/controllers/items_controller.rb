@@ -58,10 +58,11 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   # DELETE /items/1.json
   def destroy
-    @item.destroy
-    respond_to do |format|
-      format.html { redirect_to items_url, notice: 'Item was successfully removed.' }
-      format.json { head :no_content }
+    if @item.has_transaction_items?
+      redirect_to items_url, alert: 'Could not delete the item. An entry exists with the item in it.'
+    else
+      @item.destroy
+      redirect_to items_url, notice: 'Item was successfully removed.'
     end
   end
 
