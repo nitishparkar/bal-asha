@@ -33,6 +33,7 @@ Rails.application.routes.draw do
 
   scope path: '/reports', as: 'reports' do
     get :daily_inventory, to: "reports"
+    get :audit, to: "reports"
   end
 
   root 'welcome#index'

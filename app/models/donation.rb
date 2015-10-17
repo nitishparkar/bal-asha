@@ -52,6 +52,8 @@ class Donation < ActiveRecord::Base
   delegate :contact_info, to: :donor, prefix: true
   delegate :email, to: :acceptor, prefix: true, allow_nil: true
 
+  scope :non_kind, -> { where.not(type_cd: Donation.type_cds[:kind]) }
+
   ransacker :date do
     Arel.sql('date(date)')
   end

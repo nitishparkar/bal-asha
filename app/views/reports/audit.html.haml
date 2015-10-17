@@ -1,0 +1,32 @@
+.row.hidden-print
+  .col-md-10
+    = search_form_for @search, url: reports_audit_path, method: :get, class: "form-inline", id: "audit_search" do |f|
+      .row
+        .form-group.col-md-3
+          .input-group.col-md-12
+            = f.text_field :date_daterange, class: "form-control daterangepicker"
+  .col-md-2
+    .pull-right.clearfix
+      = link_to "Print", "javascript:void(0)", onlick: "window.print()", class: "btn btn-link print-page"
+
+%br
+
+#audit_listing
+  .table-responsive
+    %table.table.table-striped.table-condensed
+      %thead
+        %tr
+          %th.col-md-2 Date
+          %th.col-md-2 Receipt No
+          %th Name
+          %th.col-md-2 Amount
+          %th.col-md-1 Mode
+      %tbody
+        - @donations.each do |donation|
+          %tr
+            %td= l(donation.date, format: :formal)
+            %td= donation.receipt_number
+            %td= donation.donor.try(:full_name)
+            %td= donation.amount
+            %td= donation.type_cd.titleize
+
