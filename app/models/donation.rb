@@ -59,7 +59,7 @@ class Donation < ActiveRecord::Base
   end
 
   after_create :set_token
-
+  before_save :calculate_amount
   after_create :add_to_stock, if: :kind?
   before_destroy :remove_from_stock, if: :kind?
 
@@ -72,5 +72,9 @@ class Donation < ActiveRecord::Base
       else
         self.update_attribute(:token, token)
       end
+    end
+
+    def calculate_amount
+      self.amount = transaction_items.map{ |ti| ti.rate * ti.quantity }.sum
     end
 end
