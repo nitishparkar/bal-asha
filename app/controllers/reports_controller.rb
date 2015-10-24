@@ -24,4 +24,11 @@ class ReportsController < ApplicationController
     @donations = @search.result(distinct: true).includes(:donor)
   end
 
+  def top_donors
+    params[:min_amount] = params[:min_amount] ? params[:min_amount].to_i : 10000
+    @top_kind = Donation.top_kind_above(params[:min_amount])
+    @top_non_kind = Donation.top_non_kind_above(params[:min_amount])
+    # @top_overall = Donation.includes(:donor).select("donor_id, sum(amount) as total_amount").group(:donor_id).having("total_amount > #{min_amount}").order("total_amount desc")
+  end
+
 end

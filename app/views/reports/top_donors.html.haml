@@ -1,0 +1,62 @@
+%div
+  = form_tag reports_top_donors_path, method: :get do
+    = label_tag "Donations above ₹ "
+    = text_field_tag :min_amount, params[:min_amount]
+    = submit_tag "Submit", class: "btn btn-primary btn-sm", name: nil
+
+%div
+  / Nav tabs
+  %ul#top-donors-tabs.nav.nav-tabs{:role => "tablist"}
+    %li.active{:role => "presentation"}
+      %a{"aria-controls" => "kind", "data-toggle" => "tab", :href => "#kind", :role => "tab"} Kind
+    %li{:role => "presentation"}
+      %a{"aria-controls" => "non-kind", "data-toggle" => "tab", :href => "#non-kind", :role => "tab"} Cash
+    %li{:role => "presentation"}
+      %a{"aria-controls" => "overall", "data-toggle" => "tab", :href => "#overall", :role => "tab"} Overall
+  / Tab panes
+  .tab-content
+    #kind.tab-pane.active{:role => "tabpanel"}
+      .table-responsive
+        %table.table
+          %thead
+            %tr
+              %th.col-md-4 Name
+              %th.col-md-3 Phone
+              %th.col-md-3 Email
+              %th.col-md-2 Amount
+          %tbody
+            - @top_kind.each do |donation|
+              - donor = donation.donor
+              - if donor
+                %tr
+                  %td= donor.full_name
+                  %td= donor.contact_number
+                  %td= donor.email
+                  %td= donation.total_amount
+              - else
+                %tr
+                  %td{colspan: 3} Donor Deleted
+                  %td= donation.total_amount
+    #non-kind.tab-pane{:role => "tabpanel"}
+      .table-responsive
+        %table.table
+          %thead
+            %tr
+              %th.col-md-4 Name
+              %th.col-md-3 Phone
+              %th.col-md-3 Email
+              %th.col-md-2 Amount
+          %tbody
+            - @top_non_kind.each do |donation|
+              - donor = donation.donor
+              - if donor
+                %tr
+                  %td= donor.full_name
+                  %td= donor.contact_number
+                  %td= donor.email
+                  %td= donation.total_amount
+              - else
+                %tr
+                  %td{colspan: 3} Donor Deleted
+                  %td= donation.total_amount
+    #overall.tab-pane{:role => "tabpanel"} WIP
