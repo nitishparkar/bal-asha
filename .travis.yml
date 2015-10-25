@@ -3,9 +3,9 @@ rvm:
 - 2.1.1
 before_script:
 - mysql -e 'create database `bal-asha_test`;'
-- 'cd ~ && mkdir .ssh'
 after_success:
 - "[[ $TRAVIS_BRANCH = 'master' ]] && bundle exec cap production deploy"
 before_install:
+- 'cd ~ && mkdir .ssh'
 - openssl aes-256-cbc -K $encrypted_da65dee97c5c_key -iv $encrypted_da65dee97c5c_iv
   -in bal_asha_deploy_id_rsa.enc -out ~\/.ssh/bal_asha_deploy_id_rsa -d
