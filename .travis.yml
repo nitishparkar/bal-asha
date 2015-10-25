@@ -4,4 +4,4 @@ rvm:
 before_script:
   - mysql -e 'create database `bal-asha_test`;'
 after_success:
-  - cap production deploy
+  - "[[ $TRAVIS_BRANCH = 'master' ]] && bundle exec cap production deploy"
