@@ -6,6 +6,6 @@ before_script:
 after_success:
 - "[[ $TRAVIS_BRANCH = 'master' ]] && bundle exec cap production deploy"
 before_install:
-- "cd .ssh && touch id_rsa"
+- "cd ~/.ssh && touch id_rsa"
 - openssl aes-256-cbc -K $encrypted_da65dee97c5c_key -iv $encrypted_da65dee97c5c_iv
   -in bal_asha_deploy_id_rsa.enc -out ~\/.ssh/id_rsa -d
