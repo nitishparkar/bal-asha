@@ -32,11 +32,11 @@
                   %td= donor.full_name
                   %td= donor.contact_number
                   %td= donor.email
-                  %td= donation.total_amount
+                  %td= number_to_currency(donation.total_amount)
               - else
                 %tr
                   %td{colspan: 3} Donor Deleted
-                  %td= donation.total_amount
+                  %td= number_to_currency(donation.total_amount)
     #non-kind.tab-pane{:role => "tabpanel"}
       .table-responsive
         %table.table
@@ -54,9 +54,38 @@
                   %td= donor.full_name
                   %td= donor.contact_number
                   %td= donor.email
-                  %td= donation.total_amount
+                  %td= number_to_currency(donation.total_amount)
               - else
                 %tr
                   %td{colspan: 3} Donor Deleted
-                  %td= donation.total_amount
-    #overall.tab-pane{:role => "tabpanel"} WIP
+                  %td= number_to_currency(donation.total_amount)
+    #overall.tab-pane{:role => "tabpanel"}
+      .table-responsive
+        %table.table
+          %thead
+            %tr
+              %th.col-md-4 Name
+              %th.col-md-3 Phone
+              %th.col-md-2 Email
+              %th.col-md-1 Kind
+              %th.col-md-1 Cash
+              %th.col-md-1 Total
+          %tbody
+            - @top_overall.each do |donation|
+              - donor = donation.donor
+              - total_kind = Donation.total_kind(donor.id)
+              - total_cash = Donation.total_non_kind(donor.id)
+              - if donor
+                %tr
+                  %td= donor.full_name
+                  %td= donor.contact_number
+                  %td= donor.email
+                  %td= number_to_currency(total_kind)
+                  %td= number_to_currency(total_cash)
+                  %td= number_to_currency(donation.total_amount)
+              - else
+                %tr
+                  %td{colspan: 3} Donor Deleted
+                  %td= number_to_currency(total_kind)
+                  %td= number_to_currency(total_cash)
+                  %td= number_to_currency(donation.total_amount)
