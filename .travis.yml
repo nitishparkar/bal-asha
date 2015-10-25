@@ -3,3 +3,5 @@ rvm:
   - 2.1.1
 before_script:
   - mysql -e 'create database `bal-asha_test`;'
+after_success:
+  - cap production deploy
