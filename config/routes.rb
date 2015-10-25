@@ -32,8 +32,9 @@ Rails.application.routes.draw do
   end
 
   scope path: '/reports', as: 'reports' do
-    get :daily_inventory, to: "reports"
-    get :audit, to: "reports"
+    get :daily_inventory, to: 'reports'
+    get :audit, to: 'reports'
+    get :top_donors, to: 'reports'
   end
 
   root 'welcome#index'

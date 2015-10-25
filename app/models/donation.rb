@@ -59,9 +59,29 @@ class Donation < ActiveRecord::Base
   end
 
   after_create :set_token
-
+  before_save :calculate_amount
   after_create :add_to_stock, if: :kind?
   before_destroy :remove_from_stock, if: :kind?
+
+  def self.top_kind_above(amount)
+    includes(:donor).select("donor_id, sum(amount) as total_amount").where(type_cd: Donation.type_cds["kind"]).group(:donor_id).having("total_amount > #{amount}").order("total_amount desc")
+  end
+
+  def self.top_non_kind_above(amount)
+    includes(:donor).select("donor_id, sum(amount) as total_amount").non_kind.group(:donor_id).having("total_amount > #{amount}").order("total_amount desc")
+  end
+
+  def self.top_overall_above(amount)
+    includes(:donor).select("donor_id, sum(amount) as total_amount").group(:donor_id).having("total_amount > #{amount}").order("total_amount desc")
+  end
+
+  def self.total_kind(donor_id)
+    where(type_cd: Donation.type_cds["kind"], donor_id: donor_id).sum(:amount)
+  end
+
+  def self.total_non_kind(donor_id)
+    non_kind.where(donor_id: donor_id).sum(:amount)
+  end
 
   private
     def set_token
@@ -72,5 +92,9 @@ class Donation < ActiveRecord::Base
       else
         self.update_attribute(:token, token)
       end
+    end
+
+    def calculate_amount
+      self.amount = transaction_items.map{ |ti| ti.rate * ti.quantity }.sum
     end
 end
