@@ -19,9 +19,15 @@ class ReportsController < ApplicationController
 
   def audit
     @search = Donation.non_kind.ransack(params[:q])
-    @search.sorts = 'created_at ASC' if @search.sorts.empty?
+    @search.sorts = 'receipt_number ASC' if @search.sorts.empty?
     @search.date_daterange = "#{l(Date.today - 1.month, format: :formal)} - #{l(Date.today, format: :formal)}" unless params[:q]
     @donations = @search.result(distinct: true).includes(:donor)
+    respond_to do |format|
+      format.html { render "audit" }
+      format.csv {
+        send_data(Donation.audit_csv(@donations), filename: "audit-#{@search.date_daterange}.csv")
+      }
+    end
   end
 
   def top_donors

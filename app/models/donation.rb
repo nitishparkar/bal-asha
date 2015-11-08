@@ -83,6 +83,16 @@ class Donation < ActiveRecord::Base
     non_kind.where(donor_id: donor_id).sum(:amount)
   end
 
+  def self.audit_csv(donations)
+    CSV.generate do |csv|
+      csv << ["Receipt No", "Date", "Name", "Amount", "Mode"]
+      donations.each do |donation|
+        csv << [donation.receipt_number, I18n.l(donation.date, format: :formal),
+          donation.donor.try(:full_name), donation.amount, donation.type_cd.titleize]
+      end
+    end
+  end
+
   private
     def set_token
       token_number = self.id.to_s.rjust(6, '0')
