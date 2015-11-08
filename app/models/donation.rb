@@ -43,7 +43,7 @@ class Donation < ActiveRecord::Base
   validates :amount, :receipt_number, presence: true,
       if: Proc.new { |d| d.type_cd != "kind" }
 
-  validates :amount, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
+  validates :amount, numericality: { greater_than: 0 }, allow_nil: true
 
   validates :transaction_items, presence: true,
       if: Proc.new { |d| d.type_cd == "kind" }
@@ -59,7 +59,7 @@ class Donation < ActiveRecord::Base
   end
 
   after_create :set_token
-  before_save :calculate_amount
+  before_save :calculate_amount, if: :kind?
   after_create :add_to_stock, if: :kind?
   before_destroy :remove_from_stock, if: :kind?
 
