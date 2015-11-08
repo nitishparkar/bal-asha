@@ -61,9 +61,13 @@ class DonationTest < ActiveSupport::TestCase
     assert_not donation.save
   end
 
-  test "amount should not be negative" do
+  test "amount should not be negative or zero" do
     donation = donations(:cash)
     donation.amount = -1
+    assert_not donation.save
+
+    donation = donations(:cash)
+    donation.amount = 0
     assert_not donation.save
   end
 
@@ -84,6 +88,25 @@ class DonationTest < ActiveSupport::TestCase
       donor_id: Donor.first.id, amount: 1000, receipt_number: "BAT76554", type_cd: 1,
       transaction_items_attributes: { "0" => {quantity: 1, item_id: Item.first.id}, "1" => {quantity: 1, item_id: Item.last.id}})
     assert donation.save
+  end
+
+  test "amount should be calculated for kind donations" do
+    milk = items(:milk)
+    bread = items(:bread)
+
+    donation = Donation.new(date: Date.today, person_id: Person.first.id,
+      donor_id: Donor.first.id, amount: 1000, receipt_number: "BAT76554", type_cd: 1)
+    donation.transaction_items.build(item_id: milk.id, quantity: 10)
+    donation.transaction_items.build(item_id: bread.id, quantity: 10)
+    donation.save!
+
+    assert_equal donation.amount, milk.current_rate * 10 + bread.current_rate * 10
+  end
+
+  test "amount should not be calculated for non-kind donations" do
+    donation = donations(:cash)
+    donation.save
+    refute_equal donation.amount, 0
   end
 
   test "new kind donation should increment stock" do
