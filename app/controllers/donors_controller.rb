@@ -35,8 +35,12 @@ class DonorsController < ApplicationController
   end
 
   def destroy
-    @donor.destroy
-    redirect_to donors_path
+    if @donor.donations.exists?
+      redirect_to donors_path, alert: 'Cannot remove a donor with donations.'
+    else
+      @donor.destroy
+      redirect_to donors_path, notice: 'Donor was successfully removed.'
+    end
   end
 
   def info
