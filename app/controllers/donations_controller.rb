@@ -25,8 +25,7 @@ class DonationsController < ApplicationController
       format.html
       format.pdf do
         render pdf: "receipt", layout: "pdf.html",
-          template: "donations/#{@donation.kind? ? 'kind' : 'cash' }_receipt.html.haml",
-          dpi: 300
+          template: "donations/#{@donation.kind? ? 'kind' : 'cash' }_receipt.html.haml"
       end
     end
   end
