@@ -3,7 +3,7 @@ module Transactionable
 
   included do
     has_many :transaction_items, as: :transactionable, dependent: :destroy
-    accepts_nested_attributes_for :transaction_items, allow_destroy: true
+    accepts_nested_attributes_for :transaction_items, allow_destroy: true, reject_if: proc { |attributes| attributes['item_id'].blank? }
   end
 
   private
