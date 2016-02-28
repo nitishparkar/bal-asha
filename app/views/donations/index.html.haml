@@ -2,9 +2,12 @@
   .col-md-10
     = search_form_for @search, url: donations_path, method: :get, remote: true, class: "form-inline" do |f|
       .row
-        .form-group.col-md-6
+        .form-group.col-md-4
           .input-group.col-md-12
             = f.search_field :donor_first_name_or_donor_last_name_cont, class: "form-control donation-donor-search", placeholder: "Search by Donor Name"
+        .form-group.col-md-2
+          .input-group.col-md-12
+            = f.text_field :receipt_number_cont, class: "form-control donation-receipt-search", placeholder: "Search by Receipt no"
         .form-group.col-md-3
           .input-group.col-md-12
             = f.text_field :date_daterange, class: "form-control daterangepicker"

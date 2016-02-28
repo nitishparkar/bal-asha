@@ -297,6 +297,13 @@ $(document).ready(function() {
     delay: 200
   });
 
+  $(".donation-receipt-search").typing({
+    stop: function (event, $elem) {
+        filterDonations();
+    },
+    delay: 200
+  });
+
   $('#donation_search .daterangepicker').on('hide.daterangepicker', function(ev, picker) {
     filterDonations();
   });
