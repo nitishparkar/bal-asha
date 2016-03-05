@@ -53,8 +53,7 @@ gem 'kaminari-bootstrap', '~> 3.0.1'
 gem 'select2-rails'
 gem 'faker'
 
-# Sending email notifications when errors occur
-gem 'exception_notification'
+gem 'rollbar', '~> 2.7.1'
 
 gem 'paranoia', '~> 2.0'
 
