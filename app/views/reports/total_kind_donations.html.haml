@@ -1,0 +1,35 @@
+.row.hidden-print
+  .col-md-12
+    = form_tag reports_total_kind_donations_path, method: :get, class: "form-inline" do
+      .row
+        .form-group.col-md-3
+          .input-group.col-md-12
+            = text_field_tag :date_range, params[:date_range], class: "form-control daterangepicker", required: true
+        .form-group.col-md-3
+          .input-group.col-md-12
+            = select_tag :category_id, options_from_collection_for_select(Category.all, :id, :name, params[:category_id]), {include_blank: "Select Category", class: "form-control", required: true}
+        .form-group.col-md-3
+          = submit_tag "Generate", class: "btn btn-primary", name: '', data: { disable_with: "Please wait.." }
+        -#.form-group.col-md-3.clearfix
+        -#  = link_to "Print", "javascript:void(0)", onlick: "window.print()", class: "btn btn-link print-page pull-right"
+
+%br
+
+.table-responsive
+  %table.table.table-striped.table-condensed
+    %thead
+      %tr
+        %th.col-md-2 Item
+        %th.col-md-2 Quantity
+
+    %tbody
+      - if @total_kind_donations.empty?
+        %tr
+          %td{colspan: 2} No items in this category for the selected period
+      - else
+        - @total_kind_donations.each do |_, transaction_items|
+          - item = transaction_items.first.item
+          %tr
+            %td.col-md-2= item.name
+            %td.col-md-2= "#{transaction_items.sum(&:quantity)} #{item.unit}"
+

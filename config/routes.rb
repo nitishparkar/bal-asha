@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     get :daily_inventory, to: 'reports'
     get :audit, to: 'reports'
     get :top_donors, to: 'reports'
+    get :total_kind_donations, to: 'reports'
   end
 
   root 'welcome#index'

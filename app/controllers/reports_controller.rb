@@ -37,4 +37,18 @@ class ReportsController < ApplicationController
     @top_overall = Donation.top_overall_above(params[:min_amount])
   end
 
+  def total_kind_donations
+    begin
+      if params[:date_range].present? && params[:date_range].include?(' - ')
+        dt = params[:date_range].split(' - ')
+        start_date = Date.parse(dt[0])
+        end_date = Date.parse(dt[1])
+      end
+    rescue ArgumentError
+      start_date = end_date = nil
+    end
+
+    @total_kind_donations = ReportsService.total_kind_donations(start_date, end_date, params[:category_id])
+  end
+
 end
