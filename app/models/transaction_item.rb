@@ -17,6 +17,7 @@ class TransactionItem < ActiveRecord::Base
 
   belongs_to :item
   belongs_to :transactionable, polymorphic: true
+  belongs_to :donation, -> { where(transaction_items: {transactionable_type: 'Donation'}) }, foreign_key: 'transactionable_id'
 
   validates :item_id, :rate, :quantity, :transactionable_type, presence: true
 
