@@ -24,10 +24,14 @@ table th {
   margin: 0 auto;*/
 }
 
-.logo {
+.logo-old {
   width: 150px;
   margin: 0 auto;
   display: block;
+}
+
+.logo {
+  width: 150px;
 }
 
 .small-text {
