@@ -5,7 +5,6 @@
     - if @donor
       %small= link_to "Edit Donor Info", edit_donor_path(@donor), class: "btn btn-link"
       %small= link_to "PDF Receipt", print_donation_path(@donation, format: :pdf), target: "_blank", class: "btn btn-link"
-      %small= link_to "OLD PDF Receipt", print_donation_path(@donation, format: :pdf, old_receipt: true), target: "_blank", class: "btn btn-link" if @donation.kind?
 
 .row
   .col-md-6

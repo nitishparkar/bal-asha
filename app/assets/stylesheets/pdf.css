@@ -1,5 +1,5 @@
 body {
-  font-family: serif;
+  font-family: Sans-Serif;
   font-size: 16px !important;
 }
 
@@ -22,12 +22,6 @@ table th {
 .container {
   /*width: 90%;
   margin: 0 auto;*/
-}
-
-.logo-old {
-  width: 150px;
-  margin: 0 auto;
-  display: block;
 }
 
 .logo {
