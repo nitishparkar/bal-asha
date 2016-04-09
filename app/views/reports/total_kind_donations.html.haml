@@ -28,11 +28,19 @@
         %tr
           %td{colspan: 3} No items in this category for the selected period
       - else
+        - total_cost = 0
         - @total_kind_donations.each do |_, transaction_items|
           - item = transaction_items.first.item
           - quantity = transaction_items.sum(&:quantity)
           - cost = transaction_items.map{ |ti| ti.quantity * ti.rate }.sum
+          - total_cost = total_cost + cost
           %tr
             %td= item.name
             %td= "#{quantity} #{item.unit}"
             %td= number_to_currency(cost)
+        %tr
+          %td
+          %td
+            %b Total Cost:
+          %td
+            %b= number_to_currency(total_cost)
