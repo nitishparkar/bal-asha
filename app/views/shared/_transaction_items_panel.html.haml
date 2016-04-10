@@ -1,4 +1,4 @@
-- editing_disabled = (params[:action] == 'edit' || params[:action] == 'update')
+- edit_mode = (params[:action] == 'edit' || params[:action] == 'update')
 
 .panel.panel-default#items
   .panel-body
@@ -13,13 +13,14 @@
       .row
         .col-md-5
           = builder.association :item, label: false do
-            = builder.select :item_id, Item.order(:name).map{|item| [item.name, item.id, {data: {current_rate: item.current_rate}} ] }, {include_blank: "Select an item"}, class: "form-control transaction_item_select", disabled: editing_disabled
+            = builder.select :item_id, Item.order(:name).map{|item| [item.name, item.id, {data: {current_rate: item.current_rate}} ] }, {include_blank: "Select an item"}, class: "form-control transaction_item_select", disabled: edit_mode
+            = builder.hidden_field :item_id if edit_mode
         .col-md-4
-          = builder.input :quantity, label: false, disabled: editing_disabled
-        - unless editing_disabled
+          = builder.input :quantity, label: false
+        - unless edit_mode
           .col-md-3.close-link
             = builder.link_to_remove "Remove" do
               = image_tag "cross.svg"
 
-    - unless editing_disabled
+    - unless edit_mode
       = f.link_to_add "Add an item", :transaction_items

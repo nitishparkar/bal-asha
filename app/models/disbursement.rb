@@ -29,14 +29,23 @@ class Disbursement < ActiveRecord::Base
 
   after_create :remove_from_stock
   before_destroy :add_to_stock
+  before_update :update_stock_negative
 
   private
     def stock_remains_positive
       self.transaction_items.each do |transaction_item|
-        item = transaction_item.item
-        if item.stock_quantity - transaction_item.quantity < 0
+        item = transaction_item.item.reload
+        if invalid_quantity?(item, transaction_item, self.new_record?)
           errors.add(:base, "Not enough #{item.name}")
         end
+      end
+    end
+
+    def invalid_quantity?(item, transaction_item, new_record)
+      if new_record
+        item.stock_quantity - transaction_item.quantity < 0
+      else
+        item.stock_quantity + transaction_item.quantity_was - transaction_item.quantity < 0
       end
     end
 end

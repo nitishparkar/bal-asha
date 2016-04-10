@@ -73,6 +73,28 @@ class PurchaseTest < ActiveSupport::TestCase
     assert_equal  initial_bread_stock, items(:bread).reload.stock_quantity
   end
 
+  test "updating purchase should update stock accordingly" do
+    milk = items(:milk)
+    bread = items(:bread)
+
+    initial_milk_stock = milk.stock_quantity
+    initial_bread_stock = bread.stock_quantity
+
+    purchase = Purchase.new(purchase_date: Date.today, person_id: Person.first.id, vendor: "Genii")
+    purchase.transaction_items.build(item_id: milk.id, quantity: 10)
+    purchase.transaction_items.build(item_id: bread.id, quantity: 10)
+    purchase.save
+
+    assert_equal  initial_milk_stock + 10, items(:milk).reload.stock_quantity
+    assert_equal  initial_bread_stock + 10, items(:bread).reload.stock_quantity
+
+    milk_transaction_item = purchase.transaction_items.detect{|ti| ti.item_id == milk.id }
+    purchase.update(transaction_items_attributes: { "0" => {id: milk_transaction_item.id, quantity: 5, item_id: milk.id}})
+
+    assert_equal  initial_milk_stock + 5, items(:milk).reload.stock_quantity
+    assert_equal  initial_bread_stock + 10, items(:bread).reload.stock_quantity
+  end
+
   test "it shouldn't matter if an item is repeated in a purchase" do
     milk = items(:milk)
 

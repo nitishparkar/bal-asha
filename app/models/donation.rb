@@ -62,6 +62,7 @@ class Donation < ActiveRecord::Base
   before_save :calculate_amount, if: :kind?
   after_create :add_to_stock, if: :kind?
   before_destroy :remove_from_stock, if: :kind?
+  before_update :update_stock_positive, if: :kind?
 
   def self.top_kind_above(amount)
     includes(:donor).select("donor_id, sum(amount) as total_amount").where(type_cd: Donation.type_cds["kind"]).group(:donor_id).having("total_amount > #{amount}").order("total_amount desc")

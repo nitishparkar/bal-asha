@@ -32,4 +32,5 @@ class Purchase < ActiveRecord::Base
 
   after_create :add_to_stock
   before_destroy :remove_from_stock
+  before_update :update_stock_positive
 end

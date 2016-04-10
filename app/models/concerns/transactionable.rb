@@ -22,4 +22,20 @@ module Transactionable
           item.stock_quantity - transaction_item.quantity)
       end
     end
+
+    def update_stock_positive
+      self.transaction_items.each do |transaction_item|
+        item = transaction_item.item.reload
+        item.update_attribute(:stock_quantity,
+                              item.stock_quantity - transaction_item.quantity_was + transaction_item.quantity)
+      end
+    end
+
+    def update_stock_negative
+      self.transaction_items.each do |transaction_item|
+        item = transaction_item.item.reload
+        item.update_attribute(:stock_quantity,
+                              item.stock_quantity + transaction_item.quantity_was - transaction_item.quantity)
+      end
+    end
 end
