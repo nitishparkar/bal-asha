@@ -14,11 +14,6 @@ Lint/BlockAlignment:
   Exclude:
     - 'config/deploy.rb'
 
-# Offense count: 1
-Lint/UselessAssignment:
-  Exclude:
-    - 'app/controllers/comments_controller.rb'
-
 # Offense count: 7
 Metrics/AbcSize:
   Max: 24
