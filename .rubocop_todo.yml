@@ -157,13 +157,6 @@ Style/IfUnlessModifier:
 Style/IndentationConsistency:
   Enabled: false
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: Width.
-Style/IndentationWidth:
-  Exclude:
-    - 'config/deploy.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/MultilineBlockLayout:
@@ -175,13 +168,6 @@ Style/MultilineBlockLayout:
 # Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
 # SupportedStyles: aligned, indented
 Style/MultilineMethodCallIndentation:
-  Enabled: false
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
-# SupportedStyles: aligned, indented
-Style/MultilineOperationIndentation:
   Enabled: false
 
 # Offense count: 1
@@ -208,13 +194,6 @@ Style/PredicateName:
   Exclude:
     - 'app/models/item.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-Style/Proc:
-  Exclude:
-    - 'app/models/donation.rb'
-    - 'app/models/donor.rb'
-
 # Offense count: 12
 # Cop supports --auto-correct.
 Style/RedundantSelf:
@@ -231,24 +210,12 @@ Style/Semicolon:
   Exclude:
     - 'config/initializers/ransack.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/SpaceAfterColon:
-  Exclude:
-    - 'db/seeds.rb'
-
 # Offense count: 6
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # SupportedStyles: space, no_space
 Style/SpaceBeforeBlockBraces:
   Enabled: false
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/SpaceBeforeComma:
-  Exclude:
-    - 'db/seeds.rb'
 
 # Offense count: 6
 # Cop supports --auto-correct.
@@ -259,33 +226,12 @@ Style/SpaceBeforeFirstArg:
     - 'test/models/donation_test.rb'
     - 'test/models/purchase_test.rb'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, EnforcedStyleForEmptyBraces, SpaceBeforeBlockParameters.
-# SupportedStyles: space, no_space
-Style/SpaceInsideBlockBraces:
-  Enabled: false
-
-# Offense count: 4
-# Cop supports --auto-correct.
-Style/SpaceInsideBrackets:
-  Exclude:
-    - 'config/initializers/devise.rb'
-
 # Offense count: 64
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces, SupportedStyles.
 # SupportedStyles: space, no_space
 Style/SpaceInsideHashLiteralBraces:
   Enabled: false
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: space, no_space
-Style/SpaceInsideStringInterpolation:
-  Exclude:
-    - 'app/controllers/donations_controller.rb'
 
 # Offense count: 203
 # Cop supports --auto-correct.
@@ -300,33 +246,6 @@ Style/StringLiterals:
 # SupportedStyles: single_quotes, double_quotes
 Style/StringLiteralsInInterpolation:
   Enabled: false
-
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: final_newline, final_blank_line
-Style/TrailingBlankLines:
-  Exclude:
-    - 'app/services/reports_service.rb'
-    - 'config/deploy.rb'
-    - 'config/deploy/staging.rb'
-    - 'config/initializers/cookies_serializer.rb'
-    - 'config/initializers/ransack.rb'
-    - 'db/seeds.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyleForMultiline, SupportedStyles.
-# SupportedStyles: comma, consistent_comma, no_comma
-Style/TrailingCommaInLiteral:
-  Exclude:
-    - 'config/initializers/simple_form_bootstrap.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/UnneededInterpolation:
-  Exclude:
-    - 'config/deploy.rb'
 
 # Offense count: 7
 # Cop supports --auto-correct.

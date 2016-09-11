@@ -51,7 +51,7 @@ class Donor < ActiveRecord::Base
         presence: true
 
   validates :trust_no, presence: true,
-      if: Proc.new { |d| d.donor_type == "trust" }
+      if: proc { |d| d.donor_type == "trust" }
 
   validate :one_contact_present
 
@@ -102,7 +102,7 @@ class Donor < ActiveRecord::Base
 
   private
     def one_contact_present
-      if %w(mobile telephone email).all?{|attr| self[attr].blank?}
+      if %w(mobile telephone email).all?{ |attr| self[attr].blank? }
         errors.add :base, "Atleast one contact info is required. Enter mobile, email or telephone."
       end
     end

@@ -38,15 +38,15 @@ class Donation < ActiveRecord::Base
   validates_presence_of :donor_id, :person_id, :type_cd, :date
 
   validates :payment_details, presence: true,
-      if: Proc.new { |d| d.type_cd == "cheque" }
+      if: proc { |d| d.type_cd == "cheque" }
 
   validates :amount, :receipt_number, presence: true,
-      if: Proc.new { |d| d.type_cd != "kind" }
+      if: proc { |d| d.type_cd != "kind" }
 
   validates :amount, numericality: { greater_than: 0 }, allow_nil: true
 
   validates :transaction_items, presence: true,
-      if: Proc.new { |d| d.type_cd == "kind" }
+      if: proc { |d| d.type_cd == "kind" }
 
   delegate :full_name, to: :donor, prefix: true, allow_nil: true
   delegate :contact_info, to: :donor, prefix: true
