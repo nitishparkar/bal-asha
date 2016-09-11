@@ -10,5 +10,4 @@ class DisbursementsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:disbursements)
   end
 
-
 end

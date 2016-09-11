@@ -10,5 +10,4 @@ class ItemsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:items)
   end
 
-
 end

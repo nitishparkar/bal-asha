@@ -78,28 +78,9 @@ Style/AlignParameters:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, ProceduralMethods, FunctionalMethods, IgnoredMethods.
-# SupportedStyles: line_count_based, semantic, braces_for_chaining
-# ProceduralMethods: benchmark, bm, bmbm, create, each_with_object, measure, new, realtime, tap, with_object
-# FunctionalMethods: let, let!, subject, watch
-# IgnoredMethods: lambda, proc, it
-Style/BlockDelimiters:
-  Exclude:
-    - 'app/controllers/reports_controller.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 Style/BlockEndNewline:
   Exclude:
     - 'config/initializers/ransack.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: braces, no_braces, context_dependent
-Style/BracesAroundHashParameters:
-  Exclude:
-    - 'config/deploy.rb'
 
 # Offense count: 2
 # Configuration parameters: EnforcedStyle, SupportedStyles.
@@ -117,20 +98,6 @@ Style/ColonMethodCall:
 # Offense count: 53
 Style/Documentation:
   Enabled: false
-
-# Offense count: 9
-# Cop supports --auto-correct.
-Style/EmptyLines:
-  Exclude:
-    - 'app/services/daily_inventory_service.rb'
-    - 'test/controllers/categories_controller_test.rb'
-    - 'test/controllers/disbursements_controller_test.rb'
-    - 'test/controllers/donations_controller_test.rb'
-    - 'test/controllers/donors_controller_test.rb'
-    - 'test/controllers/items_controller_test.rb'
-    - 'test/controllers/people_controller_test.rb'
-    - 'test/controllers/purchases_controller_test.rb'
-    - 'test/models/item_test.rb'
 
 # Offense count: 14
 # Cop supports --auto-correct.
@@ -150,15 +117,6 @@ Style/EmptyLinesAroundAccessModifier:
     - 'app/models/donation.rb'
     - 'app/models/donor.rb'
     - 'app/models/transaction_item.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: empty_lines, no_empty_lines
-Style/EmptyLinesAroundBlockBody:
-  Exclude:
-    - 'config/environments/development.rb'
-    - 'config/routes.rb'
 
 # Offense count: 44
 # Cop supports --auto-correct.

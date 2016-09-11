@@ -3,7 +3,6 @@ require 'mina/rails'
 require 'mina/git'
 require 'mina/rvm'
 
-
 set :user, ENV['BALASHA_PROD_USER']
 set :domain, ENV['BALASHA_PROD_SERVER']
 set :forward_agent, true

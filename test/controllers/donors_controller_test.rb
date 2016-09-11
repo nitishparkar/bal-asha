@@ -10,5 +10,4 @@ class DonorsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:donors)
   end
 
-
 end

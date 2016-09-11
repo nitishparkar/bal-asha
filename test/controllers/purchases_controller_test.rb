@@ -10,5 +10,4 @@ class PurchasesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:purchases)
   end
 
-
 end

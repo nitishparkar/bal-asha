@@ -24,9 +24,9 @@ class ReportsController < ApplicationController
     @donations = @search.result(distinct: true).includes(:donor)
     respond_to do |format|
       format.html { render "audit" }
-      format.csv {
+      format.csv do
         send_data(Donation.audit_csv(@donations), filename: "audit-#{@search.date_daterange}.csv")
-      }
+      end
     end
   end
 
