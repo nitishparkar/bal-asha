@@ -63,19 +63,10 @@ group :development do
 
   # rails_best_practices -f html .
   gem 'rails_best_practices'
-  gem 'capistrano', '~> 3.2.0'
-  gem 'capistrano-rvm'
-
-  # rails specific capistrano funcitons
-  gem 'capistrano-rails', '~> 1.1.0'
-
-  # integrate bundler with capistrano
-  gem 'capistrano-bundler'
 
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'
-  gem 'capistrano-db-tasks', require: false
 end
 
 group :development, :test do
