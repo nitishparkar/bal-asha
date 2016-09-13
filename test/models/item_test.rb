@@ -39,7 +39,6 @@ class ItemTest < ActiveSupport::TestCase
     assert_not item1.save
   end
 
-
   # fixture dependency
   test "needs" do
     # Total 2 items in db

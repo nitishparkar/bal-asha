@@ -80,6 +80,8 @@ group :development, :test do
   gem 'bullet'
   # Profiling middleware for development
   gem 'rack-mini-profiler'
+  # Enforce ruby style guide
+  gem 'rubocop', require: false
 end
 
 

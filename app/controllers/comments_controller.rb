@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   before_filter :load_commentable
 
   def create
-    comment = @commentable.comments.create(comment_params)
+    @commentable.comments.create(comment_params)
     redirect_to @commentable
   end
 

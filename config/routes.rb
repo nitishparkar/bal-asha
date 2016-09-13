@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   resources :disbursements
 
   resources :donations
@@ -39,5 +38,4 @@ Rails.application.routes.draw do
   end
 
   root 'welcome#index'
-
 end

@@ -88,7 +88,7 @@ class PurchaseTest < ActiveSupport::TestCase
     assert_equal  initial_milk_stock + 10, items(:milk).reload.stock_quantity
     assert_equal  initial_bread_stock + 10, items(:bread).reload.stock_quantity
 
-    milk_transaction_item = purchase.transaction_items.detect{|ti| ti.item_id == milk.id }
+    milk_transaction_item = purchase.transaction_items.detect{ |ti| ti.item_id == milk.id }
     purchase.update(transaction_items_attributes: { "0" => {id: milk_transaction_item.id, quantity: 5, item_id: milk.id}})
 
     assert_equal  initial_milk_stock + 5, items(:milk).reload.stock_quantity
