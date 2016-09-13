@@ -33,7 +33,7 @@ class DailyInventoryService
 
   def opening_balance(item_id)
     Donation.joins(:transaction_items).where(type_cd: Donation.type_cds[:kind],
-      transaction_items: { item_id: item_id }).where("date < ?", inventory_date.beginning_of_day)
+                                             transaction_items: { item_id: item_id }).where("date < ?", inventory_date.beginning_of_day)
         .sum("transaction_items.quantity") +
       Purchase.joins(:transaction_items).where(transaction_items: { item_id: item_id })
         .where("purchase_date < ?", inventory_date.beginning_of_day)
@@ -45,20 +45,20 @@ class DailyInventoryService
 
   def donations(item_id)
     Donation.joins(:transaction_items).where(type_cd: Donation.type_cds[:kind],
-      date: inventory_date.beginning_of_day..inventory_date.end_of_day,
-        transaction_items: { item_id: item_id }).sum("transaction_items.quantity")
+                                             date: inventory_date.beginning_of_day..inventory_date.end_of_day,
+                                             transaction_items: { item_id: item_id }).sum("transaction_items.quantity")
   end
 
   def purchases(item_id)
     Purchase.joins(:transaction_items).where(
       purchase_date: inventory_date.beginning_of_day..inventory_date.end_of_day,
-        transaction_items: { item_id: item_id }).sum("transaction_items.quantity")
+      transaction_items: { item_id: item_id }).sum("transaction_items.quantity")
   end
 
   def disbursements(item_id)
     Disbursement.joins(:transaction_items).where(
       disbursement_date: inventory_date.beginning_of_day..inventory_date.end_of_day,
-        transaction_items: { item_id: item_id }).sum("transaction_items.quantity")
+      transaction_items: { item_id: item_id }).sum("transaction_items.quantity")
   end
 
   def closing_balance(opening_balance, donations, purchases, disbursements)

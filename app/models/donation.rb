@@ -37,16 +37,13 @@ class Donation < ActiveRecord::Base
 
   validates_presence_of :donor_id, :person_id, :type_cd, :date
 
-  validates :payment_details, presence: true,
-      if: proc { |d| d.type_cd == "cheque" }
+  validates :payment_details, presence: true, if: proc { |d| d.type_cd == "cheque" }
 
-  validates :amount, :receipt_number, presence: true,
-      if: proc { |d| d.type_cd != "kind" }
+  validates :amount, :receipt_number, presence: true, if: proc { |d| d.type_cd != "kind" }
 
   validates :amount, numericality: { greater_than: 0 }, allow_nil: true
 
-  validates :transaction_items, presence: true,
-      if: proc { |d| d.type_cd == "kind" }
+  validates :transaction_items, presence: true, if: proc { |d| d.type_cd == "kind" }
 
   delegate :full_name, to: :donor, prefix: true, allow_nil: true
   delegate :contact_info, to: :donor, prefix: true
@@ -89,7 +86,7 @@ class Donation < ActiveRecord::Base
       csv << ["Receipt No", "Date", "Name", "Amount", "Mode"]
       donations.each do |donation|
         csv << [donation.receipt_number, I18n.l(donation.date, format: :formal),
-          donation.donor.try(:full_name), donation.amount, donation.type_cd.titleize]
+                donation.donor.try(:full_name), donation.amount, donation.type_cd.titleize]
       end
     end
   end
@@ -106,6 +103,6 @@ class Donation < ActiveRecord::Base
     end
 
     def calculate_amount
-      self.amount = transaction_items.map{ |ti| ti.rate * ti.quantity }.sum
+      self.amount = transaction_items.map { |ti| ti.rate * ti.quantity }.sum
     end
 end

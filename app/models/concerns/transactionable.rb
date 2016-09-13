@@ -11,7 +11,7 @@ module Transactionable
       self.transaction_items.with_deleted.each do |transaction_item|
         item = transaction_item.item.reload
         item.update_attribute(:stock_quantity,
-          item.stock_quantity + transaction_item.quantity)
+                              item.stock_quantity + transaction_item.quantity)
       end
     end
 
@@ -19,7 +19,7 @@ module Transactionable
       self.transaction_items.with_deleted.each do |transaction_item|
         item = transaction_item.item.reload
         item.update_attribute(:stock_quantity,
-          item.stock_quantity - transaction_item.quantity)
+                              item.stock_quantity - transaction_item.quantity)
       end
     end
 

@@ -47,11 +47,10 @@ class Donor < ActiveRecord::Base
   has_many :call_for_actions
 
   validates :first_name, :donor_type, :level,
-      :country_code, :solicit,
-        presence: true
+            :country_code, :solicit,
+            presence: true
 
-  validates :trust_no, presence: true,
-      if: proc { |d| d.donor_type == "trust" }
+  validates :trust_no, presence: true, if: proc { |d| d.donor_type == "trust" }
 
   validate :one_contact_present
 
@@ -102,7 +101,7 @@ class Donor < ActiveRecord::Base
 
   private
     def one_contact_present
-      if %w(mobile telephone email).all?{ |attr| self[attr].blank? }
+      if %w(mobile telephone email).all? { |attr| self[attr].blank? }
         errors.add :base, "Atleast one contact info is required. Enter mobile, email or telephone."
       end
     end

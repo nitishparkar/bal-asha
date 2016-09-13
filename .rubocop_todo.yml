@@ -6,14 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: AlignWith, SupportedStyles.
-# SupportedStyles: either, start_of_block, start_of_line
-Lint/BlockAlignment:
-  Exclude:
-    - 'config/deploy.rb'
-
 # Offense count: 7
 Metrics/AbcSize:
   Max: 24
@@ -38,38 +30,6 @@ Metrics/MethodLength:
 # Configuration parameters: CountKeywordArgs.
 Metrics/ParameterLists:
   Max: 6
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/AlignArray:
-  Exclude:
-    - 'app/models/donation.rb'
-
-# Offense count: 21
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedHashRocketStyle, EnforcedColonStyle, EnforcedLastArgumentHashStyle, SupportedLastArgumentHashStyles.
-# SupportedLastArgumentHashStyles: always_inspect, always_ignore, ignore_implicit, ignore_explicit
-Style/AlignHash:
-  Exclude:
-    - 'app/controllers/donations_controller.rb'
-    - 'app/models/donation.rb'
-    - 'app/models/donor.rb'
-    - 'app/services/daily_inventory_service.rb'
-    - 'config/initializers/simple_form.rb'
-    - 'test/models/disbursement_test.rb'
-    - 'test/models/donation_test.rb'
-    - 'test/models/purchase_test.rb'
-
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: with_first_parameter, with_fixed_indentation
-Style/AlignParameters:
-  Exclude:
-    - 'app/models/concerns/transactionable.rb'
-    - 'app/models/donor.rb'
-    - 'config/environments/staging.rb'
-    - 'config/initializers/ransack.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
@@ -205,22 +165,6 @@ Style/Semicolon:
   Exclude:
     - 'config/initializers/ransack.rb'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: space, no_space
-Style/SpaceBeforeBlockBraces:
-  Enabled: false
-
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: AllowForAlignment.
-Style/SpaceBeforeFirstArg:
-  Exclude:
-    - 'test/models/disbursement_test.rb'
-    - 'test/models/donation_test.rb'
-    - 'test/models/purchase_test.rb'
-
 # Offense count: 64
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces, SupportedStyles.
@@ -233,13 +177,6 @@ Style/SpaceInsideHashLiteralBraces:
 # Configuration parameters: EnforcedStyle, SupportedStyles, ConsistentQuotesInMultiline.
 # SupportedStyles: single_quotes, double_quotes
 Style/StringLiterals:
-  Enabled: false
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiteralsInInterpolation:
   Enabled: false
 
 # Offense count: 7
