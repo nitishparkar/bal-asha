@@ -90,8 +90,8 @@ Rails.application.configure do
 end
 
 BalAsha::Application.config.middleware.use ExceptionNotification::Rack,
-  email: {
-    email_prefix: '(Staging) BalAsha Error - ',
-    sender_address: %{'GeniiLabs' <error@genii.in>},
-    exception_recipients: %w{tanay@genii.in nitish@genii.in}
-  }
+                                           email: {
+                                             email_prefix: '(Staging) BalAsha Error - ',
+                                             sender_address: %{'GeniiLabs' <error@genii.in>},
+                                             exception_recipients: %w{tanay@genii.in nitish@genii.in}
+                                           }

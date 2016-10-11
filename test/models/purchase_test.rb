@@ -32,7 +32,7 @@ class PurchaseTest < ActiveSupport::TestCase
 
   test "should accept nested attributes for transaction_items" do
     purchase = Purchase.new(purchase_date: Date.today, person_id: Person.first.id, vendor: "Genii",
-      transaction_items_attributes: { "0" => {quantity: 1, item_id: Item.first.id}, "1" => {quantity: 1, item_id: Item.last.id}})
+                            transaction_items_attributes: { "0" => {quantity: 1, item_id: Item.first.id}, "1" => {quantity: 1, item_id: Item.last.id}})
     assert purchase.save
   end
 
@@ -88,7 +88,7 @@ class PurchaseTest < ActiveSupport::TestCase
     assert_equal  initial_milk_stock + 10, items(:milk).reload.stock_quantity
     assert_equal  initial_bread_stock + 10, items(:bread).reload.stock_quantity
 
-    milk_transaction_item = purchase.transaction_items.detect{ |ti| ti.item_id == milk.id }
+    milk_transaction_item = purchase.transaction_items.detect { |ti| ti.item_id == milk.id }
     purchase.update(transaction_items_attributes: { "0" => {id: milk_transaction_item.id, quantity: 5, item_id: milk.id}})
 
     assert_equal  initial_milk_stock + 5, items(:milk).reload.stock_quantity
@@ -106,11 +106,11 @@ class PurchaseTest < ActiveSupport::TestCase
     purchase.transaction_items.build(item_id: milk.id, quantity: 5)
     purchase.save
 
-    assert_equal  initial_milk_stock + 20, items(:milk).reload.stock_quantity
+    assert_equal initial_milk_stock + 20, items(:milk).reload.stock_quantity
 
     purchase.destroy
 
-    assert_equal  initial_milk_stock, items(:milk).reload.stock_quantity
+    assert_equal initial_milk_stock, items(:milk).reload.stock_quantity
   end
 
 end
