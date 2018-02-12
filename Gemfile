@@ -32,7 +32,7 @@ gem 'momentjs-rails', '>= 2.8.1'
 gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'
 
 
-gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4.1'
+gem 'ransack'
 gem 'simple_form'
 gem 'nested_form'
 gem 'rabl'
