@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.8'
+gem 'rails', '4.1.16'
 
 # Use mysql as the database for Active Record
 gem 'mysql2'
@@ -14,7 +14,7 @@ gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails'
+gem 'jquery-rails', '= 3.1.3'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -32,7 +32,7 @@ gem 'momentjs-rails', '>= 2.8.1'
 gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'
 
 
-gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4.1'
+gem 'ransack'
 gem 'simple_form'
 gem 'nested_form'
 gem 'rabl'
@@ -53,7 +53,7 @@ gem 'kaminari-bootstrap', '~> 3.0.1'
 gem 'select2-rails'
 gem 'faker'
 
-gem 'rollbar', '~> 2.7.1'
+gem 'rollbar', '~> 2.15.5'
 
 gem 'paranoia', '~> 2.0'
 
