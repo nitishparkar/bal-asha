@@ -368,4 +368,8 @@ $(document).ready(function() {
   $('#audit_search .daterangepicker').on('hide.daterangepicker', function(ev, picker) {
     $('#audit_search').submit();
   });
+
+  $('#audit_search .text-filter').blur(function () {
+    $('#audit_search').submit();
+  });
 });
