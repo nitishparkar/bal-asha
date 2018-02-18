@@ -21,3 +21,5 @@
 .fuse_hidden*
 
 /.idea
+
+.DS_Store

@@ -1,0 +1,42 @@
+= wicked_pdf_image_tag "cash_receipt_header_left.png", class: "pull-left"
+= wicked_pdf_image_tag "cash_receipt_header_right.png", class: "pull-right"
+.clearfix
+%br
+%br
+%br
+%br
+%br
+
+.pull-left{style: "width: 300px;"}
+
+  %p= "Date: #{@donation.date.strftime('%d/%m/%y')}"
+
+  %p{style: "margin-bottom: 5px;"}= @donor.full_name
+  %p{style: "margin-top: 5px;"}= @donor.full_address
+
+.pull-right{style: "margin-right: 100px;"}
+  %p= "BAT/DO/"
+
+.clearfix
+
+%p= "Dear #{@donor.full_name},"
+
+%p Greetings from Bal Asha Trust!
+
+%p We want to extend our heartfelt thank you for your donation. Our work aiding abandoned and destitute children depends upon the support of people like you. As we receive no government funding the money donated is vital to our work and charitable giving like yours is the lifeblood to our organization.
+
+%p= "We have attached the tax exempt receipt no. #{@donation.receipt_number} dated #{@donation.date.strftime('%d/%m/%y')} towards your donation received for RS.#{"%.2f" % @donation.amount}/-  via #{@donation.type_cd.downcase}, #{@donation.payment_details}"
+
+%p If you would like an overview of our work we invite you to like our page www.facebook.com/BALASHATRUST or visit website (http://balashatrust.org) which has update of our work and several examples of individual children we have successfully helped.
+
+%p For the past 30 years we have been dedicated to the aid of abandoned and destitute children and have helped rehabilitate more than 1500 children.  The Trust has also supported hundreds of vulnerable children living in Mumbai with educational and medical support.
+
+%p We cannot thank you enough for sharing our passion for this cause and once again thank you for your continuing support. You have made a real difference to these children’s lives!
+
+%p With Regards,
+
+%br
+%br
+
+%div Sunil Arora
+%div Executive Director

@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   resources :donations do
     member { get :print }
+    member { get :print_new }
     resources :comments, only: [:create, :destroy]
   end
 

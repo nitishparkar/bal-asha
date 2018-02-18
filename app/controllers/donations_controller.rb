@@ -30,6 +30,20 @@ class DonationsController < ApplicationController
     end
   end
 
+  # GET /donations/1/print_new
+  # GET /donations/1/print_new.pdf
+  def print_new
+    @donation = Donation.includes(transaction_items: :item).find(params[:id])
+    @donor = @donation.donor
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "receipt", layout: "pdf.html",
+               template: "donations/cash_receipt_new.html.haml"
+      end
+    end
+  end
+
   # GET /donations/new
   def new
     @donation = Donation.new
