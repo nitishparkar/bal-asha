@@ -35,6 +35,19 @@ class ReportsController < ApplicationController
     @top_kind = Donation.top_kind_above(params[:min_amount])
     @top_non_kind = Donation.top_non_kind_above(params[:min_amount])
     @top_overall = Donation.top_overall_above(params[:min_amount])
+
+    # TODO: Make this more robust
+    if params[:daterange].present?
+      start_date_string, end_date_string = params[:daterange].split(" - ")
+      @start_date = DateTime.parse(start_date_string)
+      @end_date = DateTime.parse(end_date_string).end_of_day
+
+      @daterange_field_text = "#{l(@start_date, format: :formal)} - #{l(@end_date, format: :formal)}"
+
+      @top_kind = @top_kind.between_dates(@start_date, @end_date)
+      @top_non_kind = @top_non_kind.between_dates(@start_date, @end_date)
+      @top_overall = @top_overall.between_dates(@start_date, @end_date)
+    end
   end
 
   def total_kind_donations
