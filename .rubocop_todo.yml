@@ -9,6 +9,8 @@
 # Offense count: 7
 Metrics/AbcSize:
   Max: 24
+  Exclude:
+    - 'app/controllers/reports_controller.rb'
 
 # Offense count: 1
 # Configuration parameters: CountComments.
@@ -192,3 +194,4 @@ Style/GuardClause:
   Exclude:
     - 'app/models/donor.rb'
     - 'app/controllers/people_controller.rb'
+    - 'app/controllers/reports_controller.rb'

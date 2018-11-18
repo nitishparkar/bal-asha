@@ -61,16 +61,20 @@ class Donation < ActiveRecord::Base
   before_destroy :remove_from_stock, if: :kind?
   before_update :update_stock_positive, if: :kind?
 
+  def self.between_dates(start_date, end_date)
+    where(date: start_date..end_date)
+  end
+
   def self.top_kind_above(amount)
-    includes(:donor).select("donor_id, sum(amount) as total_amount").where(type_cd: Donation.type_cds["kind"]).group(:donor_id).having("total_amount > #{amount}").order("total_amount desc")
+    includes(:donor).select("donor_id, date, sum(amount) as total_amount").where(type_cd: Donation.type_cds["kind"]).group(:donor_id).having("total_amount > #{amount}").order("total_amount desc")
   end
 
   def self.top_non_kind_above(amount)
-    includes(:donor).select("donor_id, sum(amount) as total_amount").non_kind.group(:donor_id).having("total_amount > #{amount}").order("total_amount desc")
+    includes(:donor).select("donor_id, date, sum(amount) as total_amount").non_kind.group(:donor_id).having("total_amount > #{amount}").order("total_amount desc")
   end
 
   def self.top_overall_above(amount)
-    includes(:donor).select("donor_id, sum(amount) as total_amount").group(:donor_id).having("total_amount > #{amount}").order("total_amount desc")
+    includes(:donor).select("donor_id, date, sum(amount) as total_amount").group(:donor_id).having("total_amount > #{amount}").order("total_amount desc")
   end
 
   def self.total_kind(donor_id)
