@@ -11,6 +11,9 @@
         .form-group.col-md-3
           .input-group.col-md-12
             = f.text_field :donor_first_name_or_donor_last_name_cont, placeholder: "Donor Name", class: "form-control text-filter"
+        .form-group.col-md-2
+          .input-group.col-md-12
+            = f.text_field :amount_eq, placeholder: "Amount", class: "form-control text-filter"
   .col-md-4
     .pull-right.clearfix
       = link_to "Download", reports_audit_path(params.merge(format: :csv)), class: "btn btn-link"
