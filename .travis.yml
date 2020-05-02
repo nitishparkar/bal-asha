@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-- 2.3.8
+  - 2.3.8
 before_script:
 - mysql -e 'create database `bal-asha_test`;'
 # after_success:
