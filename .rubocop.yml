@@ -1,9 +1,27 @@
 inherit_from: .rubocop_todo.yml
 AllCops:
-  Include:
-    - Rakefile
-    - config.ru
   Exclude:
     - db/schema.rb
     - vendor/**/*
     - bin/**/*
+
+# We are not on ruby 2.3+ yet
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Style/HashEachMethods:
+  Enabled: true
+
+# Enable when we are on ruby 2.5
+Style/HashTransformKeys:
+  Enabled: false
+
+# Enable when we are on ruby 2.4
+Style/HashTransformValues:
+  Enabled: false
