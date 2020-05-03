@@ -72,4 +72,15 @@ class DonorTest < ActiveSupport::TestCase
     assert_not_empty donors(:john).full_address
   end
 
+  test "that donations_totals returns kind donations total, non-kind donations total and all donations total for the donor" do
+    donations(:kind).save # TODO: Figure out if callbacks can be run for fixtures
+
+    donor = donors(:john)
+    totals = donor.donations_totals
+    assert_equal totals, [350, 3000, 3350].map(&:to_d)
+
+    donor = donors(:balasha)
+    totals = donor.donations_totals
+    assert_equal totals, [0, 15000, 15000].map(&:to_d)
+  end
 end

@@ -67,6 +67,12 @@ class Donor < ActiveRecord::Base
     where("extract(month from date_of_birth) = ? AND extract(day from date_of_birth) >= ?", today.month, today.day).order("extract(day from date_of_birth)")
   end
 
+  def donations_totals
+    kind = donations.kind.sum(:amount)
+    cash = donations.non_kind.sum(:amount)
+    [kind, cash, kind + cash]
+  end
+
   def contact_info
     contact_info_arr = []
     contact_info_arr << (mobile.present? ? "#{mobile} (M) " : nil)
