@@ -12,3 +12,5 @@ before_script:
 script:
   - bundle exec rubocop -D
   - bundle exec rake test
+services:
+  - mysql

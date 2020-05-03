@@ -31,7 +31,7 @@ class Donation < ActiveRecord::Base
 
   has_many :comments, as: :commentable
 
-  enum type_cd: {cash: 0, kind: 1, cheque: 2, neft: 3}
+  enum type_cd: {cash: 0, kind: 1, cheque: 2, neft: 3, online: 4}
 
   enum thank_you_sent: {no: false, yes: true}
 
