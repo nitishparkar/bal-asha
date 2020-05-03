@@ -18,7 +18,7 @@ cheque:
 neft:
   donor: balasha
   date: <%= DateTime.now - 3.days %>
-  type_cd: 2
+  type_cd: 3
   amount: 10000
   payment_details: NEFT 6762386670021
   receipt_number: BAT00129
@@ -29,4 +29,12 @@ kind:
   date: <%= DateTime.now - 2.days %>
   type_cd: 1
   receipt_number: BAT00654
+  acceptor: nitish
+
+online:
+  donor: john
+  date: <%= DateTime.now - 4.days %>
+  type_cd: 4
+  amount: 2000
+  receipt_number: BAT00133
   acceptor: nitish
