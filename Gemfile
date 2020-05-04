@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
-
+ruby '2.3.8'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.16'
+gem 'rails', '4.2.11.1'
 
 # Use mysql as the database for Active Record
 gem 'mysql2'
@@ -21,9 +21,9 @@ gem 'turbolinks'
 
 gem 'figaro'
 
-gem 'devise'
+gem 'devise', '~> 3.5.0'
 
-gem 'haml-rails'
+gem 'haml-rails', '~> 0.6'
 
 # http://fullscreen.github.io/bh/#overview
 gem 'bh', '~> 1.2'
@@ -32,7 +32,7 @@ gem 'momentjs-rails', '>= 2.8.1'
 gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'
 
 
-gem 'ransack'
+gem 'ransack', '~> 1.8.7'
 gem 'simple_form'
 gem 'nested_form'
 gem 'rabl'
@@ -44,7 +44,7 @@ gem 'wkhtmltopdf-binary'
 gem 'annotate', '>=2.6.0'
 
 gem 'jquery-turbolinks'
-gem 'passenger'
+gem 'passenger', '~> 4.0.53'
 gem 'countries'
 gem 'country_select'
 gem 'paper_trail', '~> 3.0.7'
@@ -57,6 +57,8 @@ gem 'rollbar', '~> 2.15.5'
 
 gem 'paranoia', '~> 2.0'
 
+gem 'responders', '~> 2.0' # https://guides.rubyonrails.org/upgrading_ruby_on_rails.html#responders
+
 group :development do
   # Removes assets request logs
   gem 'quiet_assets'
@@ -67,6 +69,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'
+  gem 'web-console', '~> 2.0'
 end
 
 group :development, :test do
@@ -79,9 +82,7 @@ group :development, :test do
   # Detect unused eager loading and log N+1 queries
   gem 'bullet'
   # Profiling middleware for development
-  gem 'rack-mini-profiler'
+  gem 'rack-mini-profiler', "~> 0.10"
   # Enforce ruby style guide
-  gem 'rubocop', require: false
+  gem 'rubocop', '~> 0.39', require: false
 end
-
-

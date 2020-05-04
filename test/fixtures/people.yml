@@ -1,14 +1,14 @@
 nitish:
   email: nitish@genii.in
-  encrypted_password: <%= Devise.bcrypt(Person, 'password') %>
+  encrypted_password: <%= Devise::Encryptor.digest(Person, 'password') %>
   type_cd: 1
 
 staff:
   email: dev@genii.in
-  encrypted_password: <%= Devise.bcrypt(Person, 'password') %>
+  encrypted_password: <%= Devise::Encryptor.digest(Person, 'password') %>
   type_cd: 0
 
 volunteer:
   email: info@genii.in
-  encrypted_password: <%= Devise.bcrypt(Person, 'password') %>
+  encrypted_password: <%= Devise::Encryptor.digest(Person, 'password') %>
   type_cd: 2

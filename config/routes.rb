@@ -31,10 +31,10 @@ Rails.application.routes.draw do
   end
 
   scope path: '/reports', as: 'reports' do
-    get :daily_inventory, to: 'reports'
-    get :audit, to: 'reports'
-    get :top_donors, to: 'reports'
-    get :total_kind_donations, to: 'reports'
+    get :daily_inventory, controller: 'reports'
+    get :audit, controller: 'reports'
+    get :top_donors, controller: 'reports'
+    get :total_kind_donations, controller: 'reports'
   end
 
   root 'welcome#index'
