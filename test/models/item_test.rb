@@ -39,13 +39,29 @@ class ItemTest < ActiveSupport::TestCase
     assert_not item1.save
   end
 
-  # fixture dependency
-  test "needs" do
-    # Total 2 items in db
-    assert_equal Item.count, 2
+  test "that needs returns all items where stock quantity is less than minimum quantity, grouped by category,
+        sorted by urgency" do
+    Item.delete_all
+    Category.delete_all
 
-    # Out of the 2, 1 is in need
-    assert_equal Item.needs.values.first.count, 1
+    food = Category.create!(name: 'Grocery')
+    food.items.create!(name: 'Rice', current_rate: 100, minimum_quantity: 100, stock_quantity: 99)
+    food.items.create!(name: 'Wheat', current_rate: 100, minimum_quantity: 100, stock_quantity: 60)
+    food.items.create!(name: 'Potato', current_rate: 100, minimum_quantity: 100, stock_quantity: 100)
+    food.items.create!(name: 'Onion', current_rate: 100, minimum_quantity: 50, stock_quantity: 35)
+
+    covid = Category.create!(name: 'Covid-19')
+    covid.items.create!(name: 'Mask', current_rate: 100, minimum_quantity: 100, stock_quantity: 80)
+    covid.items.create!(name: 'Gloves', current_rate: 100, minimum_quantity: 100, stock_quantity: 10)
+
+    clothing = Category.create!(name: 'Clothing')
+    clothing.items.create!(name: 'Suit', current_rate: 100, minimum_quantity: 0, stock_quantity: 100)
+
+    needs = Item.needs
+
+    sorted_needs = needs.sort_by { |k, _| k.name }
+    assert_equal sorted_needs.map { |cat_items| cat_items[0].name }, ['Covid-19', 'Grocery']
+    assert_equal sorted_needs.first[1].map(&:name), ['Gloves', 'Mask']
+    assert_equal sorted_needs.last[1].map(&:name), ['Wheat', 'Onion', 'Rice']
   end
-
 end
