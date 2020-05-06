@@ -34,7 +34,11 @@ class Item < ActiveRecord::Base
   end
 
   def self.needs
-    includes(:category).where("stock_quantity < minimum_quantity").group_by(&:category)
+    includes(:category)
+      .select('items.*', 'items.stock_quantity/items.minimum_quantity*100 AS urgency')
+      .where("stock_quantity < minimum_quantity")
+      .order('urgency')
+      .group_by(&:category)
   end
 
   def self.needs_csv(options = {})
