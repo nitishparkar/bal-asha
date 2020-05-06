@@ -51,17 +51,19 @@ class ItemTest < ActiveSupport::TestCase
     food.items.create!(name: 'Onion', current_rate: 100, minimum_quantity: 50, stock_quantity: 35)
 
     covid = Category.create!(name: 'Covid-19')
-    covid.items.create!(name: 'Mask', current_rate: 100, minimum_quantity: 100, stock_quantity: 80)
-    covid.items.create!(name: 'Gloves', current_rate: 100, minimum_quantity: 100, stock_quantity: 10)
+    covid.items.create!(name: 'Suit', current_rate: 100, minimum_quantity: 50, stock_quantity: 1)
+    covid.items.create!(name: 'Gloves', current_rate: 100, minimum_quantity: 50, stock_quantity: 0)
+    covid.items.create!(name: 'Shield', current_rate: 100, minimum_quantity: 100, stock_quantity: 2)
+    covid.items.create!(name: 'Mask', current_rate: 100, minimum_quantity: 100, stock_quantity: 0)
 
     clothing = Category.create!(name: 'Clothing')
-    clothing.items.create!(name: 'Suit', current_rate: 100, minimum_quantity: 0, stock_quantity: 100)
+    clothing.items.create!(name: 'Pant', current_rate: 100, minimum_quantity: 0, stock_quantity: 100)
 
     needs = Item.needs
 
     sorted_needs = needs.sort_by { |k, _| k.name }
     assert_equal sorted_needs.map { |cat_items| cat_items[0].name }, ['Covid-19', 'Grocery']
-    assert_equal sorted_needs.first[1].map(&:name), ['Gloves', 'Mask']
+    assert_equal sorted_needs.first[1].map(&:name), ['Mask', 'Gloves', 'Shield', 'Suit']
     assert_equal sorted_needs.last[1].map(&:name), ['Wheat', 'Onion', 'Rice']
   end
 end
