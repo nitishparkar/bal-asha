@@ -37,7 +37,7 @@ class Item < ActiveRecord::Base
     includes(:category)
       .select('items.*', 'items.stock_quantity/items.minimum_quantity*100 AS urgency')
       .where("stock_quantity < minimum_quantity")
-      .order('urgency')
+      .order('urgency, items.minimum_quantity DESC')
       .group_by(&:category)
   end
 
