@@ -30,6 +30,7 @@ class Donation < ActiveRecord::Base
   belongs_to :acceptor, class_name: Person, foreign_key: 'person_id'
 
   has_many :comments, as: :commentable
+  has_one :donation_actions, dependent: :destroy
 
   enum type_cd: {cash: 0, kind: 1, cheque: 2, neft: 3, online: 4}
 
@@ -55,6 +56,7 @@ class Donation < ActiveRecord::Base
     Arel.sql('date(date)')
   end
 
+  after_create :create_donation_actions, unless: :kind?
   after_create :set_token
   before_save :calculate_amount, if: :kind?
   after_create :add_to_stock, if: :kind?
@@ -93,6 +95,12 @@ class Donation < ActiveRecord::Base
                 donation.donor.try(:full_name), donation.amount, donation.type_cd.titleize]
       end
     end
+  end
+
+  def self.unacknowledged
+    Donation.eager_load(:donor, :donation_actions)
+            .where('donation_actions.receipt_mode_cd = 0 OR donation_actions.thank_you_mode_cd = 0')
+            .order(date: :asc)
   end
 
   private

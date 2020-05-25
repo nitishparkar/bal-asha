@@ -1,0 +1,28 @@
+.row
+  .col-md-12
+    = form_tag reports_donation_acknowledgements_path, method: :get, class: "form-inline", id: "donation-acknowledgements" do
+      = text_field_tag :daterange, @daterange_field_text, class: "daterangepicker"
+
+%br
+.row
+  .col-md-12
+    %table.table.table-responsive
+      %thead
+        %tr
+          %th.col-md-3 Date
+          %th.col-md-3 Donor
+          %th.col-md-3 Receipt Status
+          %th.col-md-3 Thank You Status
+      %tbody
+        - @donations.each do |donation|
+          - donor = donation.donor
+          - actions = donation.donation_actions
+          - if donor
+            %tr
+              %td= link_to l(donation.date, format: :formal), donation_path(donation)
+              %td= donor.full_name
+              %td= actions.receipt_mode_cd == "not_sent" ? "" : actions.receipt_mode_cd.upcase
+              %td= actions.thank_you_mode_cd == "pending" ? "" : actions.thank_you_mode_cd.upcase
+          - else
+            %tr
+              %td{colspan: 4} Donor Deleted

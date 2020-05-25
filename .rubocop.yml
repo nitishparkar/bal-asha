@@ -25,3 +25,7 @@ Style/HashTransformKeys:
 # Enable when we are on ruby 2.4
 Style/HashTransformValues:
   Enabled: false
+
+# Too restrictive
+Metrics/ClassLength:
+  Enabled: false

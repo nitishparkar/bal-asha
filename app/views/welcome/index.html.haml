@@ -74,3 +74,41 @@
                   %td= link_to l(call_for_action.date_of_action, format: :formal), donor_call_for_action_path(donor, call_for_action)
                   %td= link_to donor.full_name, donor_path(donor)
                   %td= call_for_action.remarks
+
+.row
+  .col-md-12
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Unacknowledged Donations
+      .panel-body
+        - if @donations.empty?
+          %p All donations acknowledged
+        - else
+          %table.table
+            %thead
+              %tr
+                %th.col-md-2 Date
+                %th.col-md-2 Donor
+                %th.col-md-4 Receipt Sent?
+                %th.col-md-4 Thanked Via
+            %tbody
+              - @donations.each do |donation|
+                - donor = donation.donor
+                - actions = donation.donation_actions
+                %tr
+                  %td= link_to l(donation.date, format: :formal), donation_path(donation)
+                  %td= donor.full_name
+                  %td
+                    - DonationActions.receipt_mode_cds.except(:not_sent).each do |label, value|
+                      = link_to label, donation_donation_actions_path(donation_id: donation.id, receipt_mode_cd: value), method: :patch, data: { confirm: "Are you sure?" }, remote: true, class: "btn btn-#{actions.receipt_mode_cd == label ? 'primary' : 'default'} receipt-mode-link"
+                  %td
+                    - DonationActions.thank_you_mode_cds.except(:pending).each do |label, value|
+                      = link_to label, donation_donation_actions_path(donation_id: donation.id, thank_you_mode_cd: value), method: :patch, data: { confirm: "Are you sure?" }, remote: true, class: "btn btn-#{actions.thank_you_mode_cd == label ? 'primary' : 'default'} thank-you-mode-link"
+
+
+:javascript
+  $(document).ready(function() {
+    $(".receipt-mode-link, .thank-you-mode-link").on("ajax:complete", function() {
+      location.reload();
+    });
+  });
