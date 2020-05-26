@@ -11,6 +11,7 @@ before_script:
 #   -in bal_asha_deploy_id_rsa.enc -out ~\/.ssh/id_rsa -d
 script:
   - bundle exec rubocop -D
+  - bundle exec rake db:migrate
   - bundle exec rake test
 services:
   - mysql
