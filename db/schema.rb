@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151003111748) do
+ActiveRecord::Schema.define(version: 20200525071045) do
 
   create_table "call_for_actions", force: true do |t|
     t.datetime "date_of_action"
@@ -57,6 +57,16 @@ ActiveRecord::Schema.define(version: 20151003111748) do
 
   add_index "disbursements", ["deleted_at"], name: "index_disbursements_on_deleted_at", using: :btree
   add_index "disbursements", ["person_id"], name: "index_disbursements_on_person_id", using: :btree
+
+  create_table "donation_actions", force: true do |t|
+    t.integer  "donation_id",                   null: false
+    t.integer  "receipt_mode_cd",   default: 0, null: false
+    t.integer  "thank_you_mode_cd", default: 0, null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "donation_operations", ["receipt_mode_cd", "thank_you_mode_cd"], name: "index_donation_operations_on_receipt_mode_cd_and_thank_you_mode_cd", using: :btree
 
   create_table "donations", force: true do |t|
     t.datetime "date"

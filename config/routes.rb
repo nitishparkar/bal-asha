@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :donations do
     member { get :print }
     resources :comments, only: [:create, :destroy]
+    resource :donation_actions, only: [:update]
   end
 
   resources :categories
@@ -35,6 +36,7 @@ Rails.application.routes.draw do
     get :audit, controller: 'reports'
     get :top_donors, controller: 'reports'
     get :total_kind_donations, controller: 'reports'
+    get :donation_acknowledgements, controller: 'reports'
   end
 
   root 'welcome#index'

@@ -4,6 +4,7 @@ class WelcomeController < ApplicationController
     @donors = Donor.upcoming_birthdays
     @needs = Item.needs
     @call_for_actions = CallForAction.pending
+    @donations = Donation.unacknowledged
   end
 
 end

@@ -372,4 +372,8 @@ $(document).ready(function() {
   $('#audit_search .text-filter').blur(function () {
     $('#audit_search').submit();
   });
+
+  $('#donation-acknowledgements .daterangepicker').on('hide.daterangepicker', function (ev, picker) {
+    $('#donation-acknowledgements').submit();
+  });
 });
