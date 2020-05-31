@@ -18,4 +18,12 @@ class DonationActions < ActiveRecord::Base
   enum thank_you_mode_cd: { pending: 0, na: 1, call: 2, whatsapp: 3, email: 4 }
 
   validates_presence_of :donation_id, :receipt_mode_cd, :thank_you_mode_cd
+
+  def receipt_mode
+    receipt_mode_cd == "not_sent" ? "" : receipt_mode_cd.upcase
+  end
+
+  def thank_you_mode
+    thank_you_mode_cd == "pending" ? "" : thank_you_mode_cd.upcase
+  end
 end
