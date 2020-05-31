@@ -103,6 +103,18 @@ class Donation < ActiveRecord::Base
             .order(date: :asc)
   end
 
+  def self.donation_acknowledgements_csv(donations)
+    CSV.generate do |csv|
+      csv << ["Date", "Donor", "Receipt Status", "Thank You Status"]
+      donations.each do |donation|
+        csv << [I18n.l(donation.date, format: :formal),
+                donation.donor.try(:full_name),
+                donation.donation_actions.receipt_mode,
+                donation.donation_actions.thank_you_mode]
+      end
+    end
+  end
+
   private
     def set_token
       token_number = self.id.to_s.rjust(6, '0')

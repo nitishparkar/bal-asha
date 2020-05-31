@@ -77,5 +77,12 @@ class ReportsController < ApplicationController
     @daterange_field_text = "#{l(@start_date, format: :formal)} - #{l(@end_date, format: :formal)}"
     @donations = Donation.joins(:donation_actions).eager_load(:donor, :donation_actions)
                          .where(date: @start_date..@end_date).order(date: :asc)
+
+    respond_to do |format|
+      format.html { render "donation_acknowledgements" }
+      format.csv do
+        send_data(Donation.donation_acknowledgements_csv(@donations), filename: "donation-ack-#{@daterange_field_text}.csv")
+      end
+    end
   end
 end
