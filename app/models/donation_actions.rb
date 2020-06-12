@@ -15,7 +15,7 @@ class DonationActions < ActiveRecord::Base
   belongs_to :donation
 
   enum receipt_mode_cd: { not_sent: 0, no: 1, yes: 2 }
-  enum thank_you_mode_cd: { pending: 0, na: 1, call: 2, whatsapp: 3, email: 4 }
+  enum thank_you_mode_cd: { pending: 0, hd: 1, call: 2, whatsapp: 3, email: 4, courier: 5 }
 
   validates_presence_of :donation_id, :receipt_mode_cd, :thank_you_mode_cd
 
