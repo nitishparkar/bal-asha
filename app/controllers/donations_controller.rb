@@ -24,6 +24,12 @@ class DonationsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
+        if params[:new].present? && !@donation.kind?
+          render pdf: "receipt", layout: nil, template: "donations/non_kind_receipt.html.haml",
+                 margin: { bottom: 0, left: 0, right: 0, top: 0 }, show_as_html: params.key?('debug')
+          return
+        end
+
         render pdf: "receipt", layout: "pdf.html",
                template: "donations/#{@donation.kind? ? 'kind' : 'cash'}_receipt.html.haml"
       end

@@ -1,0 +1,62 @@
+/*
+ *= require bootstrap_paper.min
+ *= require fonts
+ */
+
+html, body {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    letter-spacing: 1px;
+    line-height: 1.6;
+}
+
+hr {
+    background-color: #ddd; height: 1px;
+}
+
+.header-row {
+    font-size: 14px;
+
+    div {
+        display: inline-block;
+        vertical-align: top;
+    }
+}
+
+.less-bottom-margin {
+    margin-bottom: 10px;
+}
+
+.no-bottom-margin {
+    margin-bottom: 0;
+}
+
+.receipt-sub-header {
+    font-family: 'Balsamiq Sans', cursive;
+    font-weight: 700;
+    font-size: 22px;
+    text-align: center;
+    color: white;
+    background-color: #ed6b87;
+    display: block;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
+.donation-details {
+    font-size: 16px;
+    margin-top: 10px;
+
+    strong {
+        font-size: 17px;
+    }
+}
+
+.footer-image {
+    width: 100%;
+    margin-top: 16px;
+}

@@ -1,0 +1,100 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}
+    %meta{:content => "Bal Asha Trust", :name => "description"}
+    %meta{:content => "Bal Asha Trust", :name => "author"}
+
+    %title Bal Asha Trust
+    = wicked_pdf_stylesheet_link_tag 'pdf_non_kind_receipt'
+
+  %body
+    .container{:style => "padding: 40px 40px 0 40px"}
+      .row.header-row
+        %div{:style => "width: 290px; margin-top: 10px;"}
+          = wicked_pdf_image_tag 'non_kind_receipt_logo.png', width: 260
+        %div{:style => "width: 285px;"}
+          %p.less-bottom-margin
+            %strong Registered Office:
+            Bal Asha Trust,
+            401 Charlie-Ville, A Road,
+            Churchgate, Mumbai - 400020. India.
+          %p.no-bottom-margin
+            %strong T:
+            +91 99309 88899
+          %p.no-bottom-margin
+            %strong E:
+            donate@balashatrust.org
+        %div{:style => "width: 350px; margin-left: 5px;"}
+          %p.less-bottom-margin
+            %strong Destitute Children’s Home:
+            Bal Asha Dham, King George V Memorial, Dr. E Moses Road, Mahalaxmi, Mumbai 400011, India.
+          %p.no-bottom-margin
+            %strong W:
+            balashatrust.org
+          %p.no-bottom-margin
+            = wicked_pdf_image_tag 'insta_logo.png', style: "width: 10px"
+            %strong :
+            balashatrust
+
+      %hr
+      %br
+
+      .container
+        .row
+          .col-xs-12
+            .receipt-sub-header{:style => "width: 310px; margin-bottom: 17px;"}
+              %strong RECEIPT NO.: 1234567524
+
+        .row{:style => "font-size: 16px;"}
+          .col-xs-12
+            %p Dear Sunil Arora,
+            %p
+              Thank you for your contribution of
+              %b &#8377;1,000.00 (Rupeees One Thousand Only).&nbsp;
+              Individual contributions like yours, help us to continue doing the work we do. Please find below, details of your donation.
+
+        %br
+
+        .row
+          .col-xs-12
+            .receipt-sub-header{:style => "width: 245px; margin-top: 10px; margin-bottom: 20px;"}
+              %strong DONATION DETAILS
+
+        .row.donation-details
+          .col-xs-3
+            %p.no-bottom-margin Date of Issue:
+            %p
+              %strong May 7, 2020
+          .col-xs-6
+            %p.no-bottom-margin Donor name:
+            %p
+              %strong Sunil Kumar Arora
+          .col-xs-3
+            %p.no-bottom-margin Donor PAN:
+            %p
+              %strong AZXED4456G
+
+        .row.donation-details
+          .col-xs-3
+            %p.no-bottom-margin Amount:
+            %p
+              %strong &#8377;1,000.00
+          .col-xs-6
+            %p.no-bottom-margin In words:
+            %p
+              %strong Rupees One Thousand Only
+          .col-xs-3
+            %p.no-bottom-margin Payment Method:
+            %p
+              %strong Cheque
+
+        .row.donation-details
+          .col-xs-12
+            %p.no-bottom-margin Remarks
+            %p
+              %strong NEFT no. XXXXXXXXXX, Dated 7 May 2020, Drawn on 14 May 2020.
+
+    = wicked_pdf_image_tag "non_kind_receipt_footer.png", class: "footer-image"
