@@ -159,6 +159,8 @@ GEM
     nested_form (0.3.2)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
+    numbers_and_words (0.11.6)
+      i18n
     orm_adapter (0.5.0)
     paper_trail (3.0.9)
       activerecord (>= 3.0, < 5.0)
@@ -314,6 +316,7 @@ DEPENDENCIES
   momentjs-rails (>= 2.8.1)
   mysql2
   nested_form
+  numbers_and_words (~> 0.11.0)
   paper_trail (~> 3.0.7)
   paranoia (~> 2.0)
   passenger (~> 4.0.53)

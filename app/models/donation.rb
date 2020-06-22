@@ -63,6 +63,10 @@ class Donation < ActiveRecord::Base
   before_destroy :remove_from_stock, if: :kind?
   before_update :update_stock_positive, if: :kind?
 
+  def amount_in_words
+    amount.to_i.to_words(remove_hyphen: true).titleize
+  end
+
   def self.between_dates(start_date, end_date)
     where(date: start_date..end_date)
   end

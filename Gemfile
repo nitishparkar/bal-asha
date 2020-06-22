@@ -43,6 +43,8 @@ gem 'wkhtmltopdf-binary', '= 0.12.4'
 # To annotate only models: annotate --exclude tests,fixtures,factories
 gem 'annotate', '>=2.6.0'
 
+gem 'numbers_and_words', '~> 0.11.0'
+
 gem 'jquery-turbolinks'
 gem 'passenger', '~> 4.0.53'
 gem 'countries'

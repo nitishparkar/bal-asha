@@ -8,13 +8,13 @@
     %meta{:content => "Bal Asha Trust", :name => "author"}
 
     %title Bal Asha Trust
-    = wicked_pdf_stylesheet_link_tag 'pdf_non_kind_receipt'
+    = wicked_pdf_stylesheet_link_tag "pdf_non_kind_receipt"
 
   %body
     .container{:style => "padding: 40px 40px 0 40px"}
       .row.header-row
         %div{:style => "width: 290px; margin-top: 10px;"}
-          = wicked_pdf_image_tag 'non_kind_receipt_logo.png', width: 260
+          = wicked_pdf_image_tag "non_kind_receipt_logo.png", width: 260
         %div{:style => "width: 285px;"}
           %p.less-bottom-margin
             %strong Registered Office:
@@ -35,7 +35,7 @@
             %strong W:
             balashatrust.org
           %p.no-bottom-margin
-            = wicked_pdf_image_tag 'insta_logo.png', style: "width: 10px"
+            = wicked_pdf_image_tag "insta_logo.png", style: "width: 10px"
             %strong :
             balashatrust
 
@@ -45,56 +45,56 @@
       .container
         .row
           .col-xs-12
-            .receipt-sub-header{:style => "width: 310px; margin-bottom: 17px;"}
-              %strong RECEIPT NO.: 1234567524
+            .receipt-sub-header{:style => "width: 310px; margin-bottom: 10px;"}
+              %strong= "RECEIPT NO.: #{@donation.receipt_number}"
 
         .row{:style => "font-size: 16px;"}
           .col-xs-12
-            %p Dear Sunil Arora,
+            %p= "Dear #{@donor.full_name},"
             %p
               Thank you for your contribution of
-              %b &#8377;1,000.00 (Rupeees One Thousand Only).&nbsp;
+              %b= "&#8377;#{"%.2f" % @donation.amount} (Rupees #{@donation.amount_in_words} Only).&nbsp;".html_safe
               Individual contributions like yours, help us to continue doing the work we do. Please find below, details of your donation.
 
         %br
 
         .row
           .col-xs-12
-            .receipt-sub-header{:style => "width: 245px; margin-top: 10px; margin-bottom: 20px;"}
+            .receipt-sub-header{:style => "width: 245px; margin-top: 0px; margin-bottom: 10px;"}
               %strong DONATION DETAILS
 
         .row.donation-details
           .col-xs-3
             %p.no-bottom-margin Date of Issue:
             %p
-              %strong May 7, 2020
+              %strong= @donation.date.strftime("%B %d, %Y")
           .col-xs-6
             %p.no-bottom-margin Donor name:
             %p
-              %strong Sunil Kumar Arora
+              %strong= @donor.full_name
           .col-xs-3
             %p.no-bottom-margin Donor PAN:
             %p
-              %strong AZXED4456G
+              %strong= @donor.pan_card_no
 
         .row.donation-details
           .col-xs-3
             %p.no-bottom-margin Amount:
             %p
-              %strong &#8377;1,000.00
+              %strong= "&#8377;#{"%.2f" % @donation.amount}".html_safe
           .col-xs-6
             %p.no-bottom-margin In words:
             %p
-              %strong Rupees One Thousand Only
+              %strong= "#{@donation.amount_in_words} Only"
           .col-xs-3
             %p.no-bottom-margin Payment Method:
             %p
-              %strong Cheque
+              %strong= @donation.type_cd.upcase
 
         .row.donation-details
           .col-xs-12
             %p.no-bottom-margin Remarks
             %p
-              %strong NEFT no. XXXXXXXXXX, Dated 7 May 2020, Drawn on 14 May 2020.
+              %strong= @donation.remarks.presence || "-"
 
     = wicked_pdf_image_tag "non_kind_receipt_footer.png", class: "footer-image"
