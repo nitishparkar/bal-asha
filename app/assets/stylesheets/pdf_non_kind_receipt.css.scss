@@ -4,59 +4,66 @@
  */
 
 html, body {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 body {
-    font-family: 'Open Sans', sans-serif;
-    letter-spacing: 1px;
-    line-height: 1.6;
+  font-family: 'Open Sans', sans-serif;
+  letter-spacing: 1px;
+  line-height: 1.6;
+}
+
+.super-container {
+  height: 1400px;
 }
 
 hr {
-    background-color: #ddd; height: 1px;
+  background-color: #ddd; height: 1px;
 }
 
 .header-row {
-    font-size: 14px;
+  font-size: 14px;
 
-    div {
-        display: inline-block;
-        vertical-align: top;
-    }
-}
+  div {
+    display: inline-block;
+    vertical-align: top;
+  }
 
-.less-bottom-margin {
+  p {
     margin-bottom: 10px;
+  }
 }
 
-.no-bottom-margin {
-    margin-bottom: 0;
+p.no-bottom-margin {
+  margin-bottom: 0;
 }
 
 .receipt-sub-header {
+  text-align: center;
+
+  strong {
     font-family: 'Balsamiq Sans', cursive;
     font-weight: 700;
     font-size: 22px;
-    text-align: center;
-    color: white;
     background-color: #ed6b87;
-    display: block;
-    margin: 0 auto;
     border-radius: 10px;
+    color: white;
+    padding: 5px 25px;
+  }
 }
 
 .donation-details {
-    font-size: 16px;
-    margin-top: 10px;
+  font-size: 16px;
+  margin-top: 10px;
 
-    strong {
-        font-size: 17px;
-    }
+  strong {
+    font-size: 17px;
+  }
 }
 
 .footer-image {
-    width: 100%;
-    margin-top: 16px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
 }
