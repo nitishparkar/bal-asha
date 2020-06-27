@@ -229,4 +229,8 @@ class DonationTest < ActiveSupport::TestCase
     assert_equal 3, donations.size
     assert_equal ['neft', 'cheque', 'cash'], donations.map(&:type_cd)
   end
+
+  test '.amount_in_words returns word representation of the amount in title case' do
+    assert_equal 'One Thousand One', Donation.new(amount: 1001).amount_in_words
+  end
 end

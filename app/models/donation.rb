@@ -19,6 +19,8 @@
 #  deleted_at      :datetime
 #
 
+require Rails.root.join('lib', 'number_to_words')
+
 class Donation < ActiveRecord::Base
   acts_as_paranoid
 
@@ -64,7 +66,7 @@ class Donation < ActiveRecord::Base
   before_update :update_stock_positive, if: :kind?
 
   def amount_in_words
-    amount.to_i.to_words(remove_hyphen: true).titleize
+    number_to_words(amount.to_i).titleize
   end
 
   def self.between_dates(start_date, end_date)
