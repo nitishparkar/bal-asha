@@ -74,23 +74,19 @@
               %p
                 %strong= @donor.full_name
             .col-xs-3
-              %p.no-bottom-margin Donor PAN:
+              %p.no-bottom-margin Payment Method:
               %p
-                %strong= @donor.pan_card_no
+                %strong= @donation.type_cd.upcase
 
           .row.donation-details
             .col-xs-3
               %p.no-bottom-margin Amount:
               %p
                 %strong= "&#8377;#{"%.2f" % @donation.amount}".html_safe
-            .col-xs-6
+            .col-xs-9
               %p.no-bottom-margin In words:
               %p
                 %strong= "#{@donation.amount_in_words} Only"
-            .col-xs-3
-              %p.no-bottom-margin Payment Method:
-              %p
-                %strong= @donation.type_cd.upcase
 
           .row.donation-details
             .col-xs-12
