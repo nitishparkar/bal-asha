@@ -1,4 +1,4 @@
-# Bal Asha Trust
+# Bal Asha
 
 [![Build Status](https://travis-ci.org/nitishparkar/bal-asha.svg?branch=master)](https://travis-ci.org/nitishparkar/bal-asha)
 
@@ -16,3 +16,30 @@ Internal app for [Bal Asha Trust](http://balashatrust.org/). It helps them manag
     ```
 
 2.  Run `rake db:setup` to create and seed database.
+
+## Running tests
+
+#### Running all tests:
+```
+rake test
+```
+
+#### Running specific test(s):
+```
+rake test TEST=test/models/donation_test.rb TESTOPTS="--name=/unacknowledged/ -v"
+```
+
+## Deploying the app
+
+The app currently uses [mina](http://nadarei.co/mina/) for deployment. Deployment config can be found [here](https://github.com/nitishparkar/bal-asha/blob/master/config/deploy.rb).
+
+#### Install mina
+```
+gem install mina -v 0.3.8
+```
+
+#### Deploy
+```
+BALASHA_PROD_USER=<username> BALASHA_PROD_SERVER=<ip/name> mina deploy --verbose
+```
+  
