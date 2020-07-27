@@ -37,8 +37,8 @@ gem 'simple_form'
 gem 'nested_form'
 gem 'rabl'
 
-gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary'
+gem 'wicked_pdf', '~> 1.0.3'
+gem 'wkhtmltopdf-binary', '= 0.12.4'
 
 # To annotate only models: annotate --exclude tests,fixtures,factories
 gem 'annotate', '>=2.6.0'
