@@ -21,7 +21,7 @@ gem 'turbolinks'
 
 gem 'figaro'
 
-gem 'devise', '~> 3.5.0'
+gem 'devise', '~> 4.7.1'
 
 gem 'haml-rails', '~> 0.6'
 
