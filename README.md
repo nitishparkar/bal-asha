@@ -42,4 +42,7 @@ gem install mina -v 0.3.8
 ```
 BALASHA_PROD_USER=<username> BALASHA_PROD_SERVER=<ip/name> mina deploy --verbose
 ```
-  
+
+## License
+
+See `LICENSE` file.
