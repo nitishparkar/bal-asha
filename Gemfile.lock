@@ -145,7 +145,7 @@ GEM
     momentjs-rails (2.8.3)
       railties (>= 3.1)
     multi_json (1.14.1)
-    mysql2 (0.3.17)
+    mysql2 (0.4.10)
     nested_form (0.3.2)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
@@ -301,7 +301,7 @@ DEPENDENCIES
   meta_request
   minitest-reporters
   momentjs-rails (>= 2.8.1)
-  mysql2
+  mysql2 (~> 0.4.10)
   nested_form
   paper_trail (~> 3.0.7)
   paranoia (~> 2.0)
