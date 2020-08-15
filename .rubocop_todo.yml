@@ -365,3 +365,8 @@ Style/WordArray:
 # URISchemes: http, https
 Layout/LineLength:
   Max: 808
+
+
+Style/BlockComments:
+  Exclude:
+    - 'spec/spec_helper.rb'
