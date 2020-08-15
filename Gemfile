@@ -76,6 +76,8 @@ group :development, :test do
   gem 'pry', '~> 0.12.2'
   gem 'minitest-reporters'
 
+  gem 'rspec-rails', '~> 3.9'
+
   # Detect unused eager loading and log N+1 queries
   gem 'bullet'
   # Profiling middleware for development
