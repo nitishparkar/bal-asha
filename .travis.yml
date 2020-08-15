@@ -13,5 +13,6 @@ script:
   - bundle exec rubocop -D
   - bundle exec rake db:migrate
   - bundle exec rake test
+  - bundle exec rake spec
 services:
   - mysql
