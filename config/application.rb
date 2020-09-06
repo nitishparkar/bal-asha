@@ -26,7 +26,7 @@ module BalAsha
     config.generators do |g|
       g.assets            false
       g.helper            false
-      g.test_framework    nil
+      g.test_framework    :rspec
       g.jbuilder          false
     end
   end
