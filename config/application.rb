@@ -28,6 +28,7 @@ module BalAsha
       g.helper            false
       g.test_framework    :rspec
       g.jbuilder          false
+      g.factory_bot suffix: 'factory'
     end
   end
 end
