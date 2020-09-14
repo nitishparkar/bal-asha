@@ -1,4 +1,5 @@
 require 'rails_helper'
+require_relative 'concerns/transactionable_spec'
 
 RSpec.describe Disbursement, type: :model do
   describe 'ensure that stock quantity remains positive after disbursement' do
@@ -26,4 +27,6 @@ RSpec.describe Disbursement, type: :model do
       end
     end
   end
+
+  it_behaves_like 'a stock decreaser', Disbursement, disbursement_date: Date.today, person_id: rand(1..100)
 end
