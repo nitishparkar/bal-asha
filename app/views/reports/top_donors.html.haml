@@ -1,4 +1,4 @@
-%div
+%div.clearfix
   = form_tag reports_top_donors_path, method: :get, class: "form-inline" do
     = label_tag "Donations above ₹ "
     = text_field_tag :min_amount, params[:min_amount]
@@ -7,6 +7,8 @@
     = text_field_tag :daterange, @daterange_field_text, class: "daterangepicker", style: "width: 20%;"
 
     = submit_tag "Submit", class: "btn btn-primary btn-sm", name: nil
+
+    = link_to "Download", reports_top_donors_path(params.merge(format: :csv)), class: "btn btn-link pull-right"
 
 %div
   / Nav tabs

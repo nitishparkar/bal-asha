@@ -103,6 +103,20 @@ class Donation < ActiveRecord::Base
     end
   end
 
+  def self.top_donors(donations)
+    CSV.generate do |csv|
+      csv << ['Name', 'Phone', 'Email', 'Kind', 'Cash', 'Total']
+      donations.each do |donation|
+        if donation.donor.present?
+          donor = donation.donor
+          csv << [donor.full_name, donor.contact_number, donor.email, Donation.total_kind(donor.id), Donation.total_non_kind(donor.id), donation.total_amount]
+        else
+          csv << ['Donor deleted', '', '', '', '', '']
+        end
+      end
+    end
+  end
+
   def self.unacknowledged
     Donation.eager_load(:donor, :donation_actions)
             .where('donation_actions.receipt_mode_cd = 0 OR donation_actions.thank_you_mode_cd = 0')

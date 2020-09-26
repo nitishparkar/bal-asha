@@ -184,6 +184,8 @@ Layout/TrailingEmptyLines:
 # Configuration parameters: IgnoredMethods.
 Metrics/AbcSize:
   Max: 32
+  Exclude:
+    - 'app/controllers/reports_controller.rb'
 
 # Offense count: 2
 # Configuration parameters: CountComments, ExcludedMethods.

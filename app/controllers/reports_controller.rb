@@ -48,6 +48,13 @@ class ReportsController < ApplicationController
       @top_non_kind = @top_non_kind.between_dates(@start_date, @end_date)
       @top_overall = @top_overall.between_dates(@start_date, @end_date)
     end
+
+    respond_to do |format|
+      format.html { render "top_donors" }
+      format.csv do
+        send_data(Donation.top_donors(@top_overall), filename: top_donors_filename)
+      end
+    end
   end
 
   def total_kind_donations
@@ -84,5 +91,12 @@ class ReportsController < ApplicationController
         send_data(Donation.donation_acknowledgements_csv(@donations), filename: "donation-ack-#{@daterange_field_text}.csv")
       end
     end
+  end
+
+  private
+
+  def top_donors_filename
+    daterange_label = params[:daterange].blank? ? 'alltime' : params[:daterange]
+    "top-donors-#{params[:min_amount]}-#{daterange_label}.csv"
   end
 end
