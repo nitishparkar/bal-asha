@@ -66,7 +66,13 @@ class Donation < ActiveRecord::Base
   before_update :update_stock_positive, if: :kind?
 
   def amount_in_words
-    number_to_words(amount.to_i).titleize
+    fraction = amount.frac
+
+    if fraction.zero?
+      "#{number_to_words(amount.to_i).titleize} Rupees"
+    else
+      "#{number_to_words(amount.to_i).titleize} Rupees and #{number_to_words((fraction * 100).to_i).titleize} Paise"
+    end
   end
 
   def self.between_dates(start_date, end_date)

@@ -231,6 +231,10 @@ class DonationTest < ActiveSupport::TestCase
   end
 
   test '.amount_in_words returns word representation of the amount in title case' do
-    assert_equal 'One Thousand One', Donation.new(amount: 1001).amount_in_words
+    assert_equal 'One Thousand One Rupees', Donation.new(amount: 1001).amount_in_words
+  end
+
+  test '.amount_in_words does not ignore the paise part when that is present' do
+    assert_equal 'Nine Hundred Ninety Nine Rupees and Twenty Five Paise', Donation.new(amount: 999.25).amount_in_words
   end
 end
