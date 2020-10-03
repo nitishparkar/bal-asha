@@ -52,7 +52,7 @@ class ReportsController < ApplicationController
     respond_to do |format|
       format.html { render "top_donors" }
       format.csv do
-        send_data(Donation.top_donors(@top_overall), filename: top_donors_filename)
+        send_data(Donation.top_donors(@top_overall, @start_date, @end_date), filename: top_donors_filename)
       end
     end
   end

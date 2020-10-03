@@ -103,13 +103,17 @@ class Donation < ActiveRecord::Base
     end
   end
 
-  def self.top_donors(donations)
+  def self.top_donors(donations, start_date, end_date)
     CSV.generate do |csv|
       csv << ['Name', 'Phone', 'Email', 'Kind', 'Cash', 'Total']
       donations.each do |donation|
         if donation.donor.present?
           donor = donation.donor
-          csv << [donor.full_name, donor.contact_number, donor.email, Donation.total_kind(donor.id), Donation.total_non_kind(donor.id), donation.total_amount]
+          csv << if start_date.present? && end_date.present?
+            [donor.full_name, donor.contact_number, donor.email, Donation.between_dates(start_date, end_date).total_kind(donor.id), Donation.between_dates(start_date, end_date).total_non_kind(donor.id), donation.total_amount]
+                 else
+            [donor.full_name, donor.contact_number, donor.email, Donation.total_kind(donor.id), Donation.total_non_kind(donor.id), donation.total_amount]
+                 end
         else
           csv << ['Donor deleted', '', '', '', '', '']
         end
