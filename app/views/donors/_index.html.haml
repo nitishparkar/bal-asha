@@ -7,7 +7,7 @@
         %th.col-md-1 Email
         %th.col-md-1 Solicit
         %th.col-md-1 Type
-        %th.col-md-1 Level
+        %th.col-md-1 Status
         %th.col-md-2 Controls
     %tbody
       - donors.each do |donor|
@@ -19,7 +19,7 @@
           %td= mail_to donor.email
           %td= donor.solicit.humanize
           %td= donor.donor_type.humanize
-          %td= donor.level.humanize
+          %td= donor.status.humanize
           %td
             = link_to 'Edit', edit_donor_path(donor), class: "btn btn-primary"
             = link_to 'Remove', donor, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"

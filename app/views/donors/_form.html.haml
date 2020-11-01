@@ -14,7 +14,7 @@
     .col-md-3
       = f.select :donor_type, options_for_select(Donor.donor_types.collect { |t| [t[0].humanize, t[0]] }, selected: @donor.donor_type)
     .col-md-3
-      = f.select :level, options_for_select(Donor.levels.collect { |t| [t[0].humanize, t[0]] }, selected: @donor.level)
+      = f.select :status, options_for_select(Donor.statuses.collect { |t| [t[0].humanize, t[0]] }, selected: @donor.status)
   .row
     .col-md-6
       = f.text_field :pan_card_no
