@@ -42,9 +42,9 @@ class DonorTest < ActiveSupport::TestCase
     assert_not donor.save
   end
 
-  test "default level is general" do
+  test "default status is active" do
     donor = Donor.new
-    assert donor.general?
+    assert donor.active?
   end
 
   test "full_name" do

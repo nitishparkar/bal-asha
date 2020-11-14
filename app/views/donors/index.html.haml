@@ -10,7 +10,7 @@
             = f.select :solicit_eq, options_for_select(Donor.solicits.collect { |t| [t[0].humanize, t[1]] }), {include_blank: "Solicit"}, class: "form-control donor-search-select"
         .form-group.col-md-2
           .input-group.col-md-12
-            = f.select :level_eq, options_for_select(Donor.levels.collect { |t| [t[0].humanize, t[1]] }), {include_blank: "Level"}, class: "form-control donor-search-select"
+            = f.select :status_eq, options_for_select(Donor.statuses.collect { |t| [t[0].humanize, t[1]] }), {include_blank: "Status"}, class: "form-control donor-search-select"
   .col-md-2
     .pull-right.clearfix
       = link_to new_donor_path do

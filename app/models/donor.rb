@@ -26,6 +26,7 @@
 #  updated_at                   :datetime
 #  country_code                 :string(255)
 #  deleted_at                   :datetime
+#  status                       :integer          default(0)
 #
 
 class Donor < ActiveRecord::Base
@@ -37,6 +38,8 @@ class Donor < ActiveRecord::Base
 
   enum level: {general: 0, vip: 2}
 
+  enum status: {active: 0, inactive: 1}
+
   enum contact_frequency: {once_in_15_days: 0, once_in_30_days: 1}
 
   enum preferred_communication_mode: {call: 0, sms: 1, email: 2, any: 3, whatsapp: 4}
@@ -46,9 +49,7 @@ class Donor < ActiveRecord::Base
   has_many :donations, -> { order("date DESC") }
   has_many :call_for_actions
 
-  validates :first_name, :donor_type, :level,
-            :country_code, :solicit,
-            presence: true
+  validates :first_name, :donor_type, :status, :country_code, :solicit, presence: true
 
   validates :trust_no, presence: true, if: proc { |d| d.donor_type == "trust" }
 

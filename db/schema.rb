@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200525071045) do
+ActiveRecord::Schema.define(version: 20201101154009) do
 
   create_table "call_for_actions", force: true do |t|
     t.datetime "date_of_action"
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 20200525071045) do
     t.datetime "updated_at"
     t.string   "country_code"
     t.datetime "deleted_at"
+    t.integer  "status",                       limit: 4,     default: 0
   end
 
   add_index "donors", ["country_code"], name: "index_donors_on_country_code", using: :btree
