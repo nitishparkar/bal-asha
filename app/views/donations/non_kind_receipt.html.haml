@@ -54,7 +54,7 @@
               %p= "Dear #{@donor.full_name},"
               %p
                 Thank you for your contribution of
-                %b= "&#8377;#{"%.2f" % @donation.amount} (Rupees #{@donation.amount_in_words} Only).&nbsp;".html_safe
+                %b= "&#8377;#{"%.2f" % @donation.amount} (#{@donation.amount_in_words} Only).&nbsp;".html_safe
                 Individual contributions like yours, help us to continue doing the work we do. Please find below, details of your donation.
 
           %br
