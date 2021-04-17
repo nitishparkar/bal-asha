@@ -95,7 +95,7 @@
               - @donations.each do |donation|
                 - donor = donation.donor
                 - actions = donation.donation_actions
-                %tr
+                %tr.unacknowledged_donation_row
                   %td= link_to l(donation.date, format: :formal), donation_path(donation)
                   %td= donor.full_name
                   %td
@@ -104,11 +104,3 @@
                   %td
                     - DonationActions.thank_you_mode_cds.except(:pending).each do |label, value|
                       = link_to label, donation_donation_actions_path(donation_id: donation.id, thank_you_mode_cd: value), method: :patch, data: { confirm: "Are you sure?" }, remote: true, class: "btn btn-#{actions.thank_you_mode_cd == label ? 'primary' : 'default'} thank-you-mode-link"
-
-
-:javascript
-  $(document).ready(function() {
-    $(".receipt-mode-link, .thank-you-mode-link").on("ajax:complete", function() {
-      location.reload();
-    });
-  });
