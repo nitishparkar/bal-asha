@@ -376,4 +376,17 @@ $(document).ready(function() {
   $('#donation-acknowledgements .daterangepicker').on('hide.daterangepicker', function (ev, picker) {
     $('#donation-acknowledgements').submit();
   });
+
+  $(".receipt-mode-link, .thank-you-mode-link").on("ajax:success", function (event, responseData, _) {
+    $(event.currentTarget).siblings('.btn-primary').removeClass('btn-primary');
+    $(event.currentTarget).addClass('btn-primary');
+    toastr.success('Updated successfully!')
+    if (responseData['receipt_mode_cd'] != 'not_sent' && responseData['thank_you_mode_cd'] != 'pending') {
+      $(event.currentTarget).parent().parent('tr.unacknowledged_donation_row').hide('slow');
+    }
+  });
+
+  $(".receipt-mode-link, .thank-you-mode-link").on("ajax:error", function () {
+    toastr.error('Something went wrong');
+  });
 });
