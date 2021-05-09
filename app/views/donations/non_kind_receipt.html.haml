@@ -89,8 +89,13 @@
                 %strong= "#{@donation.amount_in_words} Only"
 
           .row.donation-details
-            .col-xs-12
-              %p.no-bottom-margin Remarks
+            - unless @donor.no_id?
+              .col-xs-3
+                %p.no-bottom-margin= "#{@donor.identification_type.humanize}:"
+                %p
+                  %strong= @donor.identification_no
+            %div{class: "col-xs-#{@donor.no_id? ? 12 : 9}"}
+              %p.no-bottom-margin Remarks:
               %p
                 %strong= @donation.remarks.presence || "-"
 

@@ -27,6 +27,8 @@
 #  country_code                 :string(255)
 #  deleted_at                   :datetime
 #  status                       :integer          default(0)
+#  identification_type          :integer          default(0)
+#  identification_no            :string(255)
 #
 
 class Donor < ActiveRecord::Base
@@ -45,6 +47,8 @@ class Donor < ActiveRecord::Base
   enum preferred_communication_mode: {call: 0, sms: 1, email: 2, any: 3, whatsapp: 4}
 
   enum solicit: {no: false, yes: true}
+
+  enum identification_type: {no_id: 0, pan_card: 1, aadhaar_card: 2, passport: 3, voter_id_card: 4, driving_license: 5, ration_card: 6, tax_payer_country_of_residence: 7}
 
   has_many :donations, -> { order("date DESC") }
   has_many :call_for_actions

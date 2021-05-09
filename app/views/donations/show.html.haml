@@ -59,6 +59,8 @@
         %h5= @donor.try(:full_name)
         %p= raw @donor.try(:contact_info)
         %p= @donor.try(:full_address)
+        - unless @donor.no_id?
+          %p= "#{@donor.identification_type.humanize}: #{@donor.identification_no}"
 
     %hr
 

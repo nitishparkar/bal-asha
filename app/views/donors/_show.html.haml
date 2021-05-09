@@ -31,13 +31,17 @@
             %tr
               %td Status:
               %td= donor.status.humanize
-            %tr
-              %td Pan card no:
-              %td= donor.pan_card_no
+            - if donor.no_id?
+              %tr
+                %td Identification
+                %td None
+            - else
+              %tr
+                %td= donor.identification_type.humanize
+                %td= donor.identification_no
             %tr
               %td Trust no:
               %td= donor.trust_no
-
             %tr
               %td Solicit:
               %td= donor.solicit.humanize
