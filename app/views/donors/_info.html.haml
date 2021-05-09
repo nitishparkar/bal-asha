@@ -5,6 +5,8 @@
   .panel-body
     %p= raw donor.contact_info
     %p= donor.full_address
+    - unless donor.no_id?
+      %p= "#{donor.identification_type.humanize}: #{donor.identification_no}"
 
     .panel.panel-default
       .panel-heading
@@ -19,6 +21,3 @@
             %tr
               %td= link_to l(donation.date, format: :formal), donation
               %td= donation.type_cd.humanize
-
-
-

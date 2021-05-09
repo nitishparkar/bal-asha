@@ -16,9 +16,11 @@
     .col-md-3
       = f.select :status, options_for_select(Donor.statuses.collect { |t| [t[0].humanize, t[0]] }, selected: @donor.status)
   .row
-    .col-md-6
-      = f.text_field :pan_card_no
-    .col-md-6
+    .col-md-3
+      = f.select :identification_type, options_for_select(Donor.identification_types.collect { |t| [(t[0] == 'no_id' ? 'None' : t[0].humanize), t[0]] }, selected: @donor.identification_type), label: "Identification"
+    .col-md-5
+      = f.text_field :identification_no
+    .col-md-4
       = f.text_field :trust_no
   .row
     .col-md-4
