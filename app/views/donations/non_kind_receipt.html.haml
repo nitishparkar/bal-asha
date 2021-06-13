@@ -74,9 +74,10 @@
               %p
                 %strong= @donor.full_name
             .col-xs-3
-              %p.no-bottom-margin Payment Method:
-              %p
-                %strong= @donation.type_cd.upcase
+              - unless @donor.no_id?
+                %p.no-bottom-margin= "#{@donor.identification_type.humanize}:"
+                %p
+                  %strong= @donor.identification_no
 
           .row.donation-details
             .col-xs-3
@@ -89,12 +90,11 @@
                 %strong= "#{@donation.amount_in_words} Only"
 
           .row.donation-details
-            - unless @donor.no_id?
-              .col-xs-3
-                %p.no-bottom-margin= "#{@donor.identification_type.humanize}:"
-                %p
-                  %strong= @donor.identification_no
-            %div{class: "col-xs-#{@donor.no_id? ? 12 : 9}"}
+            .col-xs-3
+              %p.no-bottom-margin Payment Method:
+              %p
+                %strong= @donation.type_cd.upcase
+            .col-xs-9
               %p.no-bottom-margin Remarks:
               %p
                 %strong= @donation.remarks.presence || "-"
