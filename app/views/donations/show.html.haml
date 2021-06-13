@@ -25,6 +25,9 @@
             %tr
               %td Donation type
               %td= @donation.type_cd.humanize
+            %tr
+              %td Category
+              %td= @donation.category.humanize
             - unless @donation.kind?
               %tr
                 %td Amount

@@ -41,7 +41,7 @@ class Donation < ActiveRecord::Base
 
   enum thank_you_sent: {no: false, yes: true}
 
-  validates_presence_of :donor_id, :person_id, :type_cd, :date
+  validates_presence_of :donor_id, :person_id, :type_cd, :date, :category
 
   validates :payment_details, presence: true, if: proc { |d| d.type_cd == "cheque" }
 
