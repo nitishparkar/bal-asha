@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210509031952) do
+ActiveRecord::Schema.define(version: 20210613113754) do
 
   create_table "call_for_actions", force: true do |t|
     t.datetime "date_of_action"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20210509031952) do
     t.string   "receipt_number"
     t.string   "payment_details"
     t.datetime "deleted_at"
+    t.integer  "category",        limit: 1,                default: 0
   end
 
   add_index "donations", ["donor_id"], name: "index_donations_on_donor_id", using: :btree

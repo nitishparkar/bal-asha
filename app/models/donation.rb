@@ -17,6 +17,7 @@
 #  receipt_number  :string(255)
 #  payment_details :string(255)
 #  deleted_at      :datetime
+#  category        :integer          default(0)
 #
 
 require Rails.root.join('lib', 'number_to_words')
@@ -35,6 +36,8 @@ class Donation < ActiveRecord::Base
   has_one :donation_actions, dependent: :destroy
 
   enum type_cd: {cash: 0, kind: 1, cheque: 2, neft: 3, online: 4}
+
+  enum category: {not_specified: 0, corpus: 1, general: 2, specific_grants: 3}
 
   enum thank_you_sent: {no: false, yes: true}
 
