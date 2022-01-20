@@ -55,7 +55,7 @@
               %p
                 Thank you for your contribution of
                 %b= "&#8377;#{"%.2f" % @donation.amount} (#{@donation.amount_in_words} Only).&nbsp;".html_safe
-                Individual contributions like yours, help us to continue doing the work we do. Please find below, details of your donation.
+                Individual contributions like yours are crucial for the continuity of our work. Donations to Bal Asha Trust are tax deductible under section 80G of the Income Tax Act of 1961. Please find below, details of your donation.
 
           %br
 
@@ -78,6 +78,13 @@
                 %p.no-bottom-margin= "#{@donor.identification_type.humanize}:"
                 %p
                   %strong= @donor.identification_no
+
+          - if @donor.address.present?
+            .row.donation-details
+              .col-xs-12
+                %p.no-bottom-margin Donor address:
+                %p
+                  %strong= @donor.address
 
           .row.donation-details
             .col-xs-3
