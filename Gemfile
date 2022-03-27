@@ -84,4 +84,6 @@ group :development, :test do
   gem 'rack-mini-profiler', "~> 0.10"
   # Enforce ruby style guide
   gem 'rubocop', '~> 0.39', require: false
+
+  gem 'factory_bot_rails', '~> 5.2.0'
 end
