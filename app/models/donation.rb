@@ -45,7 +45,9 @@ class Donation < ActiveRecord::Base
 
   validates :payment_details, presence: true, if: proc { |d| d.type_cd == "cheque" }
 
-  validates :amount, :receipt_number, presence: true, if: proc { |d| d.type_cd != "kind" }
+  validates :amount, presence: true, if: proc { |d| d.type_cd != "kind" }
+
+  validates :receipt_number, presence: true, if: proc { |d| d.type_cd == "cash" || d.type_cd == "cheque" }
 
   validates :amount, numericality: { greater_than: 0 }, allow_nil: true
 
@@ -61,6 +63,7 @@ class Donation < ActiveRecord::Base
     Arel.sql('date(date)')
   end
 
+  before_create :generate_receipt_number, if: -> { neft? || online? }
   after_create :create_donation_actions, unless: :kind?
   after_create :set_token
   before_save :calculate_amount, if: :kind?
@@ -164,5 +167,17 @@ class Donation < ActiveRecord::Base
 
     def calculate_amount
       self.amount = transaction_items.map { |ti| ti.rate * ti.quantity }.sum
+    end
+
+    def generate_receipt_number
+      financial_year_string = fy_string
+      last_receipt_number = Donation.where('receipt_number like ?', "BAT/Receipt/Electronic/#{financial_year_string}/%").order(:receipt_number).last.try(:receipt_number)
+      next_receipt_number = last_receipt_number.present? ? last_receipt_number.split('/').last.to_i + 1 : 1
+      self.receipt_number = "BAT/Receipt/Electronic/#{financial_year_string}/#{next_receipt_number.to_s.rjust(4, '0')}"
+    end
+
+    def fy_string
+      now = Time.now.in_time_zone('Asia/Kolkata')
+      now.month > 3 ? "#{now.year}-#{(now.year + 1) % 100}" : "#{(now.year - 1)}-#{now.year % 100}"
     end
 end

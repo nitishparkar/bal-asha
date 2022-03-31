@@ -246,7 +246,7 @@ $(document).ready(function() {
   var donationTypeChanged = function() {
     var type_val = $("#donation_type_cd").val();
 
-    if(type_val == "cash") {
+    if (type_val == "cash" || type_val == "cheque") {
       $("#items").addClass("hidden");
       $(".donation_payment_details").removeClass("hidden");
       $(".donation_amount").removeClass("hidden");
@@ -256,11 +256,12 @@ $(document).ready(function() {
       $(".donation_payment_details").addClass("hidden");
       $("#items").removeClass("hidden");
       $(".donation_receipt_number").addClass("hidden");
-    } else if(type_val == "cheque" || type_val == "neft") {
+    } else if(type_val == "neft" || type_val == "online") {
       $("#items").addClass("hidden");
-      $(".donation_amount").removeClass("hidden");
       $(".donation_payment_details").removeClass("hidden");
-      $(".donation_receipt_number").removeClass("hidden");
+      $(".donation_amount").removeClass("hidden");
+      $(".new_donation .donation_receipt_number").addClass("hidden");
+      $(".edit_donation .donation_receipt_number").removeClass("hidden");
     }
   }
 

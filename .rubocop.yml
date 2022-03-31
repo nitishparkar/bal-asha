@@ -29,3 +29,7 @@ Style/HashTransformValues:
 # Too restrictive
 Metrics/ClassLength:
   Enabled: false
+
+# Ignore RSpec methods - https://stackoverflow.com/a/41689335
+Metrics/BlockLength:
+  ExcludedMethods: ['describe', 'context']

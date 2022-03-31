@@ -52,6 +52,7 @@ gem 'kaminari'
 gem 'kaminari-bootstrap', '~> 3.0.1'
 gem 'select2-rails'
 gem 'faker'
+gem 'timecop'
 
 gem 'rollbar', '~> 2.15.5'
 
