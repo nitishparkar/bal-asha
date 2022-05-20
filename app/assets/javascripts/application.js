@@ -366,6 +366,10 @@ $(document).ready(function() {
     window.print();
   });
 
+  $('#form_80bd_search .daterangepicker').on('hide.daterangepicker', function (ev, picker) {
+    $('#form_80bd_search').submit();
+  });
+
   $('#audit_search .daterangepicker').on('hide.daterangepicker', function(ev, picker) {
     $('#audit_search').submit();
   });
