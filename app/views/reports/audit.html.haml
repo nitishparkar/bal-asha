@@ -27,9 +27,11 @@
       %thead
         %tr
           %th.col-md-2 Receipt No
-          %th.col-md-2 Date
-          %th Name
-          %th.col-md-2 Amount
+          %th.col-md-1 Date
+          %th.col-md-2 Name
+          %th.col-md-1 Identification
+          %th Address
+          %th.col-md-1 Amount
           %th.col-md-1 Mode
       %tbody
         - @donations.each do |donation|
@@ -38,6 +40,7 @@
               %b= donation.receipt_number
             %td= l(donation.date, format: :formal)
             %td= donation.donor.try(:full_name)
+            %td= donation.donor.try(:identification_type)
+            %td= donation.donor.try(:full_address)
             %td= donation.amount
             %td= donation.type_cd.titleize
-
