@@ -70,7 +70,7 @@ RSpec.describe Form10bdGeneratorService, type: :class do
     end
 
     it 'determines donation_type from donation category' do
-      create(:donation, :cheque, donor: donor_1, amount: 1000, category: Donation.categories['not_specified'])
+      create(:donation, :cheque, donor: donor_1, amount: 1000, category: Donation.categories['others'])
       create(:donation, :cheque, donor: donor_2, amount: 1000, category: Donation.categories['corpus'])
       create(:donation, :cheque, donor: donor_3, amount: 1000, category: Donation.categories['specific_grants'])
       create(:donation, :cheque, donor: create(:donor), amount: 1000, category: Donation.categories['general'])

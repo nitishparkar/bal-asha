@@ -37,7 +37,7 @@ class Donation < ActiveRecord::Base
 
   enum type_cd: {cash: 0, kind: 1, cheque: 2, neft: 3, online: 4}
 
-  enum category: {not_specified: 0, corpus: 1, general: 2, specific_grants: 3}
+  enum category: {others: 0, corpus: 1, general: 2, specific_grants: 3}
 
   enum thank_you_sent: {no: false, yes: true}
 

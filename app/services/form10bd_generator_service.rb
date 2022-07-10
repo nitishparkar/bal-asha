@@ -53,7 +53,7 @@ class Form10bdGeneratorService
 
   def donation_type(category)
     case category
-    when Donation.categories['not_specified']
+    when Donation.categories['others']
       'Others'
     when Donation.categories['corpus']
       'Corpus'
