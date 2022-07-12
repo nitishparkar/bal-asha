@@ -50,6 +50,8 @@ class Donor < ActiveRecord::Base
 
   enum identification_type: {no_id: 0, pan_card: 1, aadhaar_card: 2, passport: 3, voter_id_card: 4, driving_license: 5, ration_card: 6, tax_payer_country_of_residence: 7}
 
+  enum status_80g: {unknown: 0, required: 1, not_required: 2}
+
   has_many :donations, -> { order("date DESC") }
   has_many :call_for_actions
 
