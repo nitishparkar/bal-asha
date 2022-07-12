@@ -48,6 +48,8 @@
       = f.select :preferred_communication_mode, options_for_select(Donor.preferred_communication_modes.collect { |t| [t[0].humanize, t[0]] }, selected: @donor.preferred_communication_mode)
     .col-md-3
       = f.select :solicit, options_for_select(Donor.solicits.collect { |t| [t[0].humanize, t[0]] }, selected: @donor.solicit)
+    .col-md-3
+      = f.select :status_80g, options_for_select(Donor.status_80gs.collect { |t| [t[0].humanize, t[0]] }, selected: @donor.status_80g), label: "80G Status"
   .row
     .col-md-12
       = f.text_area :remarks

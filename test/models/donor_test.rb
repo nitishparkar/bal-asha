@@ -47,6 +47,11 @@ class DonorTest < ActiveSupport::TestCase
     assert donor.active?
   end
 
+  test "default status_80g is unknown" do
+    donor = Donor.new
+    assert donor.unknown?
+  end
+
   test "full_name" do
     donor = Donor.new(first_name: "John", last_name: "Doe")
     assert_equal donor.full_name, "John Doe"

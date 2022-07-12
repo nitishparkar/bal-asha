@@ -27,9 +27,10 @@
           %thead
             %tr
               %th.col-md-4 Name
-              %th.col-md-3 Phone
+              %th.col-md-2 Phone
               %th.col-md-3 Email
               %th.col-md-1 Status
+              %th.col-md-1 80G Status
               %th.col-md-1 Amount
           %tbody
             - @top_kind.each do |donation|
@@ -40,6 +41,7 @@
                   %td= donor.contact_number
                   %td= donor.email
                   %td= donor.status.humanize
+                  %td= donor.status_80g.humanize
                   %td= number_to_currency(donation.total_amount)
               - else
                 %tr
@@ -51,9 +53,10 @@
           %thead
             %tr
               %th.col-md-4 Name
-              %th.col-md-3 Phone
+              %th.col-md-2 Phone
               %th.col-md-3 Email
               %th.col-md-1 Status
+              %th.col-md-1 80G Status
               %th.col-md-1 Amount
           %tbody
             - @top_non_kind.each do |donation|
@@ -64,6 +67,7 @@
                   %td= donor.contact_number
                   %td= donor.email
                   %td= donor.status.humanize
+                  %td= donor.status_80g.humanize
                   %td= number_to_currency(donation.total_amount)
               - else
                 %tr
@@ -75,9 +79,10 @@
           %thead
             %tr
               %th.col-md-3 Name
-              %th.col-md-3 Phone
+              %th.col-md-2 Phone
               %th.col-md-2 Email
               %th.col-md-1 Status
+              %th.col-md-1 80G Status
               %th.col-md-1 Kind
               %th.col-md-1 Cash
               %th.col-md-1 Total
@@ -96,6 +101,7 @@
                   %td= donor.contact_number
                   %td= donor.email
                   %td= donor.status.humanize
+                  %td= donor.status_80g.humanize
                   %td= number_to_currency(total_kind)
                   %td= number_to_currency(total_cash)
                   %td= number_to_currency(donation.total_amount)
