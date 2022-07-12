@@ -8,6 +8,12 @@ RSpec.describe Form10bdGeneratorService, type: :class do
     let(:start_date) { (DateTime.now - 1.day).beginning_of_day }
     let(:end_date) { DateTime.now.end_of_day }
 
+    before(:all) do
+      # Delete fixtures data
+      # TODO: Remove fixtures
+      Donation.delete_all
+    end
+
     it 'returns sum of all electronic donations for each donor between given dates' do
       create(:donation, :cheque, donor: donor_1, amount: 4000)
       create(:donation, :online, donor: donor_1, amount: 1000)
