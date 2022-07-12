@@ -93,6 +93,26 @@ class ReportsController < ApplicationController
     end
   end
 
+  def form_10bd
+    @form10bd_data = []
+
+    if params[:daterange].present?
+      start_date_string, end_date_string = params[:daterange].split(" - ")
+      start_date = DateTime.parse(start_date_string).beginning_of_day
+      end_date = DateTime.parse(end_date_string).end_of_day
+      @form10bd_data = Form10bdGeneratorService.new(start_date, end_date).fetch_data
+    end
+
+    respond_to do |format|
+      format.html do
+        render "form_10bd"
+      end
+      format.csv do
+        send_data(CSV.generate { |csv| @form10bd_data.map { |row| csv << row } }, filename: "form_10bd-#{params[:daterange]}.csv")
+      end
+    end
+  end
+
   private
 
   def top_donors_filename
