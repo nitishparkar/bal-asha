@@ -107,11 +107,11 @@ class Donation < ActiveRecord::Base
 
   def self.audit_csv(donations)
     CSV.generate do |csv|
-      csv << ["Receipt No", "Date", "Name", "Identification", "Address", "Amount", "Mode"]
+      csv << ["Receipt No", "Date", "Name", "Identification", "ID No", "Address", "Amount", "Mode"]
       donations.each do |donation|
         csv << [donation.receipt_number, I18n.l(donation.date, format: :formal),
-                donation.donor.try(:full_name), donation.donor.try(:identification_type), donation.donor.try(:full_address),
-                donation.amount, donation.type_cd.titleize]
+                donation.donor.try(:full_name), donation.donor.try(:identification_type), donation.donor.try(:identification_no),
+                donation.donor.try(:full_address), donation.amount, donation.type_cd.titleize]
       end
     end
   end
