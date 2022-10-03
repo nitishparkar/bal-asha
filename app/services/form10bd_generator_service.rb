@@ -15,7 +15,7 @@ class Form10bdGeneratorService
 
   def fetch_data
     # All electronic donations
-    eds = Donation.joins(:donor).where(type_cd: DONATION_TYPES_ELECTRONIC).between_dates(start_date, end_date).group(:donor_id).pluck(COLUMNS_TO_PLUCK)
+    eds = Donation.joins(:donor).where(type_cd: DONATION_TYPES_ELECTRONIC).between_dates(start_date, end_date).group(:donor_id, :category).pluck(COLUMNS_TO_PLUCK)
 
     # All cash donations upto 2k
     cds = Donation.joins(:donor).where(type_cd: DONATION_TYPE_CASH).where("amount <= #{CASH_DONATION_THRESHOLD}").between_dates(start_date, end_date).group(:donor_id).pluck(COLUMNS_TO_PLUCK)
