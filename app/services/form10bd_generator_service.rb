@@ -6,7 +6,8 @@ class Form10bdGeneratorService
   HEADERS = ["SI. No.", "Pre Acknowledgement Number", "ID Code", "Unique Identification Number", "Section Code", "Unique Registration Number (URN)", "Date of Issuance of Unique Registration Number", "Name of donor", "Address of donor", "Donation Type", "Mode of receipt", "Amount of donation (Indian rupees)"].freeze
   DONATION_TYPE_CASH = Donation.type_cds['cash']
   DONATION_TYPES_ELECTRONIC = [Donation.type_cds['cheque'], Donation.type_cds['neft'], Donation.type_cds['online']].freeze
-  COLUMNS_TO_PLUCK = 'donor_id, donors.identification_type, donors.identification_no, receipt_number, donors.first_name, donors.last_name, donors.address, category, type_cd, SUM(amount)'.freeze
+  COLUMNS_TO_PLUCK_ELECTRONIC = 'donor_id, donors.identification_type, donors.identification_no, receipt_number, donors.first_name, donors.last_name, donors.address, category, type_cd, SUM(amount)'.freeze
+  COLUMNS_TO_PLUCK_CASH = 'donor_id, donors.identification_type, donors.identification_no, receipt_number, donors.first_name, donors.last_name, donors.address, category, type_cd, amount'.freeze
 
   def initialize(start_date, end_date)
     @start_date = start_date
@@ -14,14 +15,10 @@ class Form10bdGeneratorService
   end
 
   def fetch_data
-    # All electronic donations
-    eds = Donation.joins(:donor).where(type_cd: DONATION_TYPES_ELECTRONIC).between_dates(start_date, end_date).group(:donor_id, :category).pluck(COLUMNS_TO_PLUCK)
-
-    # All cash donations upto 2k
-    cds = Donation.joins(:donor).where(type_cd: DONATION_TYPE_CASH).where("amount <= #{CASH_DONATION_THRESHOLD}").between_dates(start_date, end_date).group(:donor_id).pluck(COLUMNS_TO_PLUCK)
-
-    data = (eds + cds)
-           .map { |row| [row[0], '', identification_name(row[1]), row[2], SECTION_CODE, URN, URN_DATE, "#{row[4]} #{row[5]}".strip, row[6], donation_type(row[7]), mode_of_receipt(row[8]), row[9]] }
+    data = (electronic_donations_data + cash_donations_data).map do |row|
+      [row[0], '', identification_name(row[1]), row[2], SECTION_CODE, URN, URN_DATE,
+       "#{row[4]} #{row[5]}".strip, row[6], donation_type(row[7]), mode_of_receipt(row[8]), row[9]]
+    end
 
     data.empty? ? data : data.unshift(HEADERS)
   end
@@ -29,6 +26,43 @@ class Form10bdGeneratorService
   private
 
   attr_reader :start_date, :end_date
+
+  def electronic_donations_data
+    Donation.joins(:donor)
+            .where(type_cd: DONATION_TYPES_ELECTRONIC)
+            .between_dates(start_date, end_date)
+            .group(:donor_id, :category)
+            .pluck(COLUMNS_TO_PLUCK_ELECTRONIC)
+  end
+
+  def cash_donations_data
+    cash_donations = Donation.joins(:donor)
+                             .where(type_cd: DONATION_TYPE_CASH)
+                             .between_dates(start_date, end_date)
+                             .pluck(COLUMNS_TO_PLUCK_CASH)
+
+    grouped_by_donor_id = cash_donations.group_by { |d| d[0] }
+
+    # Group donations by donor id and donation category and filter donations that cross the CASH_DONATION_THRESHOLD
+    grouped_and_filtered = {}
+    grouped_by_donor_id.each do |_, donations|
+      total_donation_amount_for_donor = 0
+      donations.each do |donation|
+        donor_id = donation[0]
+        donation_category = donation[-3]
+        total_donation_amount_for_donor += donation[-1]
+        break if total_donation_amount_for_donor > CASH_DONATION_THRESHOLD # Skip this and the remaining donations if threshold is breached
+
+        if grouped_and_filtered[[donor_id, donation_category]].present?
+          grouped_and_filtered[[donor_id, donation_category]][-1] = total_donation_amount_for_donor # sum all donation amounts for each category
+        else
+          grouped_and_filtered[[donor_id, donation_category]] = donation
+        end
+      end
+    end
+
+    grouped_and_filtered.values
+  end
 
   def identification_name(identification_type)
     case identification_type
