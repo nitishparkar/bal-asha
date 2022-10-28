@@ -54,7 +54,7 @@ class Form10bdGeneratorService
         break if total_donation_amount_for_donor > CASH_DONATION_THRESHOLD # Skip this and the remaining donations if threshold is breached
 
         if grouped_and_filtered[[donor_id, donation_category]].present?
-          grouped_and_filtered[[donor_id, donation_category]][-1] = total_donation_amount_for_donor # sum all donation amounts for each category
+          grouped_and_filtered[[donor_id, donation_category]][-1] += donation[-1] # sum all donation amounts for each category
         else
           grouped_and_filtered[[donor_id, donation_category]] = donation
         end

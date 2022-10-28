@@ -19,6 +19,7 @@ RSpec.describe Form10bdGeneratorService, type: :class do
       create(:donation, :cheque, donor: donor_1, amount: 4000, category: Donation.categories['others'])
       create(:donation, :online, donor: donor_1, amount: 1000, category: Donation.categories['corpus'])
       create(:donation, :online, donor: donor_1, amount: 1000, category: Donation.categories['specific_grants'])
+      create(:donation, :online, donor: donor_1, amount: 2000, category: Donation.categories['specific_grants'])
       create(:donation, :online, donor: donor_2, amount: 1000, category: Donation.categories['general'])
       create(:donation, :cheque, donor: donor_2, amount: 2000, category: Donation.categories['others'])
       create(:donation, :online, donor: donor_1, date: start_date - 1.day)
@@ -41,7 +42,7 @@ RSpec.describe Form10bdGeneratorService, type: :class do
       expect(data[2][-3]).to eq('Corpus')
 
       expect(data[3][0]).to eq(donor_1.id)
-      expect(data[3][-1].to_f).to eq(1000)
+      expect(data[3][-1].to_f).to eq(3000)
       expect(data[3][-2]).to eq('Electronic modes including account payee cheque/draft')
       expect(data[3][-3]).to eq('Specific grant')
 
@@ -60,6 +61,7 @@ RSpec.describe Form10bdGeneratorService, type: :class do
       create(:donation, :cash, donor: donor_1, amount: 400, category: Donation.categories['others'])
       create(:donation, :cash, donor: donor_1, amount: 100, category: Donation.categories['corpus'])
       create(:donation, :cash, donor: donor_1, amount: 100, category: Donation.categories['specific_grants'])
+      create(:donation, :cash, donor: donor_1, amount: 200, category: Donation.categories['specific_grants'])
       create(:donation, :cash, donor: donor_2, amount: 100, category: Donation.categories['general'])
       create(:donation, :cash, donor: donor_2, amount: 200, category: Donation.categories['others'])
       create(:donation, :cash, donor: donor_1, date: start_date - 1.day)
@@ -82,7 +84,7 @@ RSpec.describe Form10bdGeneratorService, type: :class do
       expect(data[2][-3]).to eq('Corpus')
 
       expect(data[3][0]).to eq(donor_1.id)
-      expect(data[3][-1].to_f).to eq(100)
+      expect(data[3][-1].to_f).to eq(300)
       expect(data[3][-2]).to eq('Cash')
       expect(data[3][-3]).to eq('Specific grant')
 
@@ -116,10 +118,13 @@ RSpec.describe Form10bdGeneratorService, type: :class do
 
         expect(data[0]).to eq(Form10bdGeneratorService::HEADERS)
         expect(data.length).to eq(5)
+
         expect(data[1][0]).to eq(donor_1.id)
         expect(data[1][-1].to_f).to eq(2000)
+
         expect(data[2][0]).to eq(donor_2.id)
         expect(data[2][-1].to_f).to eq(1000)
+
         expect(data[3][0]).to eq(donor_4.id)
         expect(data[3][-1].to_f).to eq(1000)
         expect(data[4][0]).to eq(donor_4.id)
