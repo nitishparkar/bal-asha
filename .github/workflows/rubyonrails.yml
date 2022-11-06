@@ -35,7 +35,7 @@ jobs:
           ruby-version: 2.4.10
       # Add or replace database setup steps here
       - name: Set up database schema
-        run: bin/rake db:schema:load
+        run: bin/rake db:migrate
       # Add or replace test runners here
       - name: Run RSpec tests
         run: bin/rake spec
