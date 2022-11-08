@@ -46,17 +46,12 @@ class DonationTest < ActiveSupport::TestCase
     assert_not donation.save
   end
 
-  test "receipt_number is mandatory for non-kind donations" do
-    # For kind donations, it is auto generated
+  test "receipt_number is mandatory for cash and cheque donations" do
     donation = donations(:cash)
     donation.receipt_number = nil
     assert_not donation.save
 
     donation = donations(:cheque)
-    donation.receipt_number = nil
-    assert_not donation.save
-
-    donation = donations(:neft)
     donation.receipt_number = nil
     assert_not donation.save
   end
