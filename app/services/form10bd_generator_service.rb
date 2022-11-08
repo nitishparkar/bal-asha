@@ -31,6 +31,7 @@ class Form10bdGeneratorService
     Donation.joins(:donor)
             .where(type_cd: DONATION_TYPES_ELECTRONIC)
             .between_dates(start_date, end_date)
+            .order(:created_at)
             .group(:donor_id, :category)
             .pluck(COLUMNS_TO_PLUCK_ELECTRONIC)
   end
@@ -39,6 +40,7 @@ class Form10bdGeneratorService
     cash_donations = Donation.joins(:donor)
                              .where(type_cd: DONATION_TYPE_CASH)
                              .between_dates(start_date, end_date)
+                             .order(:created_at)
                              .pluck(COLUMNS_TO_PLUCK_CASH)
 
     grouped_by_donor_id = cash_donations.group_by { |d| d[0] }
@@ -64,6 +66,8 @@ class Form10bdGeneratorService
     grouped_and_filtered.values
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity?
+  # This could be turned into a hash lookup to avoid the warning, but that won't make it any more readable.
   def identification_name(identification_type)
     case identification_type
     when Donor.identification_types['pan_card']
@@ -84,6 +88,7 @@ class Form10bdGeneratorService
       ''
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity?
 
   def donation_type(category)
     case category
