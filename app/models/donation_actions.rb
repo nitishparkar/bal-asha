@@ -10,6 +10,7 @@
 #  updated_at        :datetime         not null
 #
 
+# Donation actions are no longer used. Keeping the model and data for now.
 class DonationActions < ActiveRecord::Base
 
   belongs_to :donation

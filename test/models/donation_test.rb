@@ -198,33 +198,6 @@ class DonationTest < ActiveSupport::TestCase
     refute_empty donation.receipt_number
   end
 
-  test "donation_actions record is created for non-kind donations" do
-    donation = Donation.new(date: Date.today, person_id: Person.first.id,
-                            donor_id: Donor.first.id, amount: 1000, receipt_number: "BAT76554", type_cd: 0)
-    donation.save!
-    refute_nil donation.donation_actions
-
-    milk = items(:milk)
-    donation = Donation.new(date: Date.today, person_id: Person.first.id,
-                            donor_id: Donor.first.id, amount: 1000, receipt_number: "BAT76554", type_cd: 1)
-    donation.transaction_items.build(item_id: milk.id, quantity: 10)
-    donation.save!
-    assert_nil donation.donation_actions
-  end
-
-  test '.unacknowledged returns donations which have associated donation_actions and are not acknowledged by both thank you and receipt in oldest first order' do
-    donations(:kind)
-    donations(:cash).create_donation_actions!(receipt_mode_cd: 0, thank_you_mode_cd: 0)
-    donations(:neft).create_donation_actions!(receipt_mode_cd: 1, thank_you_mode_cd: 0)
-    donations(:cheque).create_donation_actions!(receipt_mode_cd: 0, thank_you_mode_cd: 1)
-    donations(:online).create_donation_actions!(receipt_mode_cd: 2, thank_you_mode_cd: 3)
-
-    donations = Donation.unacknowledged
-
-    assert_equal 3, donations.size
-    assert_equal ['neft', 'cheque', 'cash'], donations.map(&:type_cd)
-  end
-
   test '.amount_in_words returns word representation of the amount in title case' do
     assert_equal 'One Thousand One Rupees', Donation.new(amount: 1001).amount_in_words
   end
