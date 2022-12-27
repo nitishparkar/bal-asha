@@ -64,7 +64,6 @@ class Donation < ActiveRecord::Base
   end
 
   before_create :generate_receipt_number, if: -> { neft? || online? }
-  after_create :create_donation_actions, unless: :kind?
   after_create :set_token
   before_save :calculate_amount, if: :kind?
   after_create :add_to_stock, if: :kind?
@@ -135,12 +134,6 @@ class Donation < ActiveRecord::Base
         end
       end
     end
-  end
-
-  def self.unacknowledged
-    Donation.eager_load(:donor, :donation_actions)
-            .where('donation_actions.receipt_mode_cd = 0 OR donation_actions.thank_you_mode_cd = 0')
-            .order(date: :asc)
   end
 
   def self.donation_acknowledgements_csv(donations)

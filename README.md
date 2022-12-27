@@ -26,7 +26,7 @@ rake test
 
 #### Running specific test(s):
 ```
-rake test TEST=test/models/donation_test.rb TESTOPTS="--name=/unacknowledged/ -v"
+rake test TEST=test/models/donation_test.rb TESTOPTS="--name=/receipt_number/ -v"
 ```
 
 ## Deploying the app

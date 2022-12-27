@@ -71,28 +71,6 @@ class ReportsController < ApplicationController
     @total_kind_donations = ReportsService.total_kind_donations(start_date, end_date, params[:category_id])
   end
 
-  def donation_acknowledgements
-    if params[:daterange].present?
-      start_date_string, end_date_string = params[:daterange].split(" - ")
-      @start_date = DateTime.parse(start_date_string)
-      @end_date = DateTime.parse(end_date_string).end_of_day
-    else
-      @start_date = (Date.today - 1.month).beginning_of_month.to_datetime
-      @end_date = Date.today.end_of_month.to_datetime.end_of_day
-    end
-
-    @daterange_field_text = "#{l(@start_date, format: :formal)} - #{l(@end_date, format: :formal)}"
-    @donations = Donation.joins(:donation_actions).eager_load(:donor, :donation_actions)
-                         .where(date: @start_date..@end_date).order(date: :asc)
-
-    respond_to do |format|
-      format.html { render "donation_acknowledgements" }
-      format.csv do
-        send_data(Donation.donation_acknowledgements_csv(@donations), filename: "donation-ack-#{@daterange_field_text}.csv")
-      end
-    end
-  end
-
   def form_10bd
     @form10bd_data = []
 
