@@ -38,7 +38,7 @@ class Item < ActiveRecord::Base
       .select('items.*', 'items.stock_quantity/items.minimum_quantity*100 AS urgency')
       .where("stock_quantity < minimum_quantity")
       .order('urgency, items.minimum_quantity DESC')
-      .group_by(&:category)
+      .group_by(&:category_name)
   end
 
   def self.needs_csv(options = {})
@@ -46,9 +46,9 @@ class Item < ActiveRecord::Base
 
     CSV.generate(options) do |csv|
       csv << ["Name", "Wishlist", "Cost"]
-      needs.each do |category, items|
+      needs.each do |category_name, items|
         csv << []
-        csv << [category.name]
+        csv << [category_name]
         items.each do |item|
           wishlist_quantity = item.minimum_quantity - item.stock_quantity
           csv << [item.name, wishlist_quantity, wishlist_quantity * item.current_rate]
