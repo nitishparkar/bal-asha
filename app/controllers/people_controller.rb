@@ -7,10 +7,7 @@ class PeopleController < ApplicationController
   # GET /people
   # GET /people.json
   def index
-    @search = Person.ransack(params[:q])
-    @people = @search.result(distinct: true).page(params[:page])
-
-    respond_with(@people)
+    @people = Person.where.not(id: current_person.id)
   end
 
   # GET /people/1
@@ -46,6 +43,8 @@ class PeopleController < ApplicationController
   # PATCH/PUT /people/1
   # PATCH/PUT /people/1.json
   def update
+    params[:person].delete(:password) if params[:person].present? && params[:person][:password].blank?
+
     respond_to do |format|
       if @person.update(person_params)
         format.html { redirect_to people_path, notice: 'Person was successfully updated.' }
