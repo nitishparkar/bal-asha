@@ -27,7 +27,7 @@ class Person < ActiveRecord::Base
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  enum type_cd: {staff: 0, admin: 1, volunteer: 2}
+  enum type_cd: {staff: 0, admin: 1, intermediary: 2}
 
   validates :type_cd, presence: true
 
