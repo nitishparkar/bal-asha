@@ -10,6 +10,7 @@ class Ability
 
     can :read, Person
     can :update, Person, :type_cd
+    cannot :update, Person, &:admin?
 
     return unless person.admin?
 

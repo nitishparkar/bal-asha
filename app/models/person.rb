@@ -28,6 +28,11 @@ class Person < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   enum type_cd: {staff: 0, admin: 1, intermediary: 2}
+  OPTIONS_FOR_TYPE_SELECT = {
+    'staff' => {},
+    'admin' => Person.type_cds,
+    'intermediary' => Person.type_cds.except('admin')
+  }.freeze
 
   validates :type_cd, presence: true
 

@@ -5,5 +5,5 @@
     = f.email_field :email
   - if can? :update, Person, :password
     = f.password_field :password
-  = f.select :type_cd, options_for_select(Person.type_cds.collect { |t| [t[0].humanize, t[0]] }, selected: @person.type_cd), label: "Type"
+  = f.select :type_cd, options_for_select(Person::OPTIONS_FOR_TYPE_SELECT[current_person.type_cd].collect { |t| [t[0].humanize, t[0]] }, selected: @person.type_cd), label: "Type"
   = f.submit "Save Employee", data: {disable_with: "Submitting..."}
