@@ -60,6 +60,8 @@ gem 'paranoia', '~> 2.0'
 
 gem 'responders', '~> 2.0' # https://guides.rubyonrails.org/upgrading_ruby_on_rails.html#responders
 
+gem 'cancancan', '~> 3.4.0'
+
 group :development do
   # Removes assets request logs
   gem 'quiet_assets'

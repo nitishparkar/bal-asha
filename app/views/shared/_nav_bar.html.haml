@@ -13,7 +13,7 @@
         %ul.nav.navbar-nav
           / %li.active
           /   %a{href: "#"} Home
-          - if current_person.admin?
+          - if can? :read, Person
             %li{class: ("active" if params[:controller] == "people" && params[:action] != "change_password")}
               %a{href: people_path} People
           %li{class: ("active" if params[:controller] == "donors")}

@@ -1,7 +1,8 @@
-.row
-  .col-md-12
-    = link_to new_person_path do
-      %button.btn.btn-success Add Person
+- if can? :create, Person
+  .row
+    .col-md-12
+      = link_to new_person_path do
+        %button.btn.btn-success Add Person
 %br
 
 .table-responsive
@@ -17,5 +18,7 @@
           %td= person.email
           %td= person.type_cd.humanize
           %td
-            = link_to 'Edit', edit_person_path(person), class: "btn btn-primary"
-            = link_to 'Remove', person, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
+            - if can?(:update, Person) # FIXME: This returns true if current_person is an intermediary and person is an admin. But fails on clicking edit button.
+              = link_to 'Edit', edit_person_path(person), class: "btn btn-primary"
+            - if can? :destroy, Person
+              = link_to 'Remove', person, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"

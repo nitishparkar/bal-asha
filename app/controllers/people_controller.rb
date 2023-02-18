@@ -1,6 +1,8 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_admin!, except: [:change_password]
+
+  authorize_resource
+  skip_authorize_resource only: [:change_password]
 
   respond_to :html, :json
 
@@ -84,12 +86,7 @@ class PeopleController < ApplicationController
       @person = Person.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def person_params
-      params[:person].permit(:email, :password, :type_cd)
-    end
-
-    def authenticate_admin!
-      redirect_to root_path, alert: "Unauthorized" unless current_person.admin?
+      params[:person].permit(current_ability.permitted_attributes(params[:action].to_sym, Person))
     end
 end
