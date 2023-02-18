@@ -4,12 +4,16 @@ FactoryBot.define do
     password { Faker::Internet.password }
     type_cd { Person.type_cds['staff'] }
 
-    factory :admin do
+    trait :admin do
       type_cd { Person.type_cds['admin'] }
     end
 
-    factory :volunteer do
-      type_cd { Person.type_cds['volunteer'] }
+    trait :intermediary do
+      type_cd { Person.type_cds['intermediary'] }
+    end
+
+    trait :staff do
+      type_cd { Person.type_cds['staff'] }
     end
   end
 end
