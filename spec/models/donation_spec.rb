@@ -5,18 +5,12 @@ RSpec.describe Donation, type: :model do
   it_behaves_like 'a stock increaser', Donation, date: Date.today, donor_id: rand(1..100), type_cd: Donation.type_cds[:kind], person_id: rand(1..100)
 
   describe 'receipt number' do
-    shared_examples 'a series based receipt number based on current financial year' do
-      before do
-        Timecop.freeze(Time.local(2022, 1, 1))
-      end
+    shared_examples 'a series based receipt number based on donation date\'s financial year' do
+      let(:donation_date) { Time.local(2022, 1, 1) }
 
-      after do
-        Timecop.return
-      end
-
-      context 'when there aren\'t any donations for current FY series' do
+      context 'when there aren\'t any donations for donation date\'s FY series' do
         it 'generates a receipt number starting the series' do
-          donation = build(:donation, donation_type)
+          donation = build(:donation, donation_type, date: donation_date)
           donation.save
 
           expect(donation.errors.full_messages).to eq([])
@@ -24,16 +18,16 @@ RSpec.describe Donation, type: :model do
         end
       end
 
-      context 'when there are donations for current FY series' do
+      context 'when there are donations for donation date\'s FY series' do
         before do
-          create(:donation, donation_type).update!(receipt_number: 'BAT/Receipt/Electronic/2021-22/0003')
-          create(:donation, donation_type).update!(receipt_number: 'BAT/Receipt/Electronic/2020-21/0006')
-          create(:donation, donation_type).update!(receipt_number: 'BAT/Receipt/Electronic/2021-22/0001')
-          create(:donation, donation_type).update!(receipt_number: 'BAT/Receipt/Electronic/2022-23/0005')
+          create(:donation, donation_type, date: donation_date).update!(receipt_number: 'BAT/Receipt/Electronic/2021-22/0003')
+          create(:donation, donation_type, date: donation_date).update!(receipt_number: 'BAT/Receipt/Electronic/2020-21/0006')
+          create(:donation, donation_type, date: donation_date).update!(receipt_number: 'BAT/Receipt/Electronic/2021-22/0001')
+          create(:donation, donation_type, date: donation_date).update!(receipt_number: 'BAT/Receipt/Electronic/2022-23/0005')
         end
 
         it 'generates next receipt number in the series' do
-          donation = build(:donation, donation_type)
+          donation = build(:donation, donation_type, date: donation_date)
           donation.save
 
           expect(donation.errors.full_messages).to eq([])
@@ -41,7 +35,19 @@ RSpec.describe Donation, type: :model do
         end
       end
 
-      context 'when the current date is after March but before next calendar year' do
+      context 'when the donation date is after March but before next calendar year' do
+        let(:donation_date) { Time.local(2022, 4, 2) }
+
+        it 'generates next receipt number in the series' do
+          donation = build(:donation, donation_type, date: donation_date)
+          donation.save
+
+          expect(donation.errors.full_messages).to eq([])
+          expect(donation.receipt_number).to eq('BAT/Receipt/Electronic/2022-23/0001')
+        end
+      end
+
+      context 'when record creation date is after March but the donation date is in previous financial year' do
         before do
           Timecop.freeze(Time.local(2022, 4, 1))
         end
@@ -50,12 +56,14 @@ RSpec.describe Donation, type: :model do
           Timecop.return
         end
 
-        it 'generates next receipt number in the series' do
-          donation = build(:donation, donation_type)
+        let(:donation_date) { Time.local(2022, 3, 31) }
+
+        it 'generates next receipt number in the previous financial year\'s series' do
+          donation = build(:donation, donation_type, date: donation_date)
           donation.save
 
           expect(donation.errors.full_messages).to eq([])
-          expect(donation.receipt_number).to eq('BAT/Receipt/Electronic/2022-23/0001')
+          expect(donation.receipt_number).to eq('BAT/Receipt/Electronic/2021-22/0001')
         end
       end
     end
@@ -123,7 +131,7 @@ RSpec.describe Donation, type: :model do
         expect(donation.receipt_number).to start_with('BAT/Receipt/Electronic/')
       end
 
-      include_examples 'a series based receipt number based on current financial year'
+      include_examples 'a series based receipt number based on donation date\'s financial year'
     end
 
     context 'when donation is made by NEFT' do
@@ -137,7 +145,7 @@ RSpec.describe Donation, type: :model do
         expect(donation.receipt_number).to start_with('BAT/Receipt/Electronic/')
       end
 
-      include_examples 'a series based receipt number based on current financial year'
+      include_examples 'a series based receipt number based on donation date\'s financial year'
     end
   end
 end

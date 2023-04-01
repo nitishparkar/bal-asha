@@ -171,7 +171,7 @@ class Donation < ActiveRecord::Base
     end
 
     def fy_string
-      now = Time.now.in_time_zone('Asia/Kolkata')
+      now = self.date.in_time_zone('Asia/Kolkata')
       now.month > 3 ? "#{now.year}-#{(now.year + 1) % 100}" : "#{(now.year - 1)}-#{now.year % 100}"
     end
 end
