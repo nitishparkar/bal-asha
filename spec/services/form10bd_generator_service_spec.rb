@@ -10,7 +10,6 @@ RSpec.describe Form10bdGeneratorService, type: :class do
     let(:end_date) { DateTime.now.end_of_day }
 
     before(:all) do
-      # Delete fixtures data
       # TODO: Remove fixtures
       Donation.delete_all
     end

@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :transaction_item, class: TransactionItem do
-    item_id { create(:item).id }
-    rate { 50 }
+    item_id { create(:item, current_rate: 50).id }
     quantity { 10 }
 
     trait :donation do

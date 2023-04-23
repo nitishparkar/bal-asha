@@ -62,16 +62,9 @@ class Donor < ActiveRecord::Base
   validate :one_contact_present
 
   def full_name
-    if last_name.present?
-      first_name + " " + last_name
-    else
-      first_name
-    end
-  end
+    return first_name if last_name.blank?
 
-  def self.upcoming_birthdays
-    today = Date.today
-    where("extract(month from date_of_birth) = ? AND extract(day from date_of_birth) >= ?", today.month, today.day).order("extract(day from date_of_birth)")
+    first_name + " " + last_name
   end
 
   def donations_totals
@@ -80,6 +73,7 @@ class Donor < ActiveRecord::Base
     [kind, cash, kind + cash]
   end
 
+  # -- Probably better suited as view helpers
   def contact_info
     contact_info_arr = []
     contact_info_arr << (mobile.present? ? "#{mobile} (M) " : nil)
@@ -110,6 +104,12 @@ class Donor < ActiveRecord::Base
     line2 = [city, state].reject(&:blank?).join(", ")
     line2 += pincode.present? ? " - #{pincode}" : ""
     [line1, line2].reject(&:blank?).join("<br/>")
+  end
+  # -- END
+
+  def self.upcoming_birthdays
+    today = Date.today
+    where("extract(month from date_of_birth) = ? AND extract(day from date_of_birth) >= ?", today.month, today.day).order("extract(day from date_of_birth)")
   end
 
   private
