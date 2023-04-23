@@ -1,7 +1,5 @@
 # Bal Asha
 
-[![Build Status](https://travis-ci.org/nitishparkar/bal-asha.svg?branch=master)](https://travis-ci.org/nitishparkar/bal-asha)
-
 Internal app for [Bal Asha Trust](http://balashatrust.org/). It helps them manage donor/donation information. It also serves as an inventory management system by keeping track of purchases and disbursements.
 
 
