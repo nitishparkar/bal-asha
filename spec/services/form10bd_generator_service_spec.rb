@@ -98,7 +98,8 @@ RSpec.describe Form10bdGeneratorService, type: :class do
       expect(data[5][-3]).to eq('Others')
     end
 
-    context 'when cash donations for a donor exceed 2000rs' do
+    # This became unnecessary because of an income tax rule change.
+    xcontext 'when cash donations for a donor exceed 2000rs' do
       it 'ignores the donation that causes the amount to exceed 2000rs and all the donations after that' do
         create(:donation, :cash, donor: donor_1, amount: 1000)
         create(:donation, :cash, donor: donor_1, amount: 1000)
