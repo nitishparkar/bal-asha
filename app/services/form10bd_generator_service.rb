@@ -6,8 +6,6 @@ class Form10bdGeneratorService
   HEADERS = ["SI. No.", "Pre Acknowledgement Number", "ID Code", "Unique Identification Number", "Section Code", "Unique Registration Number (URN)", "Date of Issuance of Unique Registration Number", "Name of donor", "Address of donor", "Donation Type", "Mode of receipt", "Amount of donation (Indian rupees)"].freeze
   DONATION_TYPE_CASH = Donation.type_cds['cash']
   DONATION_TYPES_ELECTRONIC = [Donation.type_cds['cheque'], Donation.type_cds['neft'], Donation.type_cds['online']].freeze
-  COLUMNS_TO_PLUCK_ELECTRONIC = 'donor_id, donors.identification_type, donors.identification_no, receipt_number, donors.first_name, donors.last_name, donors.address, category, type_cd, SUM(amount)'.freeze
-  COLUMNS_TO_PLUCK_CASH = 'donor_id, donors.identification_type, donors.identification_no, receipt_number, donors.first_name, donors.last_name, donors.address, category, type_cd, amount'.freeze
   COLUMNS_TO_PLUCK = 'donor_id, donors.identification_type, donors.identification_no, receipt_number, donors.first_name, donors.last_name, donors.address, category, type_cd, SUM(amount)'.freeze
 
   def initialize(start_date, end_date)
@@ -45,36 +43,6 @@ class Form10bdGeneratorService
             .group(:donor_id, :category)
             .pluck(COLUMNS_TO_PLUCK)
   end
-
-  # def cash_donations_data
-  #   cash_donations = Donation.joins(:donor)
-  #                            .where(type_cd: DONATION_TYPE_CASH)
-  #                            .between_dates(start_date, end_date)
-  #                            .order(:created_at)
-  #                            .pluck(COLUMNS_TO_PLUCK_CASH)
-
-  #   grouped_by_donor_id = cash_donations.group_by { |d| d[0] }
-
-  #   # Group donations by donor id and donation category and filter donations that cross the CASH_DONATION_THRESHOLD
-  #   grouped_and_filtered = {}
-  #   grouped_by_donor_id.each do |_, donations|
-  #     total_donation_amount_for_donor = 0
-  #     donations.each do |donation|
-  #       donor_id = donation[0]
-  #       donation_category = donation[-3]
-  #       total_donation_amount_for_donor += donation[-1]
-  #       break if total_donation_amount_for_donor > CASH_DONATION_THRESHOLD # Skip this and the remaining donations if threshold is breached
-
-  #       if grouped_and_filtered[[donor_id, donation_category]].present?
-  #         grouped_and_filtered[[donor_id, donation_category]][-1] += donation[-1] # sum all donation amounts for each category
-  #       else
-  #         grouped_and_filtered[[donor_id, donation_category]] = donation
-  #       end
-  #     end
-  #   end
-
-  #   grouped_and_filtered.values
-  # end
 
   # rubocop:disable Metrics/CyclomaticComplexity?
   # This could be turned into a hash lookup to avoid the warning, but that won't make it any more readable.
