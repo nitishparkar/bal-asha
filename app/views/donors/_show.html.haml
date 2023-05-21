@@ -103,13 +103,15 @@
     %table.table.table-hover
       %thead
         %tr
-          %th.col-md-6 Date
-          %th.col-md-6 Type
+          %th.col-md-3 Date
+          %th.col-md-3 Type
+          %th.col-md-4 Amount
       %tbody
         - donor.donations.each do |donation|
           %tr
             %td= link_to l(donation.date, format: :formal), donation
             %td= donation.type_cd.humanize
+            %td= donation.amount
 
   .col-md-4
     .panel.panel-default
