@@ -57,12 +57,12 @@ RSpec.describe Form10bdGeneratorService, type: :class do
     end
 
     it 'returns sum of all cash donations for each donor and each category between given dates' do
-      create(:donation, :cash, donor: donor_1, amount: 400, category: Donation.categories['others'])
-      create(:donation, :cash, donor: donor_1, amount: 100, category: Donation.categories['corpus'])
-      create(:donation, :cash, donor: donor_1, amount: 100, category: Donation.categories['specific_grants'])
-      create(:donation, :cash, donor: donor_1, amount: 200, category: Donation.categories['specific_grants'])
-      create(:donation, :cash, donor: donor_2, amount: 100, category: Donation.categories['general'])
-      create(:donation, :cash, donor: donor_2, amount: 200, category: Donation.categories['others'])
+      create(:donation, :cash, donor: donor_1, amount: 4000, category: Donation.categories['others'])
+      create(:donation, :cash, donor: donor_1, amount: 1000, category: Donation.categories['corpus'])
+      create(:donation, :cash, donor: donor_1, amount: 1000, category: Donation.categories['specific_grants'])
+      create(:donation, :cash, donor: donor_1, amount: 2000, category: Donation.categories['specific_grants'])
+      create(:donation, :cash, donor: donor_2, amount: 1000, category: Donation.categories['general'])
+      create(:donation, :cash, donor: donor_2, amount: 2000, category: Donation.categories['others'])
       create(:donation, :cash, donor: donor_1, date: start_date - 1.day)
       create(:donation, :cash, donor: donor_2, date: end_date + 1.day)
       create(:donation, :kind, donor: donor_1)
@@ -73,62 +73,29 @@ RSpec.describe Form10bdGeneratorService, type: :class do
       expect(data.length).to eq(6) # headers + 5 donors-donation_categories
 
       expect(data[1][0]).to eq(donor_1.id)
-      expect(data[1][-1].to_f).to eq(400)
+      expect(data[1][-1].to_f).to eq(4000)
       expect(data[1][-2]).to eq('Cash')
       expect(data[1][-3]).to eq('Others')
 
       expect(data[2][0]).to eq(donor_1.id)
-      expect(data[2][-1].to_f).to eq(100)
+      expect(data[2][-1].to_f).to eq(1000)
       expect(data[2][-2]).to eq('Cash')
       expect(data[2][-3]).to eq('Corpus')
 
       expect(data[3][0]).to eq(donor_1.id)
-      expect(data[3][-1].to_f).to eq(300)
+      expect(data[3][-1].to_f).to eq(3000)
       expect(data[3][-2]).to eq('Cash')
       expect(data[3][-3]).to eq('Specific grant')
 
       expect(data[4][0]).to eq(donor_2.id)
-      expect(data[4][-1].to_f).to eq(100)
+      expect(data[4][-1].to_f).to eq(1000)
       expect(data[4][-2]).to eq('Cash')
       expect(data[4][-3]).to eq('')
 
       expect(data[5][0]).to eq(donor_2.id)
-      expect(data[5][-1].to_f).to eq(200)
+      expect(data[5][-1].to_f).to eq(2000)
       expect(data[5][-2]).to eq('Cash')
       expect(data[5][-3]).to eq('Others')
-    end
-
-    context 'when cash donations for a donor exceed 2000rs' do
-      it 'ignores the donation that causes the amount to exceed 2000rs and all the donations after that' do
-        create(:donation, :cash, donor: donor_1, amount: 1000)
-        create(:donation, :cash, donor: donor_1, amount: 1000)
-        create(:donation, :cash, donor: donor_1, amount: 1000)
-
-        create(:donation, :cash, donor: donor_2, amount: 1000)
-        create(:donation, :cash, donor: donor_2, amount: 2000)
-
-        create(:donation, :cash, donor: donor_3, amount: 2001)
-
-        create(:donation, :cash, donor: donor_4, amount: 1000, category: Donation.categories['others'])
-        create(:donation, :cash, donor: donor_4, amount: 1000, category: Donation.categories['corpus'])
-        create(:donation, :cash, donor: donor_4, amount: 1000, category: Donation.categories['specific_grants'])
-
-        data = Form10bdGeneratorService.new(start_date, end_date).fetch_data
-
-        expect(data[0]).to eq(Form10bdGeneratorService::HEADERS)
-        expect(data.length).to eq(5)
-
-        expect(data[1][0]).to eq(donor_1.id)
-        expect(data[1][-1].to_f).to eq(2000)
-
-        expect(data[2][0]).to eq(donor_2.id)
-        expect(data[2][-1].to_f).to eq(1000)
-
-        expect(data[3][0]).to eq(donor_4.id)
-        expect(data[3][-1].to_f).to eq(1000)
-        expect(data[4][0]).to eq(donor_4.id)
-        expect(data[4][-1].to_f).to eq(1000)
-      end
     end
 
     it 'returns all data for Form10bdGeneratorService::HEADERS for both electronic and cash donations' do
