@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :destroy]
   end
 
-  resources :categories
+  resources :categories, except: [:show]
 
   get 'welcome/index'
 

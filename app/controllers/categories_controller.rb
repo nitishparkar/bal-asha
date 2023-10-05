@@ -1,12 +1,9 @@
 class CategoriesController < ApplicationController
-  before_action :set_category, only: [:show, :edit, :update, :destroy]
+  before_action :set_category, only: [:edit, :update, :destroy]
 
   def index
     @categories = Category.all
     @items_category_ids = Item.pluck(:category_id).uniq
-  end
-
-  def show
   end
 
   def new
