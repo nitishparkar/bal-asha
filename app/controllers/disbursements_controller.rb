@@ -1,8 +1,6 @@
 class DisbursementsController < ApplicationController
   before_action :set_disbursement, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
-
   def index
     @search = Disbursement.ransack(params[:q])
     @search.sorts = 'created_at DESC' if @search.sorts.empty?
@@ -10,12 +8,10 @@ class DisbursementsController < ApplicationController
   end
 
   def show
-    respond_with(@disbursement)
   end
 
   def new
     @disbursement = Disbursement.new
-    respond_with(@disbursement)
   end
 
   def edit
@@ -23,17 +19,24 @@ class DisbursementsController < ApplicationController
 
   def create
     @disbursement = Disbursement.new(disbursement_params)
-    @disbursement.save
-    respond_with(@disbursement)
+
+    if @disbursement.save
+      redirect_to disbursement_path(@disbursement), notice: "Disbursement was successfully created."
+    else
+      render :new
+    end
   end
 
   def update
-    @disbursement.update(disbursement_params)
-    respond_with(@disbursement)
+    if @disbursement.update(disbursement_params)
+      redirect_to disbursement_path(@disbursement), notice: "Disbursement was successfully updated."
+    else
+      render :edit
+    end
   end
 
   def destroy
-    @disbursement.destroy
+    @disbursement.destroy!
     redirect_to disbursements_url
   end
 

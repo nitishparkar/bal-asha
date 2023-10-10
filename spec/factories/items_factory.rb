@@ -1,12 +1,12 @@
 FactoryBot.define do
   factory :item do
-    name { Faker::Lorem.word }
+    name { "#{Faker::Lorem.word}#{Faker::Number.number(3)}" }
     remarks { Faker::Lorem.sentence }
     current_rate { Faker::Number.number(3) }
     unit             { 'kg' }
     minimum_quantity { 10 }
     category_id      { create(:category).id }
-    stock_quantity   { 0 }
+    stock_quantity   { 100 }
   end
 
   factory :rice, class: Item do
