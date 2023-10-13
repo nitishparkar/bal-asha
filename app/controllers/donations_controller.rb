@@ -1,28 +1,22 @@
 class DonationsController < ApplicationController
   before_action :set_donation, only: [:edit, :update, :destroy]
 
-  # GET /donations
-  # GET /donations.json
   def index
     @search = Donation.ransack(params[:q])
     @search.sorts = ['date DESC', 'id DESC'] if @search.sorts.empty?
     @donations = @search.result(distinct: true).includes(:donor).page(params[:page])
   end
 
-  # GET /donations/1
-  # GET /donations/1.json
   def show
-    @donation = Donation.includes(transaction_items: :item).find(params[:id])
+    @donation = Donation.includes(:donor, :comments, transaction_items: :item).find(params[:id])
     @donor = @donation.donor
   end
 
-  # GET /donations/1/print
-  # GET /donations/1/print.pdf
   def print
-    @donation = Donation.includes(transaction_items: :item).find(params[:id])
+    @donation = Donation.includes(:donor, transaction_items: :item).find(params[:id])
     @donor = @donation.donor
+
     respond_to do |format|
-      format.html
       format.pdf do
         if params[:new].present? && !@donation.kind?
           render pdf: "receipt", layout: nil, template: "donations/non_kind_receipt.html.haml",
@@ -36,49 +30,33 @@ class DonationsController < ApplicationController
     end
   end
 
-  # GET /donations/new
   def new
     @donation = Donation.new
   end
 
-  # GET /donations/1/edit
   def edit
   end
 
-  # POST /donations
-  # POST /donations.json
   def create
     @donation = Donation.new(donation_params)
-
-    respond_to do |format|
-      if @donation.save
-        format.html { redirect_to donations_url, notice: 'Donation was successfully added.' }
-        format.json { render :show, status: :created, location: @donation }
-      else
-        format.html { render :new }
-        format.json { render json: @donation.errors, status: :unprocessable_entity }
-      end
+    if @donation.save
+      redirect_to donations_url, notice: 'Donation was successfully added.'
+    else
+      render :new
     end
   end
 
-  # PATCH/PUT /donations/1
-  # PATCH/PUT /donations/1.json
   def update
-    respond_to do |format|
-      if @donation.update(donation_params)
-        format.html { redirect_to @donation, notice: 'Donation was successfully updated.' }
-        format.json { render :show, status: :ok, location: @donation }
-      else
-        format.html { render :edit }
-        format.json { render json: @donation.errors, status: :unprocessable_entity }
-      end
+    if @donation.update(donation_params)
+      redirect_to @donation, notice: 'Donation was successfully updated.'
+    else
+      render :edit
     end
   end
 
-  # DELETE /donations/1
-  # DELETE /donations/1.json
   def destroy
-    @donation.destroy
+    @donation.destroy!
+
     respond_to do |format|
       format.html { redirect_to donations_url, notice: 'Donation was successfully removed.' }
       format.json { head :no_content }
@@ -86,12 +64,10 @@ class DonationsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_donation
       @donation = Donation.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def donation_params
       params.require(:donation).permit(:date, :donor_id, :type_cd, :amount, :cheque_no, :remarks, :payment_details, :receipt_number, :person_id, :thank_you_sent, :category, transaction_items_attributes: [:id, :quantity, :item_id, :_destroy])
     end
