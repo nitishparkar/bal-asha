@@ -1,23 +1,17 @@
 class DonorsController < ApplicationController
   before_action :set_donor, only: [:show, :edit, :update, :destroy, :info]
 
-  respond_to :html, :json, :js
-
   def index
     @search = Donor.ransack(params[:q])
     @search.sorts = 'first_name asc' if @search.sorts.empty?
     @donors = @search.result(distinct: true).page(params[:page])
-
-    respond_with(@donors)
   end
 
   def show
-    respond_with(@donor)
   end
 
   def new
     @donor = Donor.new
-    respond_with(@donor)
   end
 
   def edit
@@ -25,26 +19,34 @@ class DonorsController < ApplicationController
 
   def create
     @donor = Donor.new(donor_params)
-    @donor.save
-    respond_with(@donor)
+
+    if @donor.save
+      redirect_to @donor, notice: 'Donor was successfully added.'
+    else
+      render :new
+    end
   end
 
   def update
-    @donor.update(donor_params)
-    respond_with(@donor)
+    if @donor.update(donor_params)
+      redirect_to @donor, notice: 'Donor was successfully updated.'
+    else
+      render :edit
+    end
   end
 
   def destroy
     if @donor.donations.exists?
       redirect_to donors_path, alert: 'Cannot remove a donor with donations.'
     else
-      @donor.destroy
+      @donor.destroy!
       redirect_to donors_path, notice: 'Donor was successfully removed.'
     end
   end
 
   def info
     @donations = @donor.donations
+
     render partial: "info", locals: {donor: @donor, donations: @donations}
   end
 
