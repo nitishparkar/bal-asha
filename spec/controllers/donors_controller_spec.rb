@@ -145,4 +145,36 @@ RSpec.describe DonorsController, type: :controller do
       expect(response).to redirect_to donors_url
     end
   end
+
+  describe "GET #info" do
+    let(:donor) { create(:donor) }
+    let(:donations) { [create(:donation, :online, donor: donor), create(:donation, :online, donor: donor)] }
+
+    it "assigns the requested donor's donations to @donations" do
+      get :info, id: donor.id
+
+      expect(assigns(:donor)).to eq(donor)
+      expect(assigns(:donations)).to match_array(donations)
+    end
+
+    it "renders the info partial" do
+      get :info, id: donor.id
+
+      expect(response).to render_template(partial: "_info")
+    end
+  end
+
+  describe "GET #print_list" do
+    before do
+      Donor.delete_all
+    end
+
+    it "assigns all donors ordered by first name to @donors" do
+      donors = create_list(:donor, 2)
+
+      get :print_list
+
+      expect(assigns(:donors)).to match_array(donors.sort_by(&:first_name))
+    end
+  end
 end
