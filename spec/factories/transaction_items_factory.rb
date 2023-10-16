@@ -12,5 +12,10 @@ FactoryBot.define do
       transactionable_type { 'Disbursement' }
       transactionable_id { SecureRandom.uuid }
     end
+
+    trait :purchase do
+      transactionable_type { 'Purchase' }
+      transactionable_id { SecureRandom.uuid }
+    end
   end
 end
