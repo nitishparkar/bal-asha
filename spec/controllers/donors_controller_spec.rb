@@ -90,9 +90,10 @@ RSpec.describe DonorsController, type: :controller do
         end.not_to change(Donor, :count)
       end
 
-      it "renders the :new template" do
+      it "assigns @donor object with errors and renders the new template" do
         post :create, donor: attributes_for(:donor, first_name: nil)
 
+        expect(assigns(:donor).errors.full_messages).to eq(["First name can't be blank"])
         expect(response).to render_template :new
       end
     end
@@ -122,9 +123,10 @@ RSpec.describe DonorsController, type: :controller do
         expect(donor.first_name).not_to be_nil
       end
 
-      it "re-renders the :edit template" do
+      it "assigns @donor object with errors and renders the edit template" do
         patch :update, id: donor.id, donor: attributes_for(:donor, first_name: nil)
 
+        expect(assigns(:donor).errors.full_messages).to eq(["First name can't be blank"])
         expect(response).to render_template :edit
       end
     end
