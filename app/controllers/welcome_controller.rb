@@ -5,5 +5,4 @@ class WelcomeController < ApplicationController
     @needs = Item.needs
     @call_for_actions = CallForAction.pending
   end
-
 end
