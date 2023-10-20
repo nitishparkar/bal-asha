@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :person, class: Person do
     email { Faker::Internet.email }
     password { Faker::Internet.password }
-    type_cd { Person.type_cds['staff'] }
+    type_cd { 'staff' }
 
     trait :admin do
       type_cd { Person.type_cds['admin'] }
