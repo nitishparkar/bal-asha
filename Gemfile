@@ -51,14 +51,10 @@ gem 'paper_trail', '~> 3.0.7'
 gem 'kaminari'
 gem 'kaminari-bootstrap', '~> 3.0.1'
 gem 'select2-rails'
-gem 'faker'
-gem 'timecop'
 
 gem 'rollbar', '~> 2.15.5'
 
 gem 'paranoia', '~> 2.0'
-
-gem 'responders', '~> 2.0' # https://guides.rubyonrails.org/upgrading_ruby_on_rails.html#responders
 
 gem 'cancancan', '~> 3.4.0'
 
@@ -75,11 +71,15 @@ group :development do
   gem 'web-console', '~> 2.0'
 end
 
+group :test do
+  gem 'rspec-rails', '~> 3.9'
+  gem 'faker'
+  gem 'timecop'
+end
+
 group :development, :test do
   gem 'pry', '~> 0.12.2'
   gem 'minitest-reporters'
-
-  gem 'rspec-rails', '~> 3.9'
 
   # Detect unused eager loading and log N+1 queries
   gem 'bullet'

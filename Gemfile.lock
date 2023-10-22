@@ -340,7 +340,6 @@ DEPENDENCIES
   rails (= 4.2.11.1)
   rails_best_practices
   ransack (~> 1.8.7)
-  responders (~> 2.0)
   rollbar (~> 2.15.5)
   rspec-rails (~> 3.9)
   rubocop (~> 0.39)
