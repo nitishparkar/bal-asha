@@ -13,6 +13,7 @@ class Form10bdGeneratorService
     @end_date = end_date
   end
 
+  # TODO: Simplifty this. Earlier cash and electronic donations had separate rules, hence separate functions.
   def fetch_data
     data = (electronic_donations_data + cash_donations_data).map do |row|
       [row[0], '', identification_name(row[1]), row[2], SECTION_CODE, URN, URN_DATE,
@@ -29,6 +30,7 @@ class Form10bdGeneratorService
   def electronic_donations_data
     Donation.joins(:donor)
             .where(type_cd: DONATION_TYPES_ELECTRONIC)
+            .where.not(donors: { donor_type: Donor.donor_types['foreign'] })
             .between_dates(start_date, end_date)
             .order(:created_at)
             .group(:donor_id, :category)
@@ -38,6 +40,7 @@ class Form10bdGeneratorService
   def cash_donations_data
     Donation.joins(:donor)
             .where(type_cd: DONATION_TYPE_CASH)
+            .where.not(donors: { donor_type: Donor.donor_types['foreign'] })
             .between_dates(start_date, end_date)
             .order(:created_at)
             .group(:donor_id, :category)

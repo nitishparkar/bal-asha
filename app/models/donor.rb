@@ -36,7 +36,7 @@ class Donor < ActiveRecord::Base
 
   enum gender: {male: 0, female: 1, other: 2, not_specified: 3}
 
-  enum donor_type: {individual: 0, company: 1, trust: 2, group_: 3}
+  enum donor_type: {individual: 0, company: 1, trust: 2, group_: 3, foreign: 4}
 
   enum level: {general: 0, vip: 2}
 

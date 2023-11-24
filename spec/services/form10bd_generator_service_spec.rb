@@ -6,6 +6,7 @@ RSpec.describe Form10bdGeneratorService, type: :class do
     let(:donor_2) { create(:donor) }
     let(:donor_3) { create(:donor) }
     let(:donor_4) { create(:donor) }
+    let(:donor_foreign) { create(:donor, donor_type: Donor.donor_types['foreign']) }
     let(:start_date) { (DateTime.now - 1.day).beginning_of_day }
     let(:end_date) { DateTime.now.end_of_day }
 
@@ -14,7 +15,7 @@ RSpec.describe Form10bdGeneratorService, type: :class do
       Donation.delete_all
     end
 
-    it 'returns sum of all electronic donations for each donor and each category between given dates' do
+    it 'returns sum of all electronic donations for each non-foreign donor and each category between given dates' do
       create(:donation, :cheque, donor: donor_1, amount: 4000, category: Donation.categories['others'])
       create(:donation, :online, donor: donor_1, amount: 1000, category: Donation.categories['corpus'])
       create(:donation, :online, donor: donor_1, amount: 1000, category: Donation.categories['specific_grants'])
@@ -24,6 +25,7 @@ RSpec.describe Form10bdGeneratorService, type: :class do
       create(:donation, :online, donor: donor_1, date: start_date - 1.day)
       create(:donation, :cheque, donor: donor_2, date: end_date + 1.day)
       create(:donation, :kind, donor: donor_1)
+      create(:donation, :cheque, donor: donor_foreign)
 
       data = Form10bdGeneratorService.new(start_date, end_date).fetch_data
 
@@ -56,7 +58,7 @@ RSpec.describe Form10bdGeneratorService, type: :class do
       expect(data[5][-3]).to eq('Others')
     end
 
-    it 'returns sum of all cash donations for each donor and each category between given dates' do
+    it 'returns sum of all cash donations for each non-foreign donor and each category between given dates' do
       create(:donation, :cash, donor: donor_1, amount: 4000, category: Donation.categories['others'])
       create(:donation, :cash, donor: donor_1, amount: 1000, category: Donation.categories['corpus'])
       create(:donation, :cash, donor: donor_1, amount: 1000, category: Donation.categories['specific_grants'])
@@ -66,6 +68,7 @@ RSpec.describe Form10bdGeneratorService, type: :class do
       create(:donation, :cash, donor: donor_1, date: start_date - 1.day)
       create(:donation, :cash, donor: donor_2, date: end_date + 1.day)
       create(:donation, :kind, donor: donor_1)
+      create(:donation, :cheque, donor: donor_foreign)
 
       data = Form10bdGeneratorService.new(start_date, end_date).fetch_data
 
