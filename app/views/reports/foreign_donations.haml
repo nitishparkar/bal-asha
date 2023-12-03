@@ -1,0 +1,33 @@
+.row
+  .col-md-8
+    = search_form_for @search, url: reports_foreign_donations_path, method: :get, class: "form-inline" do |f|
+      .row
+        .form-group.col-md-4
+          .input-group.col-md-12
+            = f.text_field :date_daterange, class: "form-control daterangepicker auto-submit"
+  .col-md-4
+    .pull-right.clearfix
+      = link_to "Download", reports_foreign_donations_path(params.except(:action, :controller).merge(format: :csv)), class: "btn btn-link"
+
+%br
+
+#foreign_donations
+  .table-responsive
+    %table.table.table-striped.table-condensed
+      %thead
+        %tr
+          %th.col-md-2 Date of Donation
+          %th.col-md-2 Name of Donor
+          %th.col-md-2 Country
+          %th.col-md-2 Amount
+          %th.col-md-2 Receipt No
+          %th.col-md-2 Mode
+      %tbody
+        - @donations.each do |donation|
+          %tr
+            %td= l(donation.date, format: :formal)
+            %td= donation.donor.try(:full_name)
+            %td= Country.find_country_by_alpha2(donation.donor.try(:country_code)).try(:name)
+            %td= donation.amount
+            %td= donation.receipt_number
+            %td= donation.type_cd.titleize

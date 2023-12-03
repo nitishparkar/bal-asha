@@ -91,6 +91,21 @@ class ReportsController < ApplicationController
     end
   end
 
+  def foreign_donations
+    @search = Donation.ransack(params[:q])
+    @search.donor_donor_type_eq = Donor.donor_types['foreign']
+    @search.date_daterange = "#{l(Date.today - 1.month, format: :formal)} - #{l(Date.today, format: :formal)}" unless params.dig(:q, :date_daterange)
+    @search.sorts = 'date DESC'
+    @donations = @search.result(distinct: true).includes(:donor)
+
+    respond_to do |format|
+      format.html { render "foreign_donations" }
+      format.csv do
+        send_data(Donation.foreign_donations_csv(@donations), filename: "foreign-donations-#{@search.date_daterange}.csv")
+      end
+    end
+  end
+
   private
 
   def top_donors_filename

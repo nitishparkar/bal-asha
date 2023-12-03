@@ -36,6 +36,7 @@ Rails.application.routes.draw do
     get :top_donors, controller: 'reports'
     get :total_kind_donations, controller: 'reports'
     get :form_10bd, controller: 'reports'
+    get :foreign_donations, controller: 'reports'
   end
 
   root 'welcome#index'

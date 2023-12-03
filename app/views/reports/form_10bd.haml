@@ -1,10 +1,10 @@
 .row
   .col-md-8
-    = form_tag reports_form_10bd_path, method: :get, class: "form-inline", id: "form_80bd_search" do |f|
+    = form_tag reports_form_10bd_path, method: :get, class: "form-inline" do |f|
       .row
         .form-group.col-md-4
           .input-group.col-md-12
-            = text_field_tag :daterange, params[:daterange], class: "form-control daterangepicker", placeholder: 'date range'
+            = text_field_tag :daterange, params[:daterange], class: "form-control daterangepicker auto-submit", placeholder: 'date range'
   .col-md-4
     .pull-right.clearfix
       - if @form10bd_data.present?

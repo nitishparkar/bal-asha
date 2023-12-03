@@ -115,6 +115,17 @@ class Donation < ActiveRecord::Base
     end
   end
 
+  def self.foreign_donations_csv(donations)
+    CSV.generate do |csv|
+      csv << ["Date of Donation", "Name of Donor", "Country", "Amount", "Receipt No", "Mode"]
+      donations.each do |donation|
+        csv << [I18n.l(donation.date, format: :formal), donation.donor.try(:full_name),
+                Country.find_country_by_alpha2(donation.donor.try(:country_code)).try(:name),
+                donation.amount, donation.receipt_number, donation.type_cd.titleize]
+      end
+    end
+  end
+
   def self.top_donors(donations, start_date, end_date)
     CSV.generate do |csv|
       csv << ['Name', 'Phone', 'Email', 'Status', 'Kind', 'Cash', 'Overall (all time, all types)']
