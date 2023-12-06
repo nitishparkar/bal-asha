@@ -44,7 +44,7 @@ gem 'wkhtmltopdf-binary', '= 0.12.4'
 gem 'annotate', '>=2.6.0'
 
 gem 'jquery-turbolinks'
-gem 'passenger', '~> 4.0.53'
+# gem 'passenger', '~> 4.0.53'
 gem 'countries'
 gem 'country_select'
 gem 'paper_trail', '~> 3.0.7'
@@ -89,4 +89,8 @@ group :development, :test do
   gem 'rubocop', '~> 0.39', require: false
 
   gem 'factory_bot_rails', '~> 5.2.0'
+end
+
+group :production do
+  gem 'unicorn'
 end
