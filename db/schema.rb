@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220712174724) do
+ActiveRecord::Schema.define(version: 20240303081904) do
 
   create_table "call_for_actions", force: true do |t|
     t.datetime "date_of_action"
@@ -136,6 +136,25 @@ ActiveRecord::Schema.define(version: 20220712174724) do
   end
 
   add_index "items", ["category_id"], name: "index_items_on_category_id", using: :btree
+
+  create_table "meal_bookings", force: true do |t|
+    t.date     "date"
+    t.integer  "meal_option_id",     limit: 4
+    t.integer  "status",      limit: 4,     null: false
+    t.integer  "donation_id", limit: 4
+    t.text     "comment",     limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "meal_bookings", ["meal_option_id"], name: "index_meal_bookings_on_meal_option_id", using: :btree
+
+  create_table "meal_options", force: true do |t|
+    t.string   "name",       limit: 255,                         null: false
+    t.decimal  "cost",                   precision: 8, scale: 2
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+  end
 
   create_table "people", force: true do |t|
     t.string   "email",                  default: "", null: false
