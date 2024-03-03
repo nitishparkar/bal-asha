@@ -22,6 +22,8 @@ Rails.application.routes.draw do
 
   resources :categories, except: [:show]
 
+  resources :meal_bookings, only: [:index, :new, :create, :update]
+
   get 'welcome/index'
 
   devise_for :people
