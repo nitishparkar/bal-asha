@@ -1,41 +1,53 @@
 class MealBookingsController < ApplicationController
-  before_action :set_booking, only: [:show, :edit, :update, :destroy]
+  before_action :set_meal_booking, only: [:edit, :update, :destroy]
 
   def index
-    cal_date = Date.parse(params[:start_date]) || Date.today
+    @search = MealBooking.ransack(params[:q])
+    @meal_bookings = @search.result(distinct: true).includes(:donor, :donation).page(params[:page])
+  end
+
+  def calendar
+    cal_date = Date.parse(params[:start_date] || Date.today.to_s)
     start_date = cal_date.beginning_of_month
     end_date = cal_date.end_of_month
-    @bookings = MealBooking.includes(:meal_option).where('date >= ? AND date <= ?', start_date, end_date)
+    @bookings = MealBooking.where('date >= ? AND date <= ?', start_date, end_date)
   end
 
   def new
-    @booking = MealBooking.new
+    @meal_booking = MealBooking.new
   end
 
   def create
-    @booking = MealBooking.new(meal_booking_params)
+    @meal_booking = MealBooking.new(meal_booking_params)
 
-    if @booking.save
-      redirect_to meal_bookings_path(start_date: @booking.date), notice: 'Meal booking was successfully created.'
+    if @meal_booking.save
+      redirect_to meal_bookings_path, notice: 'Meal booking was successfully created.'
     else
       render :new
     end
   end
 
+  def edit; end
+
   def update
-    if @booking.update(meal_booking_params)
-      redirect_to meal_bookings_path(start_date: @booking.date), notice: 'Meal booking was successfully updated.'
+    if @meal_booking.update(meal_booking_params)
+      redirect_to meal_bookings_path, notice: 'Meal booking was successfully updated.'
     else
       render :edit
     end
   end
 
+  def destroy
+    @meal_booking.destroy!
+    redirect_to meal_bookings_path, notice: 'Meal booking was successfully removed.'
+  end
+
   private
-    def set_booking
-      @booking = MealBooking.find(params[:id])
+    def set_meal_booking
+      @meal_booking = MealBooking.find(params[:id])
     end
 
     def meal_booking_params
-      params[:meal_booking].permit(:date, :meal_option_id, :status, :donation_id, :comment)
+      params[:meal_booking].permit(:date, :meal_option, :amount, :donor_id, :paid, :comment)
     end
 end

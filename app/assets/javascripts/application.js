@@ -163,6 +163,61 @@ $(document).ready(function() {
     }
   }).data("select2");
 
+  var meal_bookings_donor_select2 = $("input[id='meal_booking_donor_id']").select2({
+    allowClear: true,
+    minimumInputLength: 2,
+    id: function (result) {
+      return result.donor.id
+    },
+    placeholder: "Search for donor by name",
+    ajax: {
+      url: "/donors",
+      dataType: "json",
+      quietMillis: 200,
+      data: function (term, page) {
+        return {
+          q: { first_name_or_last_name_cont: term },
+          page: page,
+        }
+      },
+      results: function (data, page) {
+        return {
+          results: data
+        }
+      }
+    },
+    formatResult: function (result) {
+      return "<div class='select2-user-result'>" + result.donor.full_name + "</div>";
+    },
+    formatSelection: function (result) {
+      if (result.donor) {
+        $.ajax({
+          url: "/donors/" + result.donor.id + "/info",
+          type: "GET",
+          dataType: "html"
+        });
+
+        return result.donor.full_name
+      } else {
+        return result.term;
+      }
+    },
+    dropdownCssClass: "bigdrop",
+    initSelection: function (element, callback) {
+      var id = $(element).val();
+      if (id !== "") {
+        $.ajax("/donors/" + id + "/info", {
+          dataType: "html"
+        }).done(function (data) {
+          $("#meal_booking_donor").html(data);
+
+          var elementText = $(element).attr("data-init-text");
+          callback({ "term": elementText });
+        });
+      }
+    }
+  }).data("select2");
+
   var volunteer_select2 = $("#volunteer_select2").select2({
     allowClear: true,
     minimumInputLength: 2,

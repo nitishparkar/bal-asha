@@ -1,0 +1,9 @@
+= link_to new_meal_booking_path, class: 'pull-right clearfix' do
+  %button.btn.btn-success Add booking
+
+= month_calendar(attribute: :date, events: @bookings) do |date, bookings|
+  = date.day
+
+  %ul.list-group
+    - bookings.each do |booking|
+      = link_to booking.meal_option.name, edit_meal_booking_path(booking), class: 'list-group-item'

@@ -1,9 +1,57 @@
-= link_to new_meal_booking_path, class: 'pull-right clearfix' do
-  %button.btn.btn-success Add booking
+.row
+  .col-md-10
+    = search_form_for @search, url: meal_bookings_path, method: :get, remote: true, class: "form-inline" do |f|
+      .row
+        .form-group.col-md-3
+          .input-group.col-md-12
+            = f.text_field :date_daterange, class: "form-control daterangepicker"
+        .form-group.col-md-4
+          .input-group.col-md-12
+            = f.search_field :donor_first_name_or_donor_last_name_cont, class: "form-control donation-donor-search", placeholder: "Search by Donor Name"
+        .form-group.col-md-2
+          .input-group.col-md-12
+            = f.select :meal_option_eq, options_for_select(MealBooking.meal_options.collect { |t| [t[0].humanize, t[1]] }), {include_blank: "Meal Option"}, class: "form-control donor-search-select"
 
-= month_calendar(attribute: :date, events: @bookings) do |date, bookings|
-  = date.day
+  .col-md-2
+    .pull-right.clearfix
+      = link_to new_meal_booking_path do
+        %button.btn.btn-success Add Booking
 
-  - bookings.each do |booking|
-    %div
-      = booking.meal_option.name
+%br
+
+#meal_bookings_listing
+  .table-responsive
+    %table.table.table-bordered
+      %thead
+        %tr
+          %th.col-md-2 Date
+          %th.col-md-2 Meal
+          %th.col-md-1 Amount
+          %th.col-md-2 Donor
+          %th.col-md-3 Payment
+          %th.col-md-2 Controls
+
+      %tbody
+        - @meal_bookings.each do |booking|
+          %tr
+            %td= l(booking.date, format: :formal)
+            %td= booking.meal_option.humanize
+            %td= booking.amount
+            %td
+              - if booking.donor
+                = link_to booking.donor_full_name, booking.donor
+            %td
+              - if booking.paid?
+                - if booking.donation_id.present?
+                  = "Paid for via a "
+                  = link_to('Donation', booking.donation)
+                - else
+                  = booking.comment
+              - else
+                Unpaid
+            %td
+              = link_to 'Edit', edit_meal_booking_path(booking), class: "btn btn-primary"
+              = link_to 'Remove', meal_booking_path(booking), method: :delete, data: { confirm: 'Are you sure? If the booking has linked donations, those will not be removed.' }, class: "btn btn-danger"
+  %br
+  .text-center
+    = paginate @meal_bookings

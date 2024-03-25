@@ -1,0 +1,22 @@
+= simple_form_for(@meal_booking) do |f|
+  = f.error_notification
+
+  .form-inputs
+    .row
+      .col-xs-12.col-md-6.col-lg-4
+        .form-group
+          = f.input :date, as: :string, input_html: { class: "form-control datepicker", data: { "date-format" => "DD/MM/YYYY" }, value: l(@meal_booking.date || Date.today, format: :formal) }
+          = f.input :meal_option, collection: MealBooking.meal_options.keys.map { |s| [s.humanize, s] }, prompt: "Choose an option"
+          = f.input :amount
+          = f.input :donor_id, input_html: {hidden: true, style: "width: 100%;", data: {"init-text" => (@meal_booking.donor_full_name || '')}}
+          = f.input :paid
+          - if @meal_booking.donation_id.present?
+            .panel
+              .panel-body
+                = "Paid for via a "
+                = link_to('Donation', @meal_booking.donation)
+          = f.input :comment, input_html: {class: "form-control", rows: 2}
+
+  .form-actions
+    = f.button :submit, "#{@meal_booking.new_record? ? 'Create Booking' : 'Update Booking'}", class: "btn btn-primary", data: {disable_with: "Submitting..."}
+    = link_to 'Back', meal_bookings_path, class: "btn btn-secondary"

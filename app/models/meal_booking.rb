@@ -18,17 +18,19 @@ class MealBooking < ActiveRecord::Base
   belongs_to :donor
   belongs_to :donation
 
-  enum meal_option: { 'Others' => 0, 'Infant Food' => 1, 'Milk' => 2, 'Breakfast' => 3, 'Lunch' => 4, 'Snacks' => 5, 'Dinner' => 6, 'Medical' => 7 }
+  enum meal_option: { infant_food: 1, milk: 2, breakfast: 3, lunch: 4, snacks: 5, dinner: 6, medical: 7, others: 0 }
 
-  validates :date, :meal_option, presence: true
-  validates :meal_option, uniqueness: { scope: :date, message: 'meal is already added for the date' }
+  validates :date, :meal_option, :amount, presence: true
+  validates :meal_option, uniqueness: { scope: :date, message: 'is already added for the date' }
   validate :presence_of_donation_or_comment_if_paid
+
+  delegate :full_name, to: :donor, prefix: true, allow_nil: true
 
   private
 
   def presence_of_donation_or_comment_if_paid
     if paid? && donation_id.blank? && comment.blank?
-      errors.add(:paid, 'Donation ID or Comment must be present if Paid')
+      errors.add(:paid, 'Donation details or Comment must be present if Paid')
     end
   end
 end

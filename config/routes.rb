@@ -22,7 +22,9 @@ Rails.application.routes.draw do
 
   resources :categories, except: [:show]
 
-  resources :meal_bookings, only: [:index, :new, :create, :update]
+  resources :meal_bookings, except: [:show] do
+    collection { get :calendar }
+  end
 
   get 'welcome/index'
 
