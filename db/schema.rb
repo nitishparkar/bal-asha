@@ -139,22 +139,19 @@ ActiveRecord::Schema.define(version: 20240303081904) do
 
   create_table "meal_bookings", force: true do |t|
     t.date     "date"
-    t.integer  "meal_option_id",     limit: 4
-    t.integer  "status",      limit: 4,     null: false
+    t.integer  "meal_option", limit: 2
+    t.decimal  "amount",                    precision: 8, scale: 2
+    t.integer  "donor_id",    limit: 4
+    t.boolean  "paid",                                              default: false
     t.integer  "donation_id", limit: 4
     t.text     "comment",     limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                                                        null: false
+    t.datetime "updated_at",                                                        null: false
   end
 
-  add_index "meal_bookings", ["meal_option_id"], name: "index_meal_bookings_on_meal_option_id", using: :btree
-
-  create_table "meal_options", force: true do |t|
-    t.string   "name",       limit: 255,                         null: false
-    t.decimal  "cost",                   precision: 8, scale: 2
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
-  end
+  add_index "meal_bookings", ["date"], name: "index_meal_bookings_on_date", using: :btree
+  add_index "meal_bookings", ["donor_id"], name: "index_meal_bookings_on_donor_id", using: :btree
+  add_index "meal_bookings", ["meal_option"], name: "index_meal_bookings_on_meal_option", using: :btree
 
   create_table "people", force: true do |t|
     t.string   "email",                  default: "", null: false
