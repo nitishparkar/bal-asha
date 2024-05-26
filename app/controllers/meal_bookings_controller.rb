@@ -48,6 +48,6 @@ class MealBookingsController < ApplicationController
     end
 
     def meal_booking_params
-      params[:meal_booking].permit(:date, :meal_option, :amount, :donor_id, :paid, :comment)
+      params[:meal_booking].permit(:date, :board_name, :meal_option, :amount, :donor_id, :paid, :donation_details, :remarks)
     end
 end
