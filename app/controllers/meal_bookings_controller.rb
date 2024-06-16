@@ -14,7 +14,7 @@ class MealBookingsController < ApplicationController
   end
 
   def new
-    @meal_booking = MealBooking.new
+    @meal_booking = MealBooking.new(date: Date.today)
   end
 
   def create
@@ -40,6 +40,12 @@ class MealBookingsController < ApplicationController
   def destroy
     @meal_booking.destroy!
     redirect_to meal_bookings_path, notice: 'Meal booking was successfully removed.'
+  end
+
+  def meal_bookings_for_the_day
+    @meal_bookings = MealBooking.where(date: Date.strptime(params[:date], I18n.t('date.formats.formal')) || Date.today)
+
+    render partial: 'meal_bookings_for_the_day', locals: {meal_bookings: @meal_bookings}
   end
 
   private

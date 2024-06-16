@@ -428,4 +428,30 @@ $(document).ready(function() {
   $('#audit_search .text-filter').blur(function () {
     $('#audit_search').submit();
   });
+
+
+  var loadMealBookings = function() {
+    var selectedDate = $('#meal-booking-form .datepicker').val();
+    console.log(selectedDate);
+
+    $.ajax({
+      url: '/meal_bookings/meal_bookings_for_the_day',
+      type: 'GET',
+      data: { date: selectedDate },
+      success: function (response) {
+        $('#meal-booking-form #meal_bookings_for_the_day').html(response);
+      },
+      error: function (xhr, status, error) {
+        console.error('AJAX Error:', status, error);
+      }
+    });
+  }
+
+  if ($('#meal-booking-form').length) {
+    loadMealBookings();
+  }
+
+  $('#meal-booking-form .datepicker').on('change.datetimepicker', function (e) {
+    loadMealBookings();
+  });
 });

@@ -1,11 +1,11 @@
-= simple_form_for(@meal_booking) do |f|
+= simple_form_for(@meal_booking, html: { id: 'meal-booking-form' }) do |f|
   = f.error_notification
 
   .form-inputs
     .row
-      .col-xs-12.col-md-6.col-lg-4
+      .col-xs-12.col-md-6
         .form-group
-          = f.input :date, as: :string, input_html: { class: "form-control datepicker", data: { "date-format" => "DD/MM/YYYY" }, value: l(@meal_booking.date || Date.today, format: :formal) }
+          = f.input :date, as: :string, input_html: { class: "form-control datepicker", data: { "date-format" => "DD/MM/YYYY" }, value: l(@meal_booking.date, format: :formal) }
           = f.input :meal_option, collection: MealBooking.meal_options.keys.map { |s| [s.humanize, s] }, prompt: "Choose an option"
           = f.input :amount
           = f.input :donor_id, input_html: {hidden: true, style: "width: 100%;", data: {"init-text" => (@meal_booking.donor_full_name || '')}}
@@ -18,6 +18,9 @@
           = f.input :donation_details, input_html: {class: "form-control", rows: 2}
           = f.input :board_name
           = f.input :remarks, input_html: {class: "form-control", rows: 2}
+
+      #meal_bookings_for_the_day.col-xs-12.col-md-6
+
 
   .form-actions
     = f.button :submit, "#{@meal_booking.new_record? ? 'Create Booking' : 'Update Booking'}", class: "btn btn-primary", data: {disable_with: "Submitting..."}
