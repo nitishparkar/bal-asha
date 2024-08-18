@@ -3,6 +3,7 @@ class MealBookingsController < ApplicationController
 
   def index
     @search = MealBooking.ransack(params[:q])
+    @search.sorts = 'date asc'
     @meal_bookings = @search.result(distinct: true).includes(:donor, :donation).page(params[:page])
   end
 

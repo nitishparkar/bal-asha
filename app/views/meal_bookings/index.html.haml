@@ -25,10 +25,11 @@
       %thead
         %tr
           %th.col-md-2 Date
-          %th.col-md-2 Meal
+          %th.col-md-1 Meal
           %th.col-md-1 Amount
           %th.col-md-2 Donor
-          %th.col-md-3 Payment
+          %th.col-md-2 Payment
+          %th.col-md-2 Board Name
           %th.col-md-2 Controls
 
       %tbody
@@ -49,6 +50,8 @@
                   = booking.donation_details
               - else
                 Unpaid
+            %td
+              = booking.board_name
             %td
               = link_to 'Edit', edit_meal_booking_path(booking), class: "btn btn-primary"
               .btn-group

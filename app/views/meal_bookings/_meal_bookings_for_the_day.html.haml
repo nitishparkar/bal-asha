@@ -1,3 +1,4 @@
+%h5 Meal Bookings for the day:
 %ul.list-group
   - MealBooking.meal_options.each do |text, _|
     - booked_meal = meal_bookings.detect{ |mb| mb.meal_option == text }

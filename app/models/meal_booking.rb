@@ -23,7 +23,7 @@ class MealBooking < ActiveRecord::Base
 
   enum meal_option: { infant_food: 1, milk: 2, breakfast: 3, lunch: 4, snacks: 5, dinner: 6, medical: 7, others: 0 }
 
-  validates :date, :meal_option, :amount, presence: true
+  validates :date, :meal_option, :amount, :donor_id, presence: true
   validates :meal_option, uniqueness: { scope: :date, message: 'is already added for the date' }
   validate :presence_of_donation_or_donation_details_if_paid
 
