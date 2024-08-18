@@ -14,6 +14,7 @@
 #  updated_at       :datetime         not null
 #  board_name       :string(255)
 #  remarks          :text(65535)
+#  recurring        :boolean          default("0"), not null
 #
 
 class MealBooking < ActiveRecord::Base

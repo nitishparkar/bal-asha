@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       get :calendar
       get :meal_bookings_for_the_day
     end
+    member { delete :destroy_with_future_bookings }
   end
 
   get 'welcome/index'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20240526090722) do
+ActiveRecord::Schema.define(version: 20240618155450) do
 
   create_table "call_for_actions", force: true do |t|
     t.datetime "date_of_action"
@@ -149,6 +149,7 @@ ActiveRecord::Schema.define(version: 20240526090722) do
     t.datetime "updated_at",                                                             null: false
     t.string   "board_name",       limit: 255
     t.text     "remarks",          limit: 65535
+    t.boolean  "recurring",                                              default: false, null: false
   end
 
   add_index "meal_bookings", ["date"], name: "index_meal_bookings_on_date", using: :btree

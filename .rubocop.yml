@@ -33,3 +33,11 @@ Metrics/ClassLength:
 # Ignore RSpec methods - https://stackoverflow.com/a/41689335
 Metrics/BlockLength:
   ExcludedMethods: ['describe', 'context']
+
+# Enable when maximum line length is configured in the ‘Layout/LineLength` cop
+Style/GuardClause:
+  Enabled: false
+
+# Enable when maximum line length is configured in the ‘Layout/LineLength` cop
+Style/IfUnlessModifier:
+  Enabled: false
