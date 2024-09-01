@@ -62,7 +62,7 @@ class MealBookingsController < ApplicationController
   end
 
   def meal_bookings_for_the_day
-    @meal_bookings = MealBooking.where(date: Date.strptime(params[:date], I18n.t('date.formats.formal')) || Date.today)
+    @meal_bookings = MealBooking.where(date: Date.strptime(params[:date], I18n.t('date.formats.formal')))
 
     render partial: 'meal_bookings_for_the_day', locals: { meal_bookings: @meal_bookings }
   end
