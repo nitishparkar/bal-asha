@@ -1,5 +1,5 @@
 require 'rails_helper'
-require_relative 'concerns/transactionable_spec'
+require_relative 'concerns/transactionable'
 
 RSpec.describe Disbursement, type: :model do
   describe 'ensure that stock quantity remains positive after disbursement' do
