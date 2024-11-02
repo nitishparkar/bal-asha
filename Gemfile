@@ -58,6 +58,8 @@ gem 'paranoia', '~> 2.0'
 
 gem 'cancancan', '~> 3.4.0'
 
+gem 'simple_calendar', '~> 2.4'
+
 group :development do
   # Removes assets request logs
   gem 'quiet_assets'

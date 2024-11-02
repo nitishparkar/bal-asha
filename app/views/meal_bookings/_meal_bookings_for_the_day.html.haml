@@ -1,0 +1,12 @@
+%h5 Meal Bookings for the day:
+%ul.list-group
+  - MealBooking.meal_options.each do |text, _|
+    - booked_meal = meal_bookings.detect{ |mb| mb.meal_option == text }
+
+    %li.list-group-item{class: "#{booked_meal.nil? ? 'list-group-item-success' : ''}"}
+      %b.col-xs-3= "#{text.humanize}"
+      - if booked_meal.present?
+        %span.col-xs-2= booked_meal.amount
+        %span= link_to booked_meal.donor.full_name, booked_meal.donor
+        -# %span.label.label-primary.pull-right Recurring
+      .clearfix

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220712174724) do
+ActiveRecord::Schema.define(version: 20240618155450) do
 
   create_table "call_for_actions", force: true do |t|
     t.datetime "date_of_action"
@@ -136,6 +136,25 @@ ActiveRecord::Schema.define(version: 20220712174724) do
   end
 
   add_index "items", ["category_id"], name: "index_items_on_category_id", using: :btree
+
+  create_table "meal_bookings", force: true do |t|
+    t.date     "date"
+    t.integer  "meal_option",      limit: 2
+    t.decimal  "amount",                         precision: 8, scale: 2
+    t.integer  "donor_id",         limit: 4
+    t.boolean  "paid",                                                   default: false
+    t.integer  "donation_id",      limit: 4
+    t.text     "donation_details", limit: 65535
+    t.datetime "created_at",                                                             null: false
+    t.datetime "updated_at",                                                             null: false
+    t.string   "board_name",       limit: 255
+    t.text     "remarks",          limit: 65535
+    t.boolean  "recurring",                                              default: false, null: false
+  end
+
+  add_index "meal_bookings", ["date"], name: "index_meal_bookings_on_date", using: :btree
+  add_index "meal_bookings", ["donor_id"], name: "index_meal_bookings_on_donor_id", using: :btree
+  add_index "meal_bookings", ["meal_option"], name: "index_meal_bookings_on_meal_option", using: :btree
 
   create_table "people", force: true do |t|
     t.string   "email",                  default: "", null: false

@@ -22,6 +22,14 @@ Rails.application.routes.draw do
 
   resources :categories, except: [:show]
 
+  resources :meal_bookings, except: [:show] do
+    collection do
+      get :calendar
+      get :meal_bookings_for_the_day
+    end
+    member { delete :destroy_with_future_bookings }
+  end
+
   get 'welcome/index'
 
   devise_for :people
