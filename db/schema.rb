@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20240618155450) do
+ActiveRecord::Schema.define(version: 20241105175047) do
 
   create_table "call_for_actions", force: true do |t|
     t.datetime "date_of_action"
@@ -121,6 +121,14 @@ ActiveRecord::Schema.define(version: 20240618155450) do
 
   add_index "donors", ["country_code"], name: "index_donors_on_country_code", using: :btree
 
+  create_table "donors_programmes", id: false, force: true do |t|
+    t.integer "donor_id",     limit: 4, null: false
+    t.integer "programme_id", limit: 4, null: false
+  end
+
+  add_index "donors_programmes", ["donor_id", "programme_id"], name: "index_donors_programmes_on_donor_id_and_programme_id", unique: true, using: :btree
+  add_index "donors_programmes", ["programme_id"], name: "index_donors_programmes_on_programme_id", using: :btree
+
   create_table "items", force: true do |t|
     t.string   "name",                                      default: "",  null: false
     t.text     "remarks"
@@ -176,6 +184,15 @@ ActiveRecord::Schema.define(version: 20240618155450) do
   add_index "people", ["email"], name: "index_people_on_email", unique: true, using: :btree
   add_index "people", ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true, using: :btree
 
+  create_table "programmes", force: true do |t|
+    t.string   "name",       limit: 255, null: false
+    t.string   "label",      limit: 255, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "programmes", ["name"], name: "index_programmes_on_name", unique: true, using: :btree
+
   create_table "purchases", force: true do |t|
     t.date     "purchase_date"
     t.string   "vendor"
@@ -215,4 +232,6 @@ ActiveRecord::Schema.define(version: 20240618155450) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
+  add_foreign_key "donors_programmes", "donors"
+  add_foreign_key "donors_programmes", "programmes"
 end
