@@ -44,6 +44,11 @@ toastr.options = {
 $(document).ready(function() {
   $('.collapse').collapse();
 
+  $("#donor_programme_ids").select2({
+    placeholder: 'Select Programmes',
+    allowClear: true
+  });
+
   $(".birthdatepicker").datetimepicker({
     pickTime: false,
     maxDate: new Date(),

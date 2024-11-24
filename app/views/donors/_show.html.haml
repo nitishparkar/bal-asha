@@ -11,6 +11,10 @@
     = donor.full_name
     %small= link_to "Edit Info", edit_donor_path(donor), class: "btn btn-link"
 
+  %div
+    - donor.programmes.each do |programme|
+      %span.label.label-primary= programme.label
+
 .row
   .col-md-6
     .panel.panel-default

@@ -54,6 +54,7 @@ class Donor < ActiveRecord::Base
 
   has_many :donations, -> { order("date DESC") }
   has_many :call_for_actions
+  has_and_belongs_to_many :programmes
 
   validates :first_name, :donor_type, :status, :country_code, :solicit, presence: true
 
