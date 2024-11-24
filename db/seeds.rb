@@ -11,7 +11,7 @@ programmes = [
   { name: 'building_repairs_fund', label: 'Building & Repairs Fund' },
   { name: 'clothes_shoes_bedding', label: 'Clothes, Shoes & Bedding' },
   { name: 'mumkin', label: 'Mumkin' },
-  { name: 'adoption_programme', label: 'Adoption Programme '}
+  { name: 'adoption_programme', label: 'Adoption Programme ' }
 ]
 
 programmes.each do |programme_data|

@@ -52,6 +52,9 @@
       = f.select :status_80g, options_for_select(Donor.status_80gs.collect { |t| [t[0].humanize, t[0]] }, selected: @donor.status_80g), label: "80G Status"
   .row
     .col-md-12
+      = f.select :programme_ids, options_for_select(Programme.pluck(:label, :id), @donor.programme_ids), { label: 'Programmes' }, multiple: true
+  .row
+    .col-md-12
       = f.text_area :remarks
   .row
     .actions.col-md-12
