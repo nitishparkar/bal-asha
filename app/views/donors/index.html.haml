@@ -2,7 +2,7 @@
   .col-md-10
     = search_form_for @search, url: donors_path, method: :get, remote: true, class: "form-inline" do |f|
       .row
-        .form-group.col-md-6
+        .form-group.col-md-4
           .input-group.col-md-12
             = f.search_field :first_name_or_last_name_cont, class: "form-control donor-search", placeholder: "Search by Name"
         .form-group.col-md-2
@@ -11,6 +11,9 @@
         .form-group.col-md-2
           .input-group.col-md-12
             = f.select :status_eq, options_for_select(Donor.statuses.collect { |t| [t[0].humanize, t[1]] }), {include_blank: "Status"}, class: "form-control donor-search-select"
+        .form-group.col-md-2
+          .input-group.col-md-12
+            = f.select :programmes_id_eq, options_for_select(Programme.pluck(:label,:id)), {include_blank: "Programme"}, class: "form-control donor-search-select"
   .col-md-2
     .pull-right.clearfix
       = link_to new_donor_path do

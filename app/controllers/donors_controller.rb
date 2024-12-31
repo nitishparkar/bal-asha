@@ -2,7 +2,7 @@ class DonorsController < ApplicationController
   before_action :set_donor, only: [:show, :edit, :update, :destroy, :info]
 
   def index
-    @search = Donor.ransack(params[:q])
+    @search = Donor.includes(:programmes).ransack(params[:q])
     @search.sorts = 'first_name asc' if @search.sorts.empty?
     @donors = @search.result(distinct: true).page(params[:page])
   end
