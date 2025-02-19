@@ -21,6 +21,7 @@ class DonorsController < ApplicationController
     @donor = Donor.new(donor_params)
 
     if @donor.save
+      MigrationService.new.sync_donor(@donor)
       redirect_to @donor, notice: 'Donor was successfully added.'
     else
       render :new
@@ -29,6 +30,7 @@ class DonorsController < ApplicationController
 
   def update
     if @donor.update(donor_params)
+      MigrationService.new.sync_donor(@donor)
       redirect_to @donor, notice: 'Donor was successfully updated.'
     else
       render :edit
@@ -40,6 +42,7 @@ class DonorsController < ApplicationController
       redirect_to donors_path, alert: 'Cannot remove a donor with donations.'
     else
       @donor.destroy!
+      MigrationService.new.sync_donor(@donor)
       redirect_to donors_path, notice: 'Donor was successfully removed.'
     end
   end

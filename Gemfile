@@ -60,6 +60,8 @@ gem 'cancancan', '~> 3.4.0'
 
 gem 'simple_calendar', '~> 2.4'
 
+gem 'excon', '= 0.100.0'
+
 group :development do
   # Removes assets request logs
   gem 'quiet_assets'
