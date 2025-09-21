@@ -1,6 +1,8 @@
 class DonationsController < ApplicationController
   before_action :set_donation, only: [:edit, :update, :destroy]
 
+  SYSTEM_RECEIPT_TEXT = 'This is a system-generated receipt that does not require a signature.'.freeze
+
   def index
     @search = Donation.ransack(params[:q])
     @search.sorts = ['date DESC', 'id DESC'] if @search.sorts.empty?
@@ -20,11 +22,12 @@ class DonationsController < ApplicationController
       format.pdf do
         if params[:new].present? && !@donation.kind?
           render pdf: "receipt", layout: nil, template: "donations/non_kind_receipt.html.haml",
+                 locals: { system_receipt_text: SYSTEM_RECEIPT_TEXT },
                  margin: { bottom: 0, left: 0, right: 0, top: 0 }, show_as_html: params.key?('debug')
           return
         end
 
-        render pdf: "receipt", layout: "pdf.html",
+        render pdf: "receipt", layout: "pdf.html", footer: { center: SYSTEM_RECEIPT_TEXT },
                template: "donations/#{@donation.kind? ? 'kind' : 'cash'}_receipt.html.haml"
       end
     end

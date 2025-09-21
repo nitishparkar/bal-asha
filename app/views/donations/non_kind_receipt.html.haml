@@ -106,4 +106,10 @@
               %p
                 %strong= @donation.remarks.presence || "-"
 
+          %br
+
+          .row{:style => "font-size: 16px; margin-top: 150px;"}
+            .col-xs-12
+              %p.text-center= system_receipt_text
+
       = wicked_pdf_image_tag "non_kind_receipt_footer.png", class: "footer-image"
