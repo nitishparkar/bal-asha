@@ -75,7 +75,9 @@
                 %strong= @donor.full_name
             .col-xs-3
               - unless @donor.no_id?
-                %p.no-bottom-margin= "#{@donor.identification_type.humanize}:"
+                - humanized_identification_type = @donor.identification_type.humanize
+                - humanized_identification_type = humanized_identification_type == 'Pan card' ? 'PAN' : humanized_identification_type
+                %p.no-bottom-margin= "#{humanized_identification_type}:"
                 %p
                   %strong= @donor.identification_no
 
