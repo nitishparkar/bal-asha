@@ -1,3 +1,7 @@
+> [!IMPORTANT]
+> This project has been moved to a private repo **https://github.com/Bal-Asha-Trust/balasha-dcm**.  
+> *As of March 1, 2026*
+
 # Bal Asha
 
 Internal app for [Bal Asha Trust](http://balashatrust.org/). It helps them manage donor/donation information. It also serves as an inventory management system by keeping track of purchases and disbursements.
